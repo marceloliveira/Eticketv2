@@ -25,7 +25,7 @@ private static final UsuarioDAO INSTANCE = new UsuarioDAO();
 		
 		Connection con = Conexao.getInstance().getConexao();
 		
-		String sql = "select * from chamado";
+		String sql = "select * from usuario";
 		
 		Statement stm = con.createStatement();
 		
