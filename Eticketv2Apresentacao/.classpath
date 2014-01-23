@@ -25,5 +25,7 @@
 			<attribute name="owner.project.facets" value="jst.jsf"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry combineaccessrules="false" kind="src" path="/Eticketv2Entidades"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Eticketv2Negocio"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
