@@ -8,6 +8,14 @@ import br.jus.tjse.eticket.to.UsuarioTO;
 
 public class UsuarioBO {
 	
+	private static final UsuarioBO INSTANCE = new UsuarioBO();
+	
+	public static synchronized UsuarioBO getInstance() {
+		return INSTANCE;
+	}
+	
+	private UsuarioBO(){}
+	
 	public List<UsuarioTO> getUsuarios() throws SQLException {
 		UsuarioDAO ud = UsuarioDAO.getInstance();
 		return ud.getUsuarios();

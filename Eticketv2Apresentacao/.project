@@ -3,6 +3,9 @@
 	<name>Eticketv2Apresentacao</name>
 	<comment></comment>
 	<projects>
+		<project>Eticketv2Entidades</project>
+		<project>Eticketv2Negocio</project>
+		<project>Eticketv2Dados</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

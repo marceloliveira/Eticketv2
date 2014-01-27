@@ -12,7 +12,7 @@ import br.jus.tjse.eticket.to.UsuarioTO;
 
 public class UsuarioDAO {
 	
-private static final UsuarioDAO INSTANCE = new UsuarioDAO();
+	private static final UsuarioDAO INSTANCE = new UsuarioDAO();
 	
 	public static synchronized UsuarioDAO getInstance() {
 		return INSTANCE;
