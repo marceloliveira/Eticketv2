@@ -26,12 +26,10 @@
 		<div>
 			<div style="float: left; width: 200px;">
 				<ui:insert name="menu">
-					<h:form>
-						<h:commandLink action="cadastro/Usuario" value="Usuários"></h:commandLink>
-					</h:form>
+					<ui:include src="menu.xhtml"/>
 				</ui:insert>
 			</div>
-			<div>
+			<div style="margin-left: 200px;">
 				<ui:insert name="conteudo">
 							conteudo
 				</ui:insert>

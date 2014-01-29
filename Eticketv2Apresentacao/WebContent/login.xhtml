@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="/modelo.xhtml">
+	<ui:define name="conteudo">
+	<h:form>
+	    <div style="width: 250px; padding-top: 25px; margin:auto;">
+	    <h2 style="text-align: center;">Login</h2>
+	    <h:selectOneMenu value="#{loginBean.nrMatriculaUsuarioSelecionado}">
+	    <f:selectItem itemLabel="Selecione um usuário" noSelectionOption="true"/>
+		<f:selectItems value="#{loginBean.usuarios}"
+			var ="usuario"
+			itemValue ="#{usuario.nrMatricula}"
+			itemLabel ="#{usuario.txNome}"></f:selectItems>
+		</h:selectOneMenu>
+		<br/>
+		<h:commandLink actionListener="#{sessaoBean.logar(loginBean.nrMatriculaUsuarioSelecionado)}" value="Entrar" class="btn btn-primary" style="float: right;">
+		</h:commandLink>
+	    </div>
+	    </h:form>
+	</ui:define>
+</ui:composition>
+</html>

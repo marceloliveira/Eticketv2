@@ -8,7 +8,7 @@ import br.jus.tjse.eticket.bo.UsuarioBO;
 import br.jus.tjse.eticket.to.UsuarioTO;
 
 @ManagedBean
-public class UsuarioBean {
+public class CadastroUsuarioBean {
 	
 	private List<UsuarioTO> usuarios;
 

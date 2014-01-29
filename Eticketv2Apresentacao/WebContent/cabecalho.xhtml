@@ -1,267 +1,203 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
 <body>
-<div class="navbar navbar-default" id="navbar" style="background:blue!important;">
-			<div class="navbar-container" id="navbar-container" style="padding-left: 10px; padding-right: 20px;">
-				<div class="navbar-header pull-left">
-					<a href="#" class="navbar-brand" style="font-weight: bold;color: white;">
-						<i class="glyphicon glyphicon-headphones"></i>
-						<small>
-							Eticket
-						</small>
-					</a><!-- /.brand -->
-				</div><!-- /.navbar-header -->
+	<h:form>
+	<div class="navbar navbar-default" id="navbar"
+		style="margin-left: 0; margin-right: 0; border: 0; -webkit-box-shadow: none; box-shadow: none; border-radius: 0; margin: 0; padding-left: 0; padding-right: 0; min-height: 45px; position: relative; background: darkblue !important;">
+		<div class="navbar-container" id="navbar-container" style="padding-left: 10px; padding-right: 20px;"
+			>
+			<div class="navbar-header pull-left" style="margin: 0!important;">
+			<h:commandLink action="/login" class="navbar-brand"
+					style="font-weight: bold; color: white;"><i
+					class="glyphicon glyphicon-headphones" /> <small> Eticket </small></h:commandLink>
+				<!-- /.brand -->
+			</div>
+			<!-- /.navbar-header -->
 
-				<div class="navbar-header pull-right" role="navigation">
-					<ul class="nav navbar-nav">
-						<li style="background-color: gray;">
-							<a data-toggle="dropdown" class="dropdown-toggle" href="#" style="color: white;">
-								<i class="glyphicon glyphicon-tasks"></i>
-								<span class="badge">4</span>
-							</a>
+			<div class="navbar-header pull-right" role="navigation" style="margin: 0!important;">
+				<ul class="nav navbar-nav" style="height: 100%; margin: 0!important;">
+					<!--li style="background-color: gray;">
+						<a data-toggle="dropdown" class="dropdown-toggle" href="#" style="color: white;">
+							<i class="glyphicon glyphicon-tasks" /> <span class="badge">4</span>
+						</a>
 
-							<ul class="pull-right dropdown-menu">
-								<li class="dropdown-header">
-									<i class="icon-ok"></i>
-									4 Tasks to complete
-								</li>
+						<ul class="pull-right dropdown-menu">
+							<li class="dropdown-header"><i class="icon-ok" /> 4 Tasks to
+								complete</li>
 
-								<li>
-									<a href="#">
-										<div class="clearfix">
-											<span class="pull-left">Software Update</span>
-											<span class="pull-right">65%</span>
-										</div>
+							<li><a href="#">
+									<div class="clearfix">
+										<span class="pull-left">Software Update</span> <span
+											class="pull-right">65%</span>
+									</div>
 
-										<div class="progress progress-mini ">
-											<div style="width:65%" class="progress-bar "></div>
-										</div>
-									</a>
-								</li>
+									<div class="progress progress-mini ">
+										<div style="width: 65%" class="progress-bar " />
+									</div>
+							</a></li>
 
-								<li>
-									<a href="#">
-										<div class="clearfix">
-											<span class="pull-left">Hardware Upgrade</span>
-											<span class="pull-right">35%</span>
-										</div>
+							<li><a href="#">
+									<div class="clearfix">
+										<span class="pull-left">Hardware Upgrade</span> <span
+											class="pull-right">35%</span>
+									</div>
 
-										<div class="progress progress-mini ">
-											<div style="width:35%" class="progress-bar progress-bar-danger"></div>
-										</div>
-									</a>
-								</li>
+									<div class="progress progress-mini ">
+										<div style="width: 35%"
+											class="progress-bar progress-bar-danger" />
+									</div>
+							</a></li>
 
-								<li>
-									<a href="#">
-										<div class="clearfix">
-											<span class="pull-left">Unit Testing</span>
-											<span class="pull-right">15%</span>
-										</div>
+							<li><a href="#">
+									<div class="clearfix">
+										<span class="pull-left">Unit Testing</span> <span
+											class="pull-right">15%</span>
+									</div>
 
-										<div class="progress progress-mini ">
-											<div style="width:15%" class="progress-bar progress-bar-warning"></div>
-										</div>
-									</a>
-								</li>
+									<div class="progress progress-mini ">
+										<div style="width: 15%"
+											class="progress-bar progress-bar-warning" />
+									</div>
+							</a></li>
 
-								<li>
-									<a href="#">
-										<div class="clearfix">
-											<span class="pull-left">Bug Fixes</span>
-											<span class="pull-right">90%</span>
-										</div>
+							<li><a href="#">
+									<div class="clearfix">
+										<span class="pull-left">Bug Fixes</span> <span
+											class="pull-right">90%</span>
+									</div>
 
-										<div class="progress progress-mini progress-striped active">
-											<div style="width:90%" class="progress-bar progress-bar-success"></div>
-										</div>
-									</a>
-								</li>
+									<div class="progress progress-mini progress-striped active">
+										<div style="width: 90%"
+											class="progress-bar progress-bar-success" />
+									</div>
+							</a></li>
 
-								<li>
-									<a href="#">
-										See tasks with details
-										<i class="icon-arrow-right"></i>
-									</a>
-								</li>
-							</ul>
-						</li>
+							<li><a href="#"> See tasks with details <i
+									class="icon-arrow-right" />
+							</a></li>
+						</ul></li>
 
-						<li style="background-color: purple!important;">
-							<a data-toggle="dropdown" class="dropdown-toggle" href="#" style="color: white;">
-								<i class="glyphicon glyphicon-bell"></i>
-								<span class="badge badge-important">8</span>
-							</a>
+					<li style="background-color: purple !important;">
+						<a data-toggle="dropdown" class="dropdown-toggle" href="#" style="color: white;">
+							<i class="glyphicon glyphicon-bell" />
+							<span class="badge badge-important">8</span>
+						</a>
 
-							<ul class="pull-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-close">
-								<li class="dropdown-header">
-									<i class="icon-warning-sign"></i>
-									8 Notifications
-								</li>
+						<ul
+							class="pull-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-close">
+							<li class="dropdown-header"><i class="icon-warning-sign" />
+								8 Notifications</li>
 
-								<li>
-									<a href="#">
-										<div class="clearfix">
-											<span class="pull-left">
-												<i class="btn btn-xs no-hover btn-pink icon-comment"></i>
-												New Comments
-											</span>
-											<span class="pull-right badge badge-info">+12</span>
-										</div>
-									</a>
-								</li>
+							<li><a href="#">
+									<div class="clearfix">
+										<span class="pull-left"> <i
+											class="btn btn-xs no-hover btn-pink icon-comment" /> New
+											Comments
+										</span> <span class="pull-right badge badge-info">+12</span>
+									</div>
+							</a></li>
 
-								<li>
-									<a href="#">
-										<i class="btn btn-xs btn-primary icon-user"></i>
-										Bob just signed up as an editor ...
-									</a>
-								</li>
+							<li><a href="#"> <i
+									class="btn btn-xs btn-primary icon-user" /> Bob just signed up
+									as an editor ...
+							</a></li>
 
-								<li>
-									<a href="#">
-										<div class="clearfix">
-											<span class="pull-left">
-												<i class="btn btn-xs no-hover btn-success icon-shopping-cart"></i>
-												New Orders
-											</span>
-											<span class="pull-right badge badge-success">+8</span>
-										</div>
-									</a>
-								</li>
+							<li><a href="#">
+									<div class="clearfix">
+										<span class="pull-left"> <i
+											class="btn btn-xs no-hover btn-success icon-shopping-cart" />
+											New Orders
+										</span> <span class="pull-right badge badge-success">+8</span>
+									</div>
+							</a></li>
 
-								<li>
-									<a href="#">
-										<div class="clearfix">
-											<span class="pull-left">
-												<i class="btn btn-xs no-hover btn-info icon-twitter"></i>
-												Followers
-											</span>
-											<span class="pull-right badge badge-info">+11</span>
-										</div>
-									</a>
-								</li>
+							<li><a href="#">
+									<div class="clearfix">
+										<span class="pull-left"> <i
+											class="btn btn-xs no-hover btn-info icon-twitter" />
+											Followers
+										</span> <span class="pull-right badge badge-info">+11</span>
+									</div>
+							</a></li>
 
-								<li>
-									<a href="#">
-										See all notifications
-										<i class="icon-arrow-right"></i>
-									</a>
-								</li>
-							</ul>
-						</li>
+							<li><a href="#"> See all notifications <i
+									class="icon-arrow-right" />
+							</a></li>
+						</ul></li>
 
-						<li style="background-color: darkgreen!important;">
-							<a data-toggle="dropdown" class="dropdown-toggle" href="#" style="color: white;">
-								<i class="glyphicon glyphicon-envelope"></i>
-								<span class="badge badge-success">5</span>
-							</a>
+					<li style="background-color: darkgreen !important;">
+						<a data-toggle="dropdown" class="dropdown-toggle" href="#" style="color: white;">
+							<i class="glyphicon glyphicon-envelope" />
+							<span class="badge badge-success">5</span>
+						</a>
 
-							<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
-								<li class="dropdown-header">
-									<i class="icon-envelope-alt"></i>
-									5 Messages
-								</li>
+						<ul
+							class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
+							<li class="dropdown-header"><i class="icon-envelope-alt" />
+								5 Messages</li>
 
-								<li>
-									<a href="#">
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Alex:</span>
-												Ciao sociis natoque penatibus et auctor ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>a moment ago</span>
-											</span>
-										</span>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Susan:</span>
-												Vestibulum id ligula porta felis euismod ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>20 minutes ago</span>
-											</span>
-										</span>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Bob:</span>
-												Nullam quis risus eget urna mollis ornare ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>3:15 pm</span>
-											</span>
-										</span>
-									</a>
-								</li>
-
-								<li>
-									<a href="inbox.html">
-										See all messages
-										<i class="icon-arrow-right"></i>
-									</a>
-								</li>
-							</ul>
-						</li>
-
-						<li style="background-color: dodgerblue!important;">
-							<a data-toggle="dropdown" href="#" class="dropdown-toggle" style="color: white;">
-								<i class="glyphicon glyphicon-user"></i>
-								<span style="max-width: 100px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: left; vertical-align: top; line-height: 15px; position: relative; top: 6px;">
-									<small>Welcome,</small>
-									Jason
+							<li><a href="#"> <span class="msg-body"> <span
+										class="msg-title"> <span class="blue">Alex:</span> Ciao
+											sociis natoque penatibus et auctor ...
+									</span> <span class="msg-time"> <i class="icon-time" /> <span>a
+												moment ago</span>
+									</span>
 								</span>
+							</a></li>
 
-								<i class="caret"></i>
-							</a>
+							<li><a href="#"> <span class="msg-body"> <span
+										class="msg-title"> <span class="blue">Susan:</span>
+											Vestibulum id ligula porta felis euismod ...
+									</span> <span class="msg-time"> <i class="icon-time" /> <span>20
+												minutes ago</span>
+									</span>
+								</span>
+							</a></li>
 
-							<ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-								<li>
-									<a href="#">
-										<i class="icon-cog"></i>
-										Settings
-									</a>
-								</li>
+							<li><a href="#"> <span class="msg-body"> <span
+										class="msg-title"> <span class="blue">Bob:</span>
+											Nullam quis risus eget urna mollis ornare ...
+									</span> <span class="msg-time"> <i class="icon-time" /> <span>3:15
+												pm</span>
+									</span>
+								</span>
+							</a></li>
 
-								<li>
-									<a href="#">
-										<i class="icon-user"></i>
-										Profile
-									</a>
-								</li>
+							<li><a href="inbox.html"> See all messages <i
+									class="icon-arrow-right" />
+							</a></li>
+						</ul></li-->
 
-								<li class="divider"></li>
+					<li style="background-color: blue !important; line-height: 53px;
+height: 53px;
+padding: 0;
+position: relative;
+float: left!important;">
+						<a
+						data-toggle="dropdown" href="#" class="dropdown-toggle"
+						style="color: white; display: block; line-height: inherit; text-align: center; height: 100%; width: auto; min-width: 50px; padding: 0 12px; padding-left: 20px; position: relative;"> <i class="glyphicon glyphicon-user" />
+							<span
+							style="font-size:13px; max-width: 80px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: no wrap; vertical-align: top; position: relative; line-height: 15px; top: 10px;">
+								<small>Bem-vindo, </small>
+								<h:outputLabel value="#{sessaoBean.nomeUsuario}"></h:outputLabel>
+						</span> <i class="caret" />
+					</a>
 
-								<li>
-									<a href="#">
-										<i class="icon-off"></i>
-										Logout
-									</a>
-								</li>
-							</ul>
-						</li>
-					</ul><!-- /.ace-nav -->
-				</div><!-- /.navbar-header -->
-			</div><!-- /.container -->
+						<ul
+							class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+							<li><h:commandLink action="#{sessaoBean.logout()}" value="Logout"></h:commandLink></li>
+						</ul></li>
+				</ul>
+				<!-- /.ace-nav -->
+			</div>
+			<!-- /.navbar-header -->
 		</div>
+		<!-- /.container -->
+	</div>
+</h:form>
 
-		
 </body>
 </html>

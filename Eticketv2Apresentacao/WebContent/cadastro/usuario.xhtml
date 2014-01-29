@@ -9,35 +9,17 @@
 <ui:composition template="/modelo.xhtml">
 	<ui:define name="conteudo">
 		<h:form>
-			<nav class="navbar navbar-default" role="navigation">
-				<!-- Brand and toggle get grouped for better mobile display -->
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse"
-						data-target="#bs-example-navbar-collapse-1">
-						<span class="sr-only">Toggle navigation</span> <span
-							class="icon-bar"></span> <span class="icon-bar"></span> <span
-							class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="#">Usuário</a>
-				</div>
-	
-				<!-- Collect the nav links, forms, and other content for toggling -->
-				<div class="collapse navbar-collapse"
-					id="bs-example-navbar-collapse-1">
-					<ul class="nav navbar-nav navbar-right">
-						<h:commandLink value="">
+			<div style="padding: 25px 25px; padding-bottom: 0;; margin:auto;">
+	    	<h2 style="text-align: center;">Cadastro de Usuários</h2>
+	    
+			<div style="float: right">
+				<h:commandLink value="" class="btn btn-success">
 		    				Novo usuário
 							<span class="glyphicon glyphicon-plus"></span>
 							<f:param name="nrMatricula" value="#{usr.nrMatricula}" />
 						</h:commandLink>
-					</ul>
-				</div>
-			<!-- /.navbar-collapse -->
-			</nav>
-			<div style="align: right">
-				
 			</div>
-			<h:dataTable value="#{usuarioBean.usuarios}" var="usr" class="table">
+			<h:dataTable value="#{cadastroUsuarioBean.usuarios}" var="usr" class="table table-hover">
 
 				<h:column>
 					<f:facet name="header">Matrícula</f:facet>
@@ -72,6 +54,7 @@
 				</h:column>
 
 			</h:dataTable>
+			</div>
 		</h:form>
 	</ui:define>
 </ui:composition>

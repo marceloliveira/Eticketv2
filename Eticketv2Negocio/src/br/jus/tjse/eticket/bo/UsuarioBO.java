@@ -20,5 +20,10 @@ public class UsuarioBO {
 		UsuarioDAO ud = UsuarioDAO.getInstance();
 		return ud.getUsuarios();
 	}
+	
+	public UsuarioTO getUsuariosByMatricula(int nrMatricula) throws SQLException {
+		UsuarioDAO ud = UsuarioDAO.getInstance();
+		return ud.getUsuarioByMatricula(nrMatricula);
+	}
 
 }
