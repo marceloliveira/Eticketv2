@@ -5,7 +5,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
 	<h:head>
-		<title><ui:insert name="title">Aplicação de Teste</ui:insert></title>
+		<title><ui:insert name="title">Eticket</ui:insert></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<!-- Bootstrap -->
 		<h:outputStylesheet name="/css/bootstrap.css" />
@@ -23,17 +23,15 @@
 			</ui:insert>
 		</div>
 		<!-- div class="main-container" id="main-container"-->
-		<div>
-			<div style="float: left; width: 200px;">
-				<ui:insert name="menu">
-					<ui:include src="menu.xhtml"/>
-				</ui:insert>
-			</div>
-			<div style="margin-left: 200px;">
-				<ui:insert name="conteudo">
-							conteudo
-				</ui:insert>
-			</div>
+		<div style="float: left; width: 200px; position: fixed;">
+			<ui:insert name="menu">
+				<ui:include src="menu.xhtml"/>
+			</ui:insert>
+		</div>
+		<div class="container" style="margin-left: 200px; margin-top:53px;">
+			<ui:insert name="conteudo">
+						conteudo
+			</ui:insert>
 		</div>
 	</h:body>
 </html>
