@@ -44,6 +44,29 @@ public class UsuarioDAO {
 		return usuarios;
 	}
 
+	public List<UsuarioTO> pesqUsuarioByNome(String termoPesquisa) throws SQLException {
+		ArrayList<UsuarioTO> usuarios = new ArrayList<UsuarioTO>();
+		
+		Connection con = Conexao.getInstance().getConexao();
+		
+		String sql = "select * from usuario where tx_nome ilike ?";
+		
+		PreparedStatement stm = con.prepareStatement(sql);
+		stm.setString(1, "%"+termoPesquisa+"%");
+		ResultSet rset = stm.executeQuery();
+		
+		while (rset.next()) {
+			UsuarioTO u = new UsuarioTO();
+			u.setNrMatricula(rset.getInt("nr_matricula"));
+			u.setTxNome(rset.getString("tx_nome"));
+			u.setTxTelefone(rset.getString("tx_telefone"));
+			u.setTxEmail(rset.getString("tx_email"));
+			usuarios.add(u);
+		}
+		
+		return usuarios;
+	}
+
 	public UsuarioTO getUsuarioByMatricula(int nrMatricula) throws SQLException {
 		UsuarioTO usuario = new UsuarioTO();
 		
@@ -63,6 +86,42 @@ public class UsuarioDAO {
 		}
 		
 		return usuario;
+	}
+
+	public void addUsuario(UsuarioTO usuario) throws SQLException {
+		Connection con = Conexao.getInstance().getConexao();
+		
+		String sql = "insert into usuario (nr_matricula,tx_nome,tx_telefone,tx_email) values (?,?,?,?)";
+		
+		PreparedStatement stm = con.prepareStatement(sql);
+		stm.setInt(1, usuario.getNrMatricula());
+		stm.setString(2, usuario.getTxNome());
+		stm.setString(3, usuario.getTxTelefone());
+		stm.setString(4, usuario.getTxEmail());
+		stm.executeUpdate();
+	}
+
+	public void updateUsuario(UsuarioTO usuario) throws SQLException {
+		Connection con = Conexao.getInstance().getConexao();
+		
+		String sql = "update usuario set tx_nome = ?, tx_telefone = ?, tx_email = ? where nr_matricula = ?";
+		
+		PreparedStatement stm = con.prepareStatement(sql);
+		stm.setString(1, usuario.getTxNome());
+		stm.setString(2, usuario.getTxTelefone());
+		stm.setString(3, usuario.getTxEmail());
+		stm.setInt(4, usuario.getNrMatricula());
+		stm.executeUpdate();
+	}
+
+	public void deleteUsuario(int nrMatricula) throws SQLException {
+		Connection con = Conexao.getInstance().getConexao();
+		
+		String sql = "delete from usuario where nr_matricula = ?";
+		
+		PreparedStatement stm = con.prepareStatement(sql);
+		stm.setInt(1, nrMatricula);
+		stm.executeUpdate();
 	}
 
 }

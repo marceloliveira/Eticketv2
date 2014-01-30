@@ -4,7 +4,6 @@ import java.sql.SQLException;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 
 import br.jus.tjse.eticket.bo.UsuarioBO;
 import br.jus.tjse.eticket.to.UsuarioTO;
@@ -13,9 +12,16 @@ import br.jus.tjse.eticket.to.UsuarioTO;
 @SessionScoped
 public class SessaoBean {
 	
+	private int nrMatriculaLogada;
 	private UsuarioTO usuarioLogado;
 
 	public UsuarioTO getUsuarioLogado() {
+		try {
+			usuarioLogado = UsuarioBO.getInstance().getUsuarioByMatricula(nrMatriculaLogada);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return usuarioLogado;
 	}
 
@@ -26,7 +32,8 @@ public class SessaoBean {
 	public void logar(String nrMatricula) {
 		UsuarioBO ubo = UsuarioBO.getInstance();
 		try {
-			this.usuarioLogado = ubo.getUsuariosByMatricula(Integer.parseInt(nrMatricula));
+			nrMatriculaLogada = Integer.parseInt(nrMatricula);
+			usuarioLogado = ubo.getUsuarioByMatricula(nrMatriculaLogada);
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -47,8 +54,27 @@ public class SessaoBean {
 	}
 	
 	public String logout(){
-		this.usuarioLogado = null;
+		nrMatriculaLogada = 0;
+		usuarioLogado = null;
 		return "/login";
+	}
+	
+	public String getVisibilidade(){
+		String nome = "";
+		if (usuarioLogado == null) {
+			nome = "hide";
+		} else {
+			nome = "show";
+		}
+		return nome;
+	}
+	
+	public String deleteLogadoDisable(String nrMatricula) {
+		String nome = "";
+		if (nrMatriculaLogada == Integer.parseInt(nrMatricula)) {
+			nome = "disabled";
+		}
+		return nome;
 	}
 
 }

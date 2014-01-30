@@ -17,13 +17,44 @@ public class UsuarioBO {
 	private UsuarioBO(){}
 	
 	public List<UsuarioTO> getUsuarios() throws SQLException {
-		UsuarioDAO ud = UsuarioDAO.getInstance();
-		return ud.getUsuarios();
+		return UsuarioDAO.getInstance().getUsuarios();
 	}
 	
-	public UsuarioTO getUsuariosByMatricula(int nrMatricula) throws SQLException {
+	public UsuarioTO getUsuarioByMatricula(int nrMatricula) throws SQLException {
 		UsuarioDAO ud = UsuarioDAO.getInstance();
-		return ud.getUsuarioByMatricula(nrMatricula);
+		UsuarioTO u = ud.getUsuarioByMatricula(nrMatricula);
+		if (u.getNrMatricula() == 0) {
+			return null;
+		}
+		return u;
+	}
+
+	public void cadastrarUsuario(UsuarioTO usuario) throws SQLException {
+		UsuarioDAO ud = UsuarioDAO.getInstance();
+		if (usuario.getNrMatricula() == 0) {
+			return;
+		}
+		UsuarioTO u = getUsuarioByMatricula(usuario.getNrMatricula());
+		if (u==null) {
+			ud.addUsuario(usuario);
+		} else {
+			ud.updateUsuario(usuario);
+		}
+	}
+
+	public void excluirUsuario(int nrMatricula) throws SQLException {
+		if (nrMatricula == 0) {
+			return;
+		}
+		UsuarioDAO.getInstance().deleteUsuario(nrMatricula);
+		
+	}
+	
+	public List<UsuarioTO> pesquisarUsuarioPorNome(String termoPesquisa) throws SQLException {
+		if (termoPesquisa==null || termoPesquisa.equals("")) {
+			return null;
+		}
+		return UsuarioDAO.getInstance().pesqUsuarioByNome(termoPesquisa);
 	}
 
 }

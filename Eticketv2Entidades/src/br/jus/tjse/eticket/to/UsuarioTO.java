@@ -1,5 +1,6 @@
 package br.jus.tjse.eticket.to;
 
+
 public class UsuarioTO {
 	
 	private int nrMatricula;

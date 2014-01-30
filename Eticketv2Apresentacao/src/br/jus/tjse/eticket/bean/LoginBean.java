@@ -1,6 +1,5 @@
 package br.jus.tjse.eticket.bean;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
