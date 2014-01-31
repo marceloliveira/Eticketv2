@@ -41,6 +41,10 @@ public class UsuarioDAO {
 			usuarios.add(u);
 		}
 		
+		rset.close();
+		
+		stm.close();
+		
 		return usuarios;
 	}
 
@@ -67,6 +71,10 @@ public class UsuarioDAO {
 			usuarios.add(u);
 		}
 		
+		rset.close();
+		
+		stm.close();
+		
 		return usuarios;
 	}
 
@@ -88,6 +96,10 @@ public class UsuarioDAO {
 			usuario.setTxEmail(rset.getString("tx_email"));
 		}
 		
+		rset.close();
+		
+		stm.close();
+		
 		return usuario;
 	}
 
@@ -102,6 +114,8 @@ public class UsuarioDAO {
 		stm.setString(3, usuario.getTxTelefone());
 		stm.setString(4, usuario.getTxEmail());
 		stm.executeUpdate();
+		
+		stm.close();
 	}
 
 	public void updateUsuario(UsuarioTO usuario) throws SQLException {
@@ -115,6 +129,8 @@ public class UsuarioDAO {
 		stm.setString(3, usuario.getTxEmail());
 		stm.setInt(4, usuario.getNrMatricula());
 		stm.executeUpdate();
+		
+		stm.close();
 	}
 
 	public void deleteUsuario(int nrMatricula) throws SQLException {
@@ -125,6 +141,8 @@ public class UsuarioDAO {
 		PreparedStatement stm = con.prepareStatement(sql);
 		stm.setInt(1, nrMatricula);
 		stm.executeUpdate();
+		
+		stm.close();
 	}
 
 }
