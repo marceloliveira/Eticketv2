@@ -50,11 +50,11 @@ public class UsuarioBO {
 		
 	}
 	
-	public List<UsuarioTO> pesquisarUsuarioPorNome(String termoPesquisa) throws SQLException {
+	public List<UsuarioTO> pesquisarUsuario(String termoPesquisa) throws SQLException {
 		if (termoPesquisa==null || termoPesquisa.equals("")) {
 			return null;
 		}
-		return UsuarioDAO.getInstance().pesqUsuarioByNome(termoPesquisa);
+		return UsuarioDAO.getInstance().pesqUsuario(termoPesquisa);
 	}
 
 }

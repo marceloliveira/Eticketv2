@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.event.ValueChangeEvent;
 
 import br.jus.tjse.eticket.bo.UsuarioBO;
 import br.jus.tjse.eticket.to.UsuarioTO;
@@ -28,7 +29,7 @@ public class ListaUsuarioBean {
 			if (termoPesquisa==null || termoPesquisa.equals("")) {
 				usuarios = ubo.getUsuarios();
 			} else {
-				usuarios = ubo.pesquisarUsuarioPorNome(termoPesquisa);
+				usuarios = ubo.pesquisarUsuario(termoPesquisa);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

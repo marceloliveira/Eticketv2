@@ -44,15 +44,18 @@ public class UsuarioDAO {
 		return usuarios;
 	}
 
-	public List<UsuarioTO> pesqUsuarioByNome(String termoPesquisa) throws SQLException {
+	public List<UsuarioTO> pesqUsuario(String termoPesquisa) throws SQLException {
 		ArrayList<UsuarioTO> usuarios = new ArrayList<UsuarioTO>();
 		
 		Connection con = Conexao.getInstance().getConexao();
 		
-		String sql = "select * from usuario where tx_nome ilike ?";
+		String sql = "select * from usuario where cast(nr_matricula as text) ilike ? or tx_nome ilike ? or tx_telefone ilike ? or tx_email ilike ?";
 		
 		PreparedStatement stm = con.prepareStatement(sql);
 		stm.setString(1, "%"+termoPesquisa+"%");
+		stm.setString(2, "%"+termoPesquisa+"%");
+		stm.setString(3, "%"+termoPesquisa+"%");
+		stm.setString(4, "%"+termoPesquisa+"%");
 		ResultSet rset = stm.executeQuery();
 		
 		while (rset.next()) {
