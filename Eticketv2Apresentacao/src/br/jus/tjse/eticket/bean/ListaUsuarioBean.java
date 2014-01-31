@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.event.ValueChangeEvent;
 
 import br.jus.tjse.eticket.bo.UsuarioBO;
 import br.jus.tjse.eticket.to.UsuarioTO;
@@ -13,6 +12,8 @@ import br.jus.tjse.eticket.to.UsuarioTO;
 public class ListaUsuarioBean {
 	
 	private String termoPesquisa;
+	private List<UsuarioTO> usuarios;
+
 	public String getTermoPesquisa() {
 		return termoPesquisa;
 	}
@@ -20,8 +21,6 @@ public class ListaUsuarioBean {
 	public void setTermoPesquisa(String termoPesquisa) {
 		this.termoPesquisa = termoPesquisa;
 	}
-
-	private List<UsuarioTO> usuarios;
 
 	public List<UsuarioTO> getUsuarios() {
 		UsuarioBO ubo = UsuarioBO.getInstance();

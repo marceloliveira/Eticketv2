@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="/modelo.xhtml">
+	<ui:define name="conteudo">
+	    <h:form>
+	    <h:inputHidden id="cdGrupo" value="#{cadastroGrupoBean.cdGrupo}"></h:inputHidden>
+	    <h:inputHidden id="grupoCdGrupo" value="#{cadastroGrupoBean.grupo.cdGrupo}"></h:inputHidden>
+	    <div style="padding: 25px 25px; padding-bottom: 0; margin:auto;">
+	    	<h2 style="text-align: center;">Cadastrar Grupo</h2>
+	    	<div class="form-group">
+    			<label for="codigoInput">Código</label>
+    			<h:inputText class="form-control" id="codigoInput" value="#{cadastroGrupoBean.grupo.cdGrupo}" rendered="#{not cadastroGrupoBean.alteracao}"></h:inputText>
+    			<h:outputText class="form-control" id="codigoOutput" value="#{cadastroGrupoBean.grupo.cdGrupo}" rendered="#{cadastroGrupoBean.alteracao}"></h:outputText>
+    		</div>
+    		<div class="form-group">
+	    		<label for="nomeInput">Nome</label>
+    			<h:inputText class="form-control" id="nomeInput" value="#{cadastroGrupoBean.grupo.txNome}"></h:inputText>
+	    	</div>
+    		<h:commandLink class="btn btn-primary pull-right" action="#{cadastroGrupoBean.cadastrar()}">Cadastrar</h:commandLink>
+    	</div>
+	    </h:form>
+	</ui:define>
+</ui:composition>
+</html>
