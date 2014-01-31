@@ -12,6 +12,8 @@ import br.jus.tjse.eticket.to.UsuarioTO;
 public class ListaUsuarioBean {
 	
 	private String termoPesquisa;
+	private List<UsuarioTO> usuarios;
+
 	public String getTermoPesquisa() {
 		return termoPesquisa;
 	}
@@ -20,15 +22,13 @@ public class ListaUsuarioBean {
 		this.termoPesquisa = termoPesquisa;
 	}
 
-	private List<UsuarioTO> usuarios;
-
 	public List<UsuarioTO> getUsuarios() {
 		UsuarioBO ubo = UsuarioBO.getInstance();
 		try {
 			if (termoPesquisa==null || termoPesquisa.equals("")) {
 				usuarios = ubo.getUsuarios();
 			} else {
-				usuarios = ubo.pesquisarUsuarioPorNome(termoPesquisa);
+				usuarios = ubo.pesquisarUsuario(termoPesquisa);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

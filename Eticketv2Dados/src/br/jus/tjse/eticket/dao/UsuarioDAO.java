@@ -41,18 +41,25 @@ public class UsuarioDAO {
 			usuarios.add(u);
 		}
 		
+		rset.close();
+		
+		stm.close();
+		
 		return usuarios;
 	}
 
-	public List<UsuarioTO> pesqUsuarioByNome(String termoPesquisa) throws SQLException {
+	public List<UsuarioTO> pesqUsuario(String termoPesquisa) throws SQLException {
 		ArrayList<UsuarioTO> usuarios = new ArrayList<UsuarioTO>();
 		
 		Connection con = Conexao.getInstance().getConexao();
 		
-		String sql = "select * from usuario where tx_nome ilike ?";
+		String sql = "select * from usuario where cast(nr_matricula as text) ilike ? or tx_nome ilike ? or tx_telefone ilike ? or tx_email ilike ?";
 		
 		PreparedStatement stm = con.prepareStatement(sql);
 		stm.setString(1, "%"+termoPesquisa+"%");
+		stm.setString(2, "%"+termoPesquisa+"%");
+		stm.setString(3, "%"+termoPesquisa+"%");
+		stm.setString(4, "%"+termoPesquisa+"%");
 		ResultSet rset = stm.executeQuery();
 		
 		while (rset.next()) {
@@ -63,6 +70,10 @@ public class UsuarioDAO {
 			u.setTxEmail(rset.getString("tx_email"));
 			usuarios.add(u);
 		}
+		
+		rset.close();
+		
+		stm.close();
 		
 		return usuarios;
 	}
@@ -85,6 +96,10 @@ public class UsuarioDAO {
 			usuario.setTxEmail(rset.getString("tx_email"));
 		}
 		
+		rset.close();
+		
+		stm.close();
+		
 		return usuario;
 	}
 
@@ -99,6 +114,8 @@ public class UsuarioDAO {
 		stm.setString(3, usuario.getTxTelefone());
 		stm.setString(4, usuario.getTxEmail());
 		stm.executeUpdate();
+		
+		stm.close();
 	}
 
 	public void updateUsuario(UsuarioTO usuario) throws SQLException {
@@ -112,6 +129,8 @@ public class UsuarioDAO {
 		stm.setString(3, usuario.getTxEmail());
 		stm.setInt(4, usuario.getNrMatricula());
 		stm.executeUpdate();
+		
+		stm.close();
 	}
 
 	public void deleteUsuario(int nrMatricula) throws SQLException {
@@ -122,6 +141,8 @@ public class UsuarioDAO {
 		PreparedStatement stm = con.prepareStatement(sql);
 		stm.setInt(1, nrMatricula);
 		stm.executeUpdate();
+		
+		stm.close();
 	}
 
 }
