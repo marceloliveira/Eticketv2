@@ -8,7 +8,7 @@
 
 <ui:composition template="/modelo.xhtml">
 	<ui:define name="conteudo">
-	    <div style="padding: 25px 25px; padding-bottom: 0;; margin:auto;">
+	    <div style="padding: 25px 25px; padding-bottom: 0; margin:auto;">
 	    <h2 style="text-align: center;">Grupos</h2>
 	    <h:form>
 	    <div class="form-inline">
@@ -29,11 +29,6 @@
 			<h:dataTable id="gruposTable" value="#{listaGrupoBean.grupos}" var="grp" class="table table-hover">
 
 				<h:column>
-					<f:facet name="header">Código</f:facet>
-					<h:outputText value="#{grp.cdGrupo}"></h:outputText>
-				</h:column>
-
-				<h:column>
 					<f:facet name="header">Nome</f:facet>
 					<h:outputText value="#{grp.txNome}"></h:outputText>
 				</h:column>
@@ -41,11 +36,11 @@
 				<h:column>
 					<f:facet name="header">Funções</f:facet>
 					<div class="btn-group">
-					<h:commandLink action="#" class="btn btn-warning">
+					<h:commandLink action="cadastroGrupo" class="btn btn-warning">
 						<span class="glyphicon glyphicon-edit"></span> Editar
-						<f:param name="c" value="#{grp.cdGrupo}" />
+						<f:param name="cdGrupo" value="#{grp.cdGrupo}" />
 					</h:commandLink>
-					<h:commandLink actionListener="#" class="btn btn-danger">
+					<h:commandLink actionListener="#{listaGrupoBean.excluir(grp.cdGrupo)}" class="btn btn-danger">
 						<span class="glyphicon glyphicon-remove"></span> Excluir
 					</h:commandLink>
 					</div>

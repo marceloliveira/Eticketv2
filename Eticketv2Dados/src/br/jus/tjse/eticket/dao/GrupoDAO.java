@@ -68,11 +68,10 @@ public class GrupoDAO {
 	public void addGrupo(GrupoTO grupo) throws SQLException {
 		Connection con = Conexao.getInstance().getConexao();
 		
-		String sql = "insert into grupo (cd_grupo,tx_nome) values (?,?)";
+		String sql = "insert into grupo (tx_nome) values (?)";
 		
 		PreparedStatement stm = con.prepareStatement(sql);
-		stm.setInt(1, grupo.getCdGrupo());
-		stm.setString(2, grupo.getTxNome());
+		stm.setString(1, grupo.getTxNome());
 		stm.executeUpdate();
 		
 		stm.close();
@@ -85,6 +84,42 @@ public class GrupoDAO {
 		PreparedStatement stm = con.prepareStatement(sql);
 		stm.setString(1, grupo.getTxNome());
 		stm.setInt(2, grupo.getCdGrupo());
+		stm.executeUpdate();
+		
+		stm.close();
+	}
+	public List<GrupoTO> pesqGrupo(String termoPesquisa) throws SQLException {
+		ArrayList<GrupoTO> grupos = new ArrayList<GrupoTO>();
+		
+		Connection con = Conexao.getInstance().getConexao();
+		
+		String sql = "select * from grupo where tx_nome ilike ?";
+		
+		PreparedStatement stm = con.prepareStatement(sql);
+		stm.setString(1, "%"+termoPesquisa+"%");
+		ResultSet rset = stm.executeQuery();
+		
+		while (rset.next()) {
+			GrupoTO g = new GrupoTO();
+			g.setCdGrupo(rset.getInt("cd_grupo"));
+			g.setTxNome(rset.getString("tx_nome"));
+			grupos.add(g);
+		}
+		
+		rset.close();
+		
+		stm.close();
+		
+		return grupos;
+	}
+	
+	public void deleteGrupo(int cdGrupo) throws SQLException {
+		Connection con = Conexao.getInstance().getConexao();
+		
+		String sql = "delete from grupo where cd_grupo = ?";
+		
+		PreparedStatement stm = con.prepareStatement(sql);
+		stm.setInt(1, cdGrupo);
 		stm.executeUpdate();
 		
 		stm.close();

@@ -14,11 +14,13 @@
 		<h:outputScript name="/js/jquery-2.0.3.js" />
 		<!-- Include all compiled plugins (below), or include individual files as needed -->
 		<h:outputScript name="/js/bootstrap.js" />
+		<f:verbatim>
+		<script>$('.alert').alert();</script>
+		</f:verbatim>
 	</h:head>
 	<h:body>
 		<div style="margin: 0;">
 			<ui:insert name="cabecalho">
-				<!--  include your header file or uncomment the include below and create header.xhtml in this directory -->
 				<ui:include src="/cabecalho.xhtml"/>
 			</ui:insert>
 		</div>
@@ -30,7 +32,6 @@
 		</div>
 		<div class="container" style="margin-left: 200px; margin-top:53px;">
 			<ui:insert name="conteudo">
-						conteudo
 			</ui:insert>
 		</div>
 	</h:body>

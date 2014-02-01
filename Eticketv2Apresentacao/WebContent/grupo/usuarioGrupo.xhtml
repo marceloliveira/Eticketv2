@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="/modelo.xhtml">
+	<ui:define name="conteudo">
+	    <div style="padding: 25px 25px; padding-bottom: 0; margin:auto;">
+	    <h2 style="text-align: center;">Usuários por Grupo</h2>
+	    <h:form>
+	    	<div class="form-group">
+				<label for="termoPesquisaGrupoInput">Pesquisar Grupo</label>
+				<h:inputText id="termoPesquisaGrupoInput" class="form-control" value="#{usuarioGrupoBean.termoPesquisaGrupo}" style="width: 200px;">
+					<f:ajax event="keyup" render="listaGrupo"/>
+				</h:inputText>
+			</div>
+			<div class="form-group">
+				<h:selectOneMenu id="listaGrupo" class="form-control" value="#{usuarioGrupoBean.cdGrupoSelecionado}">
+					<f:selectItem itemLabel="Selecione um grupo" noSelectionOption="true"/>
+					<f:selectItems value="#{usuarioGrupoBean.grupos}"
+						var ="grupo"
+						itemValue ="#{grupo.cdGrupo}"
+						itemLabel ="#{grupo.txNome}"></f:selectItems>
+					<f:ajax event="change" render="usuariosGrupoTable"/>
+				</h:selectOneMenu>
+			</div>
+			<div class="form-group">
+				<label for="termoPesquisaUsuarioInput">Pesquisar Usuário</label>
+				<h:inputText id="termoPesquisaUsuarioInput" class="form-control" value="#{usuarioGrupoBean.termoPesquisaUsuario}" style="width: 200px;">
+					<f:ajax event="keyup" render="listaUsuario"/>
+				</h:inputText>
+			</div>
+			<div class="form-group">
+				<h:selectOneMenu id="listaUsuario" class="form-control" value="#{usuarioGrupoBean.nrMatriculaSelecionada}">
+					<f:selectItem itemLabel="Selecione um usuário" noSelectionOption="true"/>
+					<f:selectItems value="#{usuarioGrupoBean.usuarios}"
+						var ="usuario"
+						itemValue ="#{usuario.nrMatricula}"
+						itemLabel ="#{usuario.txNome}"></f:selectItems>
+				</h:selectOneMenu>
+			</div>
+			<div class="form-group">
+				<h:commandLink class="btn btn-success" actionListener="#{usuarioGrupoBean.cadastrarUsuario()}" value="Cadastrar"/>
+			</div>
+			<h:dataTable id="usuariosGrupoTable" value="#{usuarioGrupoBean.usuariosGrupoSelecionado}" var="usr" class="table table-hover">
+				<h:column>
+					<f:facet name="header">Matrícula</f:facet>
+					<h:outputText value="#{usr.nrMatricula}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Nome</f:facet>
+					<h:outputText value="#{usr.txNome}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Funções</f:facet>
+					<h:commandLink actionListener="#{usuarioGrupoBean.excluirUsuario(usr.nrMatricula)}" class="btn btn-danger">
+						<span class="glyphicon glyphicon-remove"></span> Excluir
+					</h:commandLink>
+				</h:column>
+			</h:dataTable>
+			<h:messages/>
+		</h:form>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>
