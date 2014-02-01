@@ -1,8 +1,11 @@
 package br.jus.tjse.eticket.to;
 
+import java.io.Serializable;
 
-public class UsuarioTO {
+
+public class UsuarioTO implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	private int nrMatricula;
 	private String txNome;
 	private String txTelefone;

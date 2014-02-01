@@ -27,5 +27,6 @@
 	</classpathentry>
 	<classpathentry combineaccessrules="false" kind="src" path="/Eticketv2Entidades"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Eticketv2Negocio"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/PostgreSQL"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

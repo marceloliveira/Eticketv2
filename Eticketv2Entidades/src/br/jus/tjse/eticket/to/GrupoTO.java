@@ -1,7 +1,10 @@
 package br.jus.tjse.eticket.to;
 
-public class GrupoTO {
+import java.io.Serializable;
+
+public class GrupoTO implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	private int cdGrupo;
 	private String txNome;
 	public int getCdGrupo() {

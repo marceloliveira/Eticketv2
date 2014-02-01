@@ -11,6 +11,25 @@
 	    	<ul class="nav nav-list">
 	    		<li class="dropdown">
 	    			<a href="#" class="dropdown-toggle #{sessaoBean.visibilidade}" id="dropdownCadastros" data-toggle="dropdown">
+	    				<i class="glyphicon glyphicon-tasks"/>
+						<span class="menu-text"> Chamados </span>
+						<b class="glyphicon glyphicon-chevron-down pull-right"/>
+					</a>
+					<ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownCadastros">
+						<li>
+							<h:commandLink action="#">
+							Novo chamado
+							</h:commandLink>
+						</li>
+						<li>
+							<h:commandLink action="#">
+							Meus chamados
+							</h:commandLink>
+						</li>
+					</ul>
+	    		</li>
+	    		<li class="dropdown">
+	    			<a href="#" class="dropdown-toggle #{sessaoBean.visibilidade}" id="dropdownCadastros" data-toggle="dropdown">
 	    				<i class="glyphicon glyphicon-saved"/>
 						<span class="menu-text"> Cadastros </span>
 						<b class="glyphicon glyphicon-chevron-down pull-right"/>
@@ -24,6 +43,11 @@
 						<li>
 							<h:commandLink action="/grupo/listaGrupo.tjse">
 							Grupos
+							</h:commandLink>
+						</li>
+						<li>
+							<h:commandLink action="/grupo/usuarioGrupo.tjse">
+							Usuários por Grupo
 							</h:commandLink>
 						</li>
 					</ul>

@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import br.jus.tjse.eticket.dao.UsuarioDAO;
+import br.jus.tjse.eticket.dao.UsuarioGrupoDAO;
 import br.jus.tjse.eticket.to.UsuarioTO;
 
 public class UsuarioBO {
@@ -55,6 +56,12 @@ public class UsuarioBO {
 			return null;
 		}
 		return UsuarioDAO.getInstance().pesqUsuario(termoPesquisa);
+	}
+	
+	public List<UsuarioTO> getUsuariosByGrupo(int cdGrupo) throws SQLException {
+		UsuarioGrupoDAO ugd = UsuarioGrupoDAO.getInstance();
+		List<UsuarioTO> usuarios = ugd.getUsuariosByGrupo(cdGrupo);
+		return usuarios;
 	}
 
 }

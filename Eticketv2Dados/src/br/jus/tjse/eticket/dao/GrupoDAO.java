@@ -68,11 +68,10 @@ public class GrupoDAO {
 	public void addGrupo(GrupoTO grupo) throws SQLException {
 		Connection con = Conexao.getInstance().getConexao();
 		
-		String sql = "insert into grupo (cd_grupo,tx_nome) values (?,?)";
+		String sql = "insert into grupo (tx_nome) values (?)";
 		
 		PreparedStatement stm = con.prepareStatement(sql);
-		stm.setInt(1, grupo.getCdGrupo());
-		stm.setString(2, grupo.getTxNome());
+		stm.setString(1, grupo.getTxNome());
 		stm.executeUpdate();
 		
 		stm.close();
@@ -94,11 +93,10 @@ public class GrupoDAO {
 		
 		Connection con = Conexao.getInstance().getConexao();
 		
-		String sql = "select * from grupo where cast(cd_grupo as text) ilike ? or tx_nome ilike ?";
+		String sql = "select * from grupo where tx_nome ilike ?";
 		
 		PreparedStatement stm = con.prepareStatement(sql);
 		stm.setString(1, "%"+termoPesquisa+"%");
-		stm.setString(2, "%"+termoPesquisa+"%");
 		ResultSet rset = stm.executeQuery();
 		
 		while (rset.next()) {
@@ -113,6 +111,18 @@ public class GrupoDAO {
 		stm.close();
 		
 		return grupos;
+	}
+	
+	public void deleteGrupo(int cdGrupo) throws SQLException {
+		Connection con = Conexao.getInstance().getConexao();
+		
+		String sql = "delete from grupo where cd_grupo = ?";
+		
+		PreparedStatement stm = con.prepareStatement(sql);
+		stm.setInt(1, cdGrupo);
+		stm.executeUpdate();
+		
+		stm.close();
 	}
 
 }

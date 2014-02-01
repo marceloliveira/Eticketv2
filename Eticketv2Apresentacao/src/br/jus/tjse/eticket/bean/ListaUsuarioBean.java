@@ -1,9 +1,11 @@
 package br.jus.tjse.eticket.bean;
 
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import br.jus.tjse.eticket.bo.UsuarioBO;
@@ -11,8 +13,10 @@ import br.jus.tjse.eticket.tipo.TipoMensagem;
 import br.jus.tjse.eticket.to.UsuarioTO;
 
 @ManagedBean
-public class ListaUsuarioBean {
+@ViewScoped
+public class ListaUsuarioBean implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	private String termoPesquisa;
 	private List<UsuarioTO> usuarios;
 	
@@ -74,10 +78,6 @@ public class ListaUsuarioBean {
 			UsuarioBO.getInstance().excluirUsuario(Integer.parseInt(nrMatricula));
 			setTipoMensagem(TipoMensagem.SUCESSO);
 			setMensagem("Usuário excluído com sucesso.");
-		} catch (NumberFormatException e) {
-			setTipoMensagem(TipoMensagem.ERRO);
-			setMensagem("Número de matrícula inválido.");
-			e.printStackTrace();
 		} catch (SQLException e) {
 			setTipoMensagem(TipoMensagem.ERRO);
 			setMensagem("Erro de acesso ao banco de dados.");
