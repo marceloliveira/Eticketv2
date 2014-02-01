@@ -17,22 +17,24 @@
 					</a>
 					<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownCadastros">
 						<li>
-							<h:commandLink action="#">
+							<h:commandLink action="/chamado/cadastroChamado.tjse">
 							Novo chamado
 							</h:commandLink>
 						</li>
 						<li>
-							<h:commandLink action="#">
-							Meus chamados
+							<h:commandLink action="/chamado/listaChamado.tjse">
+								Meus chamados
+								<f:param name="tipoLista" value="1"></f:param>
 							</h:commandLink>
 						</li>
 						<li>
-							<h:commandLink action="#">
-							Chamados para o meu grupo
+							<h:commandLink action="/chamado/listaChamado.tjse">
+								Chamados para o meu grupo
+								<f:param name="tipoLista" value="2"></f:param>
 							</h:commandLink>
 						</li>
 						<li>
-							<h:commandLink action="#">
+							<h:commandLink action="/chamado/listaChamado.tjse">
 							Todos os chamados abertos
 							</h:commandLink>
 						</li>

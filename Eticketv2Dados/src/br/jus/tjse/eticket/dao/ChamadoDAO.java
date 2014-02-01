@@ -25,6 +25,8 @@ public class ChamadoDAO {
 	public List<ChamadoTO> getChamados() throws SQLException {
 		ArrayList<ChamadoTO> chamados = new ArrayList<ChamadoTO>();
 		
+		GrupoDAO gdo = GrupoDAO.getInstance();
+		
 		Connection con = Conexao.getInstance().getConexao();
 		
 		String sql = "select * from chamado";
@@ -40,7 +42,7 @@ public class ChamadoDAO {
 			c.setTxDescricao(rset.getString("tx_descricao"));
 			c.setDhCriacao(rset.getTimestamp("dh_criacao"));
 			c.setFlStatus(rset.getString("fl_status").charAt(0));
-			c.setCdGrupoAtual(rset.getInt("cd_grupo_atual"));
+			c.setGrupoAtual(gdo.getGrupoByCodigo(rset.getInt("cd_grupo_atual")));
 			c.setNrMatriculaCriador(rset.getInt("nr_matricula_criador"));
 			chamados.add(c);
 		}

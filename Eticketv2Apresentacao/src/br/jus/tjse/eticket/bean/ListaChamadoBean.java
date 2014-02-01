@@ -13,6 +13,7 @@ public class ListaChamadoBean {
 	private List<ChamadoTO> chamados;
 	private TipoMensagem tipoMensagem;
 	private String mensagem;
+	private String tipoLista;
 
 	public List<ChamadoTO> getChamados() {
 		return chamados;
@@ -41,6 +42,14 @@ public class ListaChamadoBean {
 	public static String getStatusChamado(String flStatus) {
 		String status = "";
 		return status;
+	}
+
+	public String getTipoLista() {
+		return tipoLista;
+	}
+
+	public void setTipoLista(String tipoLista) {
+		this.tipoLista = tipoLista;
 	}
 
 }
