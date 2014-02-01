@@ -1,6 +1,7 @@
 package br.jus.tjse.eticket.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -26,6 +27,7 @@ public class ChamadoDAO {
 		ArrayList<ChamadoTO> chamados = new ArrayList<ChamadoTO>();
 		
 		GrupoDAO gdo = GrupoDAO.getInstance();
+		ResponsavelChamadoDAO rcdo = ResponsavelChamadoDAO.getInstance();
 		
 		Connection con = Conexao.getInstance().getConexao();
 		
@@ -44,10 +46,81 @@ public class ChamadoDAO {
 			c.setFlStatus(rset.getString("fl_status").charAt(0));
 			c.setGrupoAtual(gdo.getGrupoByCodigo(rset.getInt("cd_grupo_atual")));
 			c.setNrMatriculaCriador(rset.getInt("nr_matricula_criador"));
+			c.setResponsaveis(rcdo.getResponsaveisByChamado(rset.getLong("nr_chamado")));
 			chamados.add(c);
 		}
 		
 		return chamados;
+	}
+	
+	public ChamadoTO getChamadoByNrChamado(long nrChamado) throws SQLException {
+		ChamadoTO chamado = new ChamadoTO();
+
+		GrupoDAO gdo = GrupoDAO.getInstance();
+		ResponsavelChamadoDAO rcdo = ResponsavelChamadoDAO.getInstance();
+		
+		Connection con = Conexao.getInstance().getConexao();
+
+		String sql = "select * from chamado where nr_chamado = ?";
+
+		PreparedStatement stm = con.prepareStatement(sql);
+		stm.setLong(1, nrChamado);
+		ResultSet rset = stm.executeQuery();
+
+		while (rset.next()) {
+
+			chamado.setNrChamado(rset.getLong("nr_chamado"));
+			chamado.setTxTitulo(rset.getString("tx_titulo"));
+			chamado.setTxDescricao(rset.getString("tx_descricao"));
+			chamado.setDhCriacao(rset.getTimestamp("dh_criacao"));
+			chamado.setFlStatus(rset.getString("fl_status").charAt(0));
+			chamado.setGrupoAtual(gdo.getGrupoByCodigo(rset.getInt("cd_grupo_atual")));
+			chamado.setNrMatriculaCriador(rset.getInt("nr_matricula_criador"));
+			chamado.setResponsaveis(rcdo.getResponsaveisByChamado(rset.getLong("nr_chamado")));
+
+		}
+
+		rset.close();
+
+		stm.close();
+
+		return chamado;
+	}
+
+	public void addChamado(ChamadoTO chamado) throws SQLException {
+		Connection con = Conexao.getInstance().getConexao();
+
+		String sql = "insert into chamado (tx_titulo,tx_descricao,dh_criacao,fl_status, "
+				+ "nr_matricula_criador,cd_grupo_atual) "
+				+ "values (?,?,now(),?,?,?)";
+
+		PreparedStatement stm = con.prepareStatement(sql);
+		stm.setString(1, chamado.getTxTitulo());
+		stm.setString(2, chamado.getTxDescricao());
+		stm.setString(3, "" + chamado.getFlStatus());
+		stm.setInt(4, chamado.getNrMatriculaCriador());
+		stm.setInt(5, chamado.getGrupoAtual().getCdGrupo());
+
+		stm.executeUpdate();
+
+		stm.close();
+	}
+	
+	public void updateChamado(ChamadoTO chamado) throws SQLException {
+		Connection con = Conexao.getInstance().getConexao();
+
+		String sql = "update chamado set tx_titulo = ?, tx_descricao = ?, fl_status = ?, "
+				+ "cd_grupo_atual = ? where nr_chamado = ?";
+
+		PreparedStatement stm = con.prepareStatement(sql);
+		stm.setString(1, chamado.getTxTitulo());
+		stm.setString(2, chamado.getTxDescricao());
+		stm.setString(3, "" + chamado.getFlStatus());
+		stm.setInt(4, chamado.getGrupoAtual().getCdGrupo());
+		stm.setLong(5, chamado.getNrChamado());
+		stm.executeUpdate();
+
+		stm.close();
 	}
 
 }

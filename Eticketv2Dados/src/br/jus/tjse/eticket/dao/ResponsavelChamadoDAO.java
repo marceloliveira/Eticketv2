@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.jus.tjse.eticket.conexao.Conexao;
+import br.jus.tjse.eticket.to.ChamadoTO;
 import br.jus.tjse.eticket.to.UsuarioTO;
 
 public class ResponsavelChamadoDAO {
@@ -21,7 +22,7 @@ public class ResponsavelChamadoDAO {
 	private ResponsavelChamadoDAO() {
 	}
 	
-	public List<UsuarioTO> getResponsaveisByChamado(int nrChamado) throws SQLException {
+	public List<UsuarioTO> getResponsaveisByChamado(long nrChamado) throws SQLException {
 		ArrayList<UsuarioTO> usuarios = new ArrayList<UsuarioTO>();
 		
 		UsuarioDAO udo = UsuarioDAO.getInstance();
@@ -31,7 +32,7 @@ public class ResponsavelChamadoDAO {
 		String sql = "select * from responsavel_chamado where nr_chamado = ?";
 		
 		PreparedStatement stm = con.prepareStatement(sql);
-		
+		stm.setLong(1, nrChamado);
 		ResultSet rset = stm.executeQuery();
 		
 		while (rset.next()) {
@@ -42,15 +43,36 @@ public class ResponsavelChamadoDAO {
 		return usuarios;
 	}
 	
-	public void addResponsavelChamado(int nrMatricula, int nrChamado) throws SQLException {
+	public void addResponsavelChamado(int nrMatricula, long nrChamado) throws SQLException {
 		Connection con = Conexao.getInstance().getConexao();
 		
 		String sql = "insert into responsavel_chamado (nr_matricula,nr_chamado) values (?,?)";
 		
 		PreparedStatement stm = con.prepareStatement(sql);
 		stm.setInt(1, nrMatricula);
-		stm.setInt(2, nrChamado);
+		stm.setLong(2, nrChamado);
 		stm.executeUpdate();
+	}
+	
+	public List<ChamadoTO> getChamadosByResponsavel(int nrMatricula) throws SQLException{
+		ArrayList<ChamadoTO> chamados = new ArrayList<ChamadoTO>();
+		
+		ChamadoDAO cdo = ChamadoDAO.getInstance();
+		
+		Connection con = Conexao.getInstance().getConexao();
+		
+		String sql = "select * from responsavel_chamado where nr_matricula = ?";
+		
+		PreparedStatement stm = con.prepareStatement(sql);
+		stm.setLong(1, nrMatricula);
+		ResultSet rset = stm.executeQuery();
+		
+		while (rset.next()) {
+			ChamadoTO c = cdo.getChamadoByNrChamado(rset.getLong("nr_chamado"));
+			chamados.add(c);
+		}
+		
+		return chamados;
 	}
 
 }

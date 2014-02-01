@@ -8,7 +8,31 @@
 
 <ui:composition template="/modelo.xhtml">
 	<ui:define name="conteudo">
-	    Add your footer here or delete to use the default
+	    <h:form>
+	    <h:inputHidden id="nrChamado" value="#{cadastroChamadoBean.nrChamado}"></h:inputHidden>
+	    <div style="padding: 25px 25px; padding-bottom: 0; margin:auto;">
+	    	<h2 style="text-align: center;">Novo Chamado</h2>
+	    	<div class="form-group">
+	    		<label for="tituloInput">Título</label>
+    			<h:inputText class="form-control" id="tituloInput" value="#{cadastroChamadoBean.chamado.txTitulo}"></h:inputText>
+	    	</div>
+	    	<div class="form-group">
+	    		<label for="descricaoInput">Descrição</label>
+    			<h:inputTextarea class="form-control" id="descricaoInput" value="#{cadastroChamadoBean.chamado.txDescricao}"></h:inputTextarea>
+	    	</div>
+	    	<div class="form-group">
+	    		<label for="listaGrupo">Descrição</label>
+	    		<h:selectOneMenu id="listaGrupo" class="form-control" value="#{cadastroChamadoBean.cdGrupoSelecionado}">
+					<f:selectItem itemLabel="Selecione um grupo" noSelectionOption="true"/>
+					<f:selectItems value="#{cadastroChamadoBean.grupos}"
+						var ="grupo"
+						itemValue ="#{grupo.cdGrupo}"
+						itemLabel ="#{grupo.txNome}"></f:selectItems>
+				</h:selectOneMenu>
+	    	</div>
+    		<h:commandLink class="btn btn-primary pull-right" action="#{cadastroChamadoBean.cadastrar()}">Cadastrar</h:commandLink>
+    	</div>
+	    </h:form>
 	</ui:define>
 </ui:composition>
 </html>

@@ -68,5 +68,15 @@ public class ChamadoTO {
 	public void setAfetados(List<UsuarioTO> afetados) {
 		this.afetados = afetados;
 	}
+	
+	public String getStyleClasse() {
+		String status = "";
+			switch (flStatus) {
+			case 'A': status = "success"; break;
+			case 'F': status = "danger"; break;
+			default: status = ""; break;
+			}
+		return status;
+	}
 
 }

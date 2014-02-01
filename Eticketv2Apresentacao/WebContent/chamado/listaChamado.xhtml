@@ -11,7 +11,7 @@
 	    <div style="padding: 25px 25px; padding-bottom: 0; margin:auto;">
 		    <h2 style="text-align: center;">Chamados</h2>
 		    <h:form>
-		    <h:inputHidden value=#{listaChamadoBean.tipoLista}></h:inputHidden>
+		    <h:inputHidden value="#{listaChamadoBean.tipoLista}"></h:inputHidden>
 			    <div class="form-inline">
 					<div class="form-group pull-right">
 						<h:commandLink action="cadastroChamado" class="btn btn-success">
@@ -24,14 +24,17 @@
 					<span style="font-weight: bold;"><h:outputText value="#{listaChamadoBean.tipoMensagem.tituloAlerta} "/></span>
 	  				<h:outputText value="#{listaChamadoBean.mensagem}"/>
   				</div>
-				<h:dataTable id="chamadosTable" value="#{listaChamadoBean.chamados}" var="chmd" class="table table-hover">
+				<h:dataTable id="chamadosTable" value="#{listaChamadoBean.chamados}" var="chmd" class="table table-hover" rowClasses="#{listaChamadoBean.classesChamado}">
 					<h:column>
 						<f:facet name="header">Status</f:facet>
 						<h:outputText value="#{chmd.flStatus}"></h:outputText>
 					</h:column>
 					<h:column>
 						<f:facet name="header">Número</f:facet>
-						<h:outputText value="#{chmd.nrChamado}"></h:outputText>
+						<h:commandLink action="detalhesChamado">
+							#<h:outputText value="#{chmd.nrChamado}"/>
+							<f:param name="nrChamado" value="#{chmd.nrChamado}"></f:param>
+						</h:commandLink>
 					</h:column>
 					<h:column>
 						<f:facet name="header">Título</f:facet>
@@ -43,7 +46,7 @@
 					</h:column>
 					<h:column>
 						<f:facet name="header">Responsáveis</f:facet>
-						<h:dataTable id="responsaveisChamadoTable" value="#{chmd.responsaveis}" var="usrResp"  class="table table-hover">
+						<h:dataTable id="responsaveisChamadoTable" value="#{chmd.responsaveis}" var="usrResp"  class="table table-bordered">
 							<h:column>
 								<h:outputText value="#{usrResp.txNome}"></h:outputText>
 							</h:column>
