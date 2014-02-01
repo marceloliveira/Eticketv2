@@ -1,6 +1,7 @@
 package br.jus.tjse.eticket.to;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public class ChamadoTO {
 	
@@ -9,8 +10,10 @@ public class ChamadoTO {
 	private String txDescricao;
 	private Timestamp dhCriacao;
 	private char flStatus;
-	private int cdGrupoAtual;
+	private GrupoTO grupoAtual;
 	private int nrMatriculaCriador;
+	private List<UsuarioTO> responsaveis;
+	private List<UsuarioTO> afetados;
 	public long getNrChamado() {
 		return nrChamado;
 	}
@@ -41,17 +44,29 @@ public class ChamadoTO {
 	public void setFlStatus(char flStatus) {
 		this.flStatus = flStatus;
 	}
-	public int getCdGrupoAtual() {
-		return cdGrupoAtual;
+	public GrupoTO getGrupoAtual() {
+		return grupoAtual;
 	}
-	public void setCdGrupoAtual(int cdGrupoAtual) {
-		this.cdGrupoAtual = cdGrupoAtual;
+	public void setGrupoAtual(GrupoTO grupoAtual) {
+		this.grupoAtual = grupoAtual;
 	}
 	public int getNrMatriculaCriador() {
 		return nrMatriculaCriador;
 	}
 	public void setNrMatriculaCriador(int nrMatriculaCriador) {
 		this.nrMatriculaCriador = nrMatriculaCriador;
+	}
+	public List<UsuarioTO> getResponsaveis() {
+		return responsaveis;
+	}
+	public void setResponsaveis(List<UsuarioTO> responsaveis) {
+		this.responsaveis = responsaveis;
+	}
+	public List<UsuarioTO> getAfetados() {
+		return afetados;
+	}
+	public void setAfetados(List<UsuarioTO> afetados) {
+		this.afetados = afetados;
 	}
 
 }
