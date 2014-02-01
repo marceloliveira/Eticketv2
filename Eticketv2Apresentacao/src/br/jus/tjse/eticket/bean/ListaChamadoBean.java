@@ -38,11 +38,6 @@ public class ListaChamadoBean {
 	public void setMensagem(String mensagem) {
 		this.mensagem = mensagem;
 	}
-	
-	public static String getStatusChamado(String flStatus) {
-		String status = "";
-		return status;
-	}
 
 	public String getTipoLista() {
 		return tipoLista;
@@ -50,6 +45,11 @@ public class ListaChamadoBean {
 
 	public void setTipoLista(String tipoLista) {
 		this.tipoLista = tipoLista;
+	}
+	
+	public String getStatusChamado(String flStatus) {
+		String status = "";
+		return status;
 	}
 
 }
