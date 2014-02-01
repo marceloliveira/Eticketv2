@@ -6,6 +6,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
 import br.jus.tjse.eticket.bo.UsuarioBO;
+import br.jus.tjse.eticket.tipo.TipoMensagem;
 import br.jus.tjse.eticket.to.UsuarioTO;
 
 @ManagedBean
@@ -15,19 +16,15 @@ public class CadastroUsuarioBean {
 	
 	private UsuarioTO usuario = new UsuarioTO();
 	
-	private boolean alteracao = false;
+	private boolean alteracao;
 
 	public boolean isAlteracao() {
 		return alteracao;
 	}
 
-	public void setAlteracao(boolean alteracao) {
-		this.alteracao = alteracao;
-	}
-
 	public int getNrMatricula()  {
 		String nrMatriculaTxt = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("nrMatricula");
-		if (nrMatriculaTxt!=null && !nrMatriculaTxt.equals("")){
+		if (nrMatriculaTxt!=null && !nrMatriculaTxt.equals("") && !nrMatriculaTxt.equals("0")){
 			try {
 				nrMatricula = Integer.parseInt(nrMatriculaTxt);
 				usuario = UsuarioBO.getInstance().getUsuarioByMatricula(nrMatricula);
@@ -39,6 +36,8 @@ public class CadastroUsuarioBean {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} 
+		} else {
+			alteracao = false;
 		}
 		
 		return nrMatricula;
@@ -64,7 +63,13 @@ public class CadastroUsuarioBean {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "listaUsuario";
+		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("tipoMensagem", TipoMensagem.SUCESSO);
+		if (isAlteracao()){
+			FacesContext.getCurrentInstance().getExternalContext().getFlash().put("mensagem", "Usuário alterado com sucesso.");
+		} else {
+			FacesContext.getCurrentInstance().getExternalContext().getFlash().put("mensagem", "Usuário cadastrado com sucesso.");
+		}
+		return "listaUsuario?faces-redirect=true";
 	}
 
 }

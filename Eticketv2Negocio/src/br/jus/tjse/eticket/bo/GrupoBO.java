@@ -43,9 +43,11 @@ public class GrupoBO {
 		}
 	}
 
-	public List<GrupoTO> pesquisarGrupo(String termoPesquisa) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<GrupoTO> pesquisarGrupo(String termoPesquisa) throws SQLException {
+		if (termoPesquisa==null || termoPesquisa.equals("")) {
+			return null;
+		}
+		return GrupoDAO.getInstance().pesqGrupo(termoPesquisa);
 	}
 
 }

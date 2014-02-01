@@ -8,9 +8,9 @@
 
 <ui:composition template="/modelo.xhtml">
 	<ui:define name="conteudo">
-	    <h:form>
-	    <h:inputHidden id="nrMatricula" value="#{cadastroUsuarioBean.nrMatricula}"></h:inputHidden>
-	    <h:inputHidden id="usuarioNrMatricula" value="#{cadastroUsuarioBean.usuario.nrMatricula}"></h:inputHidden>
+		<h:form>
+	    <h:inputHidden id="nrMatricula" value="#{cadastroUsuarioBean.nrMatricula}"/>
+	    <h:inputHidden id="usuarioNrMatricula" value="#{cadastroUsuarioBean.usuario.nrMatricula}"/>
 	    <div style="padding: 25px 25px; padding-bottom: 0; margin:auto;">
 	    	<h2 style="text-align: center;">Cadastrar Usuário</h2>
 	    	<div class="form-group">
@@ -30,7 +30,10 @@
 	    		<label for="emailInput">E-mail</label>
     			<h:inputText class="form-control" id="emailInput" placeholder="email@email.com" value="#{cadastroUsuarioBean.usuario.txEmail}"></h:inputText>
 	    	</div>
-    		<h:commandLink class="btn btn-primary pull-right" action="#{cadastroUsuarioBean.cadastrar()}">Cadastrar</h:commandLink>
+    		<h:commandLink class="btn btn-primary pull-right" action="#{cadastroUsuarioBean.cadastrar()}">
+    			Cadastrar
+    			<f:param name="nrMatricula" value="#{cadastroUsuarioBean.nrMatricula}"></f:param>
+    		</h:commandLink>
     	</div>
 	    </h:form>
 	</ui:define>

@@ -89,5 +89,30 @@ public class GrupoDAO {
 		
 		stm.close();
 	}
+	public List<GrupoTO> pesqGrupo(String termoPesquisa) throws SQLException {
+		ArrayList<GrupoTO> grupos = new ArrayList<GrupoTO>();
+		
+		Connection con = Conexao.getInstance().getConexao();
+		
+		String sql = "select * from grupo where cast(cd_grupo as text) ilike ? or tx_nome ilike ?";
+		
+		PreparedStatement stm = con.prepareStatement(sql);
+		stm.setString(1, "%"+termoPesquisa+"%");
+		stm.setString(2, "%"+termoPesquisa+"%");
+		ResultSet rset = stm.executeQuery();
+		
+		while (rset.next()) {
+			GrupoTO g = new GrupoTO();
+			g.setCdGrupo(rset.getInt("cd_grupo"));
+			g.setTxNome(rset.getString("tx_nome"));
+			grupos.add(g);
+		}
+		
+		rset.close();
+		
+		stm.close();
+		
+		return grupos;
+	}
 
 }

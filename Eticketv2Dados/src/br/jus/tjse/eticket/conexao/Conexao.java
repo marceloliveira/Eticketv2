@@ -15,23 +15,28 @@ public class Conexao {
 		
 	}
 	
+	private Connection con;
+	
 	public Connection getConexao() {
 		
-		Connection con = null;
-	
-		try {
+		if (con == null) {
+		
+			try {
+				
+				Class.forName("org.postgresql.Driver");
+				
+				String url = "jdbc:postgresql://localhost:5432/eticket";
+				
+				con = DriverManager.getConnection(url, "postgres", "postgres");
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			
-			Class.forName("org.postgresql.Driver");
-			
-			String url = "jdbc:postgresql://localhost:5432/eticket";
-			
-			con = DriverManager.getConnection(url, "postgres", "postgres");
-			
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 		
 		return con;
+		
 	}
 
 }
