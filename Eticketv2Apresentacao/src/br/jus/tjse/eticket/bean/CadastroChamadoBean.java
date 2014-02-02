@@ -77,7 +77,7 @@ public class CadastroChamadoBean {
 		ChamadoBO cbo = ChamadoBO.getInstance();
 		GrupoBO gbo = GrupoBO.getInstance();
 		try {
-			chamado.setNrMatriculaCriador(sessaoBean.getUsuarioLogado().getNrMatricula());
+			chamado.setUsuarioCriador(sessaoBean.getUsuarioLogado());
 			chamado.setGrupoAtual(gbo.getGrupoByCodigo(cdGrupoSelecionado));
 			cbo.cadastrarChamado(chamado);
 		} catch (SQLException e) {

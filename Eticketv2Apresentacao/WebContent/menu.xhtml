@@ -15,7 +15,7 @@
 						<span class="menu-text"> Chamados </span>
 						<b class="glyphicon glyphicon-chevron-down pull-right"/>
 					</a>
-					<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownCadastros">
+					<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownCadastros" style="margin-left: 30px;">
 						<li>
 							<h:commandLink action="/chamado/cadastroChamado.tjse">
 							Novo chamado
@@ -25,12 +25,6 @@
 							<h:commandLink action="/chamado/listaChamado.tjse">
 								Chamados para mim
 								<f:param name="tipoLista" value="1"></f:param>
-							</h:commandLink>
-						</li>
-						<li>
-							<h:commandLink action="/chamado/listaChamado.tjse">
-								Chamados para o meu grupo
-								<f:param name="tipoLista" value="2"></f:param>
 							</h:commandLink>
 						</li>
 						<li>
@@ -46,7 +40,7 @@
 						<span class="menu-text"> Cadastros </span>
 						<b class="glyphicon glyphicon-chevron-down pull-right"/>
 					</a>
-					<ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownCadastros">
+					<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownCadastros" style="margin-left: 30px;">
 						<li>
 							<h:commandLink action="/usuario/listaUsuario.tjse">
 							Usuários

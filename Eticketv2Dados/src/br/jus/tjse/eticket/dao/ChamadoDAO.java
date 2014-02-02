@@ -28,6 +28,8 @@ public class ChamadoDAO {
 		
 		GrupoDAO gdo = GrupoDAO.getInstance();
 		ResponsavelChamadoDAO rcdo = ResponsavelChamadoDAO.getInstance();
+		UsuarioDAO udo = UsuarioDAO.getInstance();
+		MensagemDAO mdo = MensagemDAO.getInstance();
 		
 		Connection con = Conexao.getInstance().getConexao();
 		
@@ -45,8 +47,9 @@ public class ChamadoDAO {
 			c.setDhCriacao(rset.getTimestamp("dh_criacao"));
 			c.setFlStatus(rset.getString("fl_status").charAt(0));
 			c.setGrupoAtual(gdo.getGrupoByCodigo(rset.getInt("cd_grupo_atual")));
-			c.setNrMatriculaCriador(rset.getInt("nr_matricula_criador"));
+			c.setUsuarioCriador(udo.getUsuarioByMatricula(rset.getInt("nr_matricula_criador")));
 			c.setResponsaveis(rcdo.getResponsaveisByChamado(rset.getLong("nr_chamado")));
+			c.setMensagens(mdo.getMensagensByNrChamado(rset.getLong("nr_chamado")));
 			chamados.add(c);
 		}
 		
@@ -58,6 +61,8 @@ public class ChamadoDAO {
 
 		GrupoDAO gdo = GrupoDAO.getInstance();
 		ResponsavelChamadoDAO rcdo = ResponsavelChamadoDAO.getInstance();
+		UsuarioDAO udo = UsuarioDAO.getInstance();
+		MensagemDAO mdo = MensagemDAO.getInstance();
 		
 		Connection con = Conexao.getInstance().getConexao();
 
@@ -75,8 +80,9 @@ public class ChamadoDAO {
 			chamado.setDhCriacao(rset.getTimestamp("dh_criacao"));
 			chamado.setFlStatus(rset.getString("fl_status").charAt(0));
 			chamado.setGrupoAtual(gdo.getGrupoByCodigo(rset.getInt("cd_grupo_atual")));
-			chamado.setNrMatriculaCriador(rset.getInt("nr_matricula_criador"));
+			chamado.setUsuarioCriador(udo.getUsuarioByMatricula(rset.getInt("nr_matricula_criador")));
 			chamado.setResponsaveis(rcdo.getResponsaveisByChamado(rset.getLong("nr_chamado")));
+			chamado.setMensagens(mdo.getMensagensByNrChamado(rset.getLong("nr_chamado")));
 
 		}
 
@@ -98,7 +104,7 @@ public class ChamadoDAO {
 		stm.setString(1, chamado.getTxTitulo());
 		stm.setString(2, chamado.getTxDescricao());
 		stm.setString(3, "" + chamado.getFlStatus());
-		stm.setInt(4, chamado.getNrMatriculaCriador());
+		stm.setInt(4, chamado.getUsuarioCriador().getNrMatricula());
 		stm.setInt(5, chamado.getGrupoAtual().getCdGrupo());
 
 		stm.executeUpdate();

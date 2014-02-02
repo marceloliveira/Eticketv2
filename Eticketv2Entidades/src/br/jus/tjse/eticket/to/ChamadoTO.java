@@ -11,9 +11,10 @@ public class ChamadoTO {
 	private Timestamp dhCriacao;
 	private char flStatus;
 	private GrupoTO grupoAtual;
-	private int nrMatriculaCriador;
+	private UsuarioTO usuarioCriador;
 	private List<UsuarioTO> responsaveis;
 	private List<UsuarioTO> afetados;
+	private List<MensagemTO> mensagens;
 	public long getNrChamado() {
 		return nrChamado;
 	}
@@ -32,8 +33,8 @@ public class ChamadoTO {
 	public void setTxDescricao(String txDescricao) {
 		this.txDescricao = txDescricao;
 	}
-	public Timestamp getDhCriacao() {
-		return dhCriacao;
+	public String getDhCriacao() {
+		return dhCriacao.toLocaleString();
 	}
 	public void setDhCriacao(Timestamp dhCriacao) {
 		this.dhCriacao = dhCriacao;
@@ -50,11 +51,11 @@ public class ChamadoTO {
 	public void setGrupoAtual(GrupoTO grupoAtual) {
 		this.grupoAtual = grupoAtual;
 	}
-	public int getNrMatriculaCriador() {
-		return nrMatriculaCriador;
+	public UsuarioTO getUsuarioCriador() {
+		return usuarioCriador;
 	}
-	public void setNrMatriculaCriador(int nrMatriculaCriador) {
-		this.nrMatriculaCriador = nrMatriculaCriador;
+	public void setUsuarioCriador(UsuarioTO usuarioCriador) {
+		this.usuarioCriador = usuarioCriador;
 	}
 	public List<UsuarioTO> getResponsaveis() {
 		return responsaveis;
@@ -77,6 +78,12 @@ public class ChamadoTO {
 			default: status = ""; break;
 			}
 		return status;
+	}
+	public List<MensagemTO> getMensagens() {
+		return mensagens;
+	}
+	public void setMensagens(List<MensagemTO> mensagens) {
+		this.mensagens = mensagens;
 	}
 
 }
