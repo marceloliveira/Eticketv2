@@ -19,7 +19,7 @@
 			itemValue ="#{usuario.nrMatricula}"
 			itemLabel ="#{usuario.txNome}"></f:selectItems>
 		</h:selectOneMenu>
-		<h:commandLink actionListener="#{sessaoBean.logar(loginBean.nrMatriculaUsuarioSelecionado)}" value="Entrar" class="btn btn-primary" style="float: right;">
+		<h:commandLink action="#{sessaoBean.logar(loginBean.nrMatriculaUsuarioSelecionado)}" value="Entrar" class="btn btn-primary" style="float: right;">
 		</h:commandLink>
 		</div>
 	    </div>

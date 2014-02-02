@@ -11,7 +11,6 @@ import javax.faces.context.FacesContext;
 import br.jus.tjse.eticket.bo.ChamadoBO;
 import br.jus.tjse.eticket.bo.GrupoBO;
 import br.jus.tjse.eticket.bo.MensagemBO;
-import br.jus.tjse.eticket.bo.UsuarioBO;
 import br.jus.tjse.eticket.to.ChamadoTO;
 import br.jus.tjse.eticket.to.GrupoTO;
 import br.jus.tjse.eticket.to.MensagemTO;

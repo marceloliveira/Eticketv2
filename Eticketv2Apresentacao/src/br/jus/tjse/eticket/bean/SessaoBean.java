@@ -29,7 +29,7 @@ public class SessaoBean {
 		this.usuarioLogado = usuarioLogado;
 	}
 	
-	public void logar(String nrMatricula) {
+	public String logar(String nrMatricula) {
 		UsuarioBO ubo = UsuarioBO.getInstance();
 		try {
 			nrMatriculaLogada = Integer.parseInt(nrMatricula);
@@ -41,6 +41,7 @@ public class SessaoBean {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return "/chamado/listaChamado.tjse";
 	}
 	
 	public String getNomeUsuario() {
@@ -56,7 +57,7 @@ public class SessaoBean {
 	public String logout(){
 		nrMatriculaLogada = 0;
 		usuarioLogado = null;
-		return "/login";
+		return "/login.tjse";
 	}
 	
 	public String getVisibilidade(){
@@ -73,6 +74,16 @@ public class SessaoBean {
 		String nome = "";
 		if (nrMatriculaLogada == Integer.parseInt(nrMatricula)) {
 			nome = "disabled";
+		}
+		return nome;
+	}
+	
+	public String getBrand() {
+		String nome = "";
+		if (usuarioLogado == null) {
+			nome = "/login.tjse";
+		} else {
+			nome = "/chamado/listaChamado.tjse";
 		}
 		return nome;
 	}
