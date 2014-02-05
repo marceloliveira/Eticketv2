@@ -8,7 +8,7 @@
 
 <ui:composition template="/modelo.xhtml">
 	<ui:define name="conteudo">
-	    <div style="padding: 25px 25px; padding-bottom: 0; margin:auto;">
+		<div style="padding: 25px 25px; padding-bottom: 0; margin:auto;">
 	    <h2 style="text-align: center;">Chamado #<h:outputText value="#{detalhesChamadoBean.nrChamado}"/></h2>
 	    <h:form>
 	    	<h:inputHidden value="#{detalhesChamadoBean.nrChamado}"></h:inputHidden>
@@ -45,10 +45,11 @@
 					<h:commandLink action="#" class="btn btn-success">
 						Atender chamado
 					</h:commandLink>
-					<h:commandLink action="#" class="btn btn-warning">
+					<h:commandLink action="cadastroChamado" class="btn btn-warning">
 						Editar chamado
+						<f:param name="nrChamado" value="#{detalhesChamadoBean.nrChamado}"></f:param>
 					</h:commandLink>
-					<h:commandLink action="#" class="btn btn-danger">
+					<h:commandLink actionListener="#{detalhesChamadoBean.fecharChamado()}" class="btn btn-danger">
 						Fechar chamado
 					</h:commandLink>
 				</div>

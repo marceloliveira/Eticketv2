@@ -119,5 +119,20 @@ public class DetalhesChamadoBean {
 	public void setSessaoBean(SessaoBean sessaoBean) {
 		this.sessaoBean = sessaoBean;
 	}
+	
+	public void atenderChamado() {
+		
+	}
+	
+	public void fecharChamado() {
+		ChamadoBO cbo = ChamadoBO.getInstance();
+		chamado.setFlStatus('F');
+		try {
+			cbo.cadastrarChamado(chamado);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 }
