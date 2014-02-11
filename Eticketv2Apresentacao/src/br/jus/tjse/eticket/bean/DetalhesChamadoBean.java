@@ -126,8 +126,9 @@ public class DetalhesChamadoBean {
 	
 	public void fecharChamado() {
 		ChamadoBO cbo = ChamadoBO.getInstance();
-		chamado.setFlStatus('F');
 		try {
+			chamado = cbo.getChamadoByNumero(nrChamado); 
+			chamado.setFlStatus('F');
 			cbo.cadastrarChamado(chamado);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
