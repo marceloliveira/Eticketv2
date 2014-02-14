@@ -123,7 +123,13 @@ public class DetalhesChamadoBean {
 	}
 	
 	public void atenderChamado() {
-		
+		ChamadoBO cbo = ChamadoBO.getInstance();
+		try {
+			cbo.addResponsavelChamado(sessaoBean.getUsuarioLogado().getNrMatricula(), nrChamado);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void fecharChamado() {

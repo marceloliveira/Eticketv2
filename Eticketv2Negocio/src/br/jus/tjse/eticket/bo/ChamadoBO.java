@@ -47,5 +47,10 @@ public class ChamadoBO {
 			cd.updateChamado(chamado);
 		}
 	}
+	
+	public void addResponsavelChamado(int nrMatricula, long nrChamado) throws SQLException {
+		ResponsavelChamadoDAO rcd = ResponsavelChamadoDAO.getInstance();
+		rcd.addResponsavelChamado(nrMatricula, nrChamado);
+	}
 
 }
