@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import br.jus.tjse.eticket.bo.ChamadoBO;
@@ -16,6 +17,7 @@ import br.jus.tjse.eticket.to.GrupoTO;
 import br.jus.tjse.eticket.to.MensagemTO;
 
 @ManagedBean
+@SessionScoped
 public class DetalhesChamadoBean {
 	
 	private long nrChamado;
@@ -134,6 +136,23 @@ public class DetalhesChamadoBean {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	public void reabrirChamado() {
+		ChamadoBO cbo = ChamadoBO.getInstance();
+		try {
+			chamado = cbo.getChamadoByNumero(nrChamado); 
+			chamado.setFlStatus('A');
+			cbo.cadastrarChamado(chamado);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public boolean isFechado() {
+		return chamado.getFlStatus()=='F';
+	}
+	public boolean isAberto() {
+		return chamado.getFlStatus()=='A';
 	}
 
 }

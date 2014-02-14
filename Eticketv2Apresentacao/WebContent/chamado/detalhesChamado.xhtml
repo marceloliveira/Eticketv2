@@ -29,6 +29,7 @@
 				</div>
 			</div>
 			<div style="margin-left: 300px;">
+				<h:panelGroup id="controlesAberto" rendered="#{detalhesChamadoBean.isAberto()}">
 				<div class="form-group">
 					<h:selectOneMenu id="listaGrupo" class="form-control" value="#{detalhesChamadoBean.cdGrupoSelecionado}">
 						<f:selectItem itemLabel="Selecione um grupo" noSelectionOption="true"/>
@@ -53,6 +54,14 @@
 						Fechar chamado
 					</h:commandLink>
 				</div>
+				</h:panelGroup>
+				<h:panelGroup id="controlesFechado" rendered="#{detalhesChamadoBean.isFechado()}">
+					<div class="form-group">
+					<h:commandLink actionListener="#{detalhesChamadoBean.reabrirChamado()}" class="btn btn-warning">
+						Reabrir chamado
+					</h:commandLink>
+					</div>
+				</h:panelGroup>
 				<div class="form-group"><label>Título</label></div>
 				<div class="form-group"><h:outputText value="#{detalhesChamadoBean.chamado.txTitulo}"/></div>
 				<div class="form-group"><label>Descrição</label></div>
@@ -71,7 +80,7 @@
 						</h:column>
 					</h:dataTable>
 				</div>
-				<div class="form-group"><h:inputTextarea class="form-control" value="#{detalhesChamadoBean.txMensagem}"/></div>
+				<div class="form-group"><h:inputTextarea class="form-control" value="#{detalhesChamadoBean.txMensagem}" disabled="#{detalhesChamadoBean.isFechado()}"/></div>
 				<div class="form-group pull-right"><h:commandLink class="btn btn-primary" actionListener="#{detalhesChamadoBean.cadastrarMensagem()}" value="Enviar"/></div>
 			</div>
 		</h:form>

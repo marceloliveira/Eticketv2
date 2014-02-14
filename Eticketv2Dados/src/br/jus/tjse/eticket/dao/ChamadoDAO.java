@@ -33,7 +33,7 @@ public class ChamadoDAO {
 		
 		Connection con = Conexao.getInstance().getConexao();
 		
-		String sql = "select * from chamado";
+		String sql = "select * from chamado order by nr_chamado desc";
 		
 		Statement stm = con.createStatement();
 		
