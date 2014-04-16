@@ -4,7 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://java.sun.com/jsf/passthrough">
 
 <ui:composition template="/modelo.xhtml">
 	<ui:define name="conteudo">
@@ -16,6 +17,18 @@
 	    	<div class="form-group">
 	    		<label for="nomeInput">Nome</label>
     			<h:inputText class="form-control" id="nomeInput" value="#{cadastroGrupoBean.grupo.txNome}"></h:inputText>
+	    	</div>
+    		<div class="form-group">
+	    		<label for="nomeAbreviadoInput">Nome Abreviado</label>
+    			<h:inputText class="form-control" id="nomeAbreviadoInput" value="#{cadastroGrupoBean.grupo.txNomeAbreviado}" maxlength="10"></h:inputText>
+	    	</div>
+    		<div class="form-group">
+	    		<label for="corFundoInput">Cor de Fundo</label>
+	    		<h:inputText class="form-control minicolors" id="corFundoInput" value="#{cadastroGrupoBean.grupo.idCorFundo}"></h:inputText>
+	    	</div>
+    		<div class="form-group">
+	    		<label for="corLetraInput">Cor da Letra</label>
+    			<h:inputText class="form-control minicolors" id="corLetraInput" value="#{cadastroGrupoBean.grupo.idCorLetra}"></h:inputText>
 	    	</div>
     		<h:commandLink class="btn btn-primary pull-right" action="#{cadastroGrupoBean.cadastrar()}">Cadastrar</h:commandLink>
     	</div>

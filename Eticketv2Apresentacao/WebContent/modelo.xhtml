@@ -10,12 +10,37 @@
 		<!-- Bootstrap -->
 		<h:outputStylesheet name="/css/bootstrap.css" />
 		<h:outputStylesheet name="/css/bootstrap-theme.css" />
+		<h:outputStylesheet name="/css/jquery.minicolors.css"></h:outputStylesheet>
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		<h:outputScript name="/js/jquery-2.0.3.js" />
 		<!-- Include all compiled plugins (below), or include individual files as needed -->
 		<h:outputScript name="/js/bootstrap.js" />
+		<h:outputScript name="/js/jquery.minicolors.js"></h:outputScript>
 		<f:verbatim>
-		<script>$('.alert').alert();</script>
+		<script>
+			$('.alert').alert();
+			$(document).ready(function() {
+				$('INPUT.minicolors').each(function() {
+					$(this).minicolors({
+						control: $(this).attr('data-control') || 'wheel',
+						defaultValue: $(this).attr('data-defaultValue') || '',
+						inline: $(this).attr('data-inline') === 'true',
+						letterCase: $(this).attr('data-letterCase') || 'lowercase',
+						opacity: $(this).attr('data-opacity'),
+						position: $(this).attr('data-position') || 'top left',
+						change: function(hex, opacity) {
+							if( !hex ) return;
+							if( opacity ) hex += ', ' + opacity;
+							try {
+								console.log(hex);
+							} catch(e) {}
+						},
+						theme: 'bootstrap'
+					});
+				});
+			});
+			//$('INPUT.minicolors').minicolors('create');
+		</script>
 		</f:verbatim>
 	</h:head>
 	<h:body>

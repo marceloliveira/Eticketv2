@@ -35,6 +35,9 @@ public class GrupoDAO {
 			GrupoTO g = new GrupoTO();
 			g.setCdGrupo(rset.getInt("cd_grupo"));
 			g.setTxNome(rset.getString("tx_nome"));
+			g.setIdCorFundo(rset.getString("id_cor_fundo"));
+			g.setIdCorLetra(rset.getString("id_cor_letra"));
+			g.setTxNomeAbreviado(rset.getString("tx_nome_abreviado"));
 			grupos.add(g);
 		}
 		
@@ -58,6 +61,9 @@ public class GrupoDAO {
 		while (rset.next()){
 			g.setCdGrupo(rset.getInt("cd_grupo"));
 			g.setTxNome(rset.getString("tx_nome"));
+			g.setIdCorFundo(rset.getString("id_cor_fundo"));
+			g.setIdCorLetra(rset.getString("id_cor_letra"));
+			g.setTxNomeAbreviado(rset.getString("tx_nome_abreviado"));
 		}
 		
 		rset.close();
@@ -68,10 +74,13 @@ public class GrupoDAO {
 	public void addGrupo(GrupoTO grupo) throws SQLException {
 		Connection con = Conexao.getInstance().getConexao();
 		
-		String sql = "insert into grupo (tx_nome) values (?)";
+		String sql = "insert into grupo (tx_nome,id_cor_fundo,id_cor_letra,tx_nome_abreviado) values (?,?,?,?)";
 		
 		PreparedStatement stm = con.prepareStatement(sql);
 		stm.setString(1, grupo.getTxNome());
+		stm.setString(2, grupo.getIdCorFundo());
+		stm.setString(3, grupo.getIdCorLetra());
+		stm.setString(4, grupo.getTxNomeAbreviado());
 		stm.executeUpdate();
 		
 		stm.close();
@@ -79,11 +88,14 @@ public class GrupoDAO {
 	public void updateGrupo(GrupoTO grupo) throws SQLException {
 		Connection con = Conexao.getInstance().getConexao();
 		
-		String sql = "update grupo set tx_nome = ? where cd_grupo = ?";
+		String sql = "update grupo set tx_nome = ?, id_cor_fundo = ?, id_cor_letra = ?, tx_nome_abreviado = ? where cd_grupo = ?";
 		
 		PreparedStatement stm = con.prepareStatement(sql);
 		stm.setString(1, grupo.getTxNome());
-		stm.setInt(2, grupo.getCdGrupo());
+		stm.setString(2, grupo.getIdCorFundo());
+		stm.setString(3, grupo.getIdCorLetra());
+		stm.setString(4, grupo.getTxNomeAbreviado());
+		stm.setInt(5, grupo.getCdGrupo());
 		stm.executeUpdate();
 		
 		stm.close();

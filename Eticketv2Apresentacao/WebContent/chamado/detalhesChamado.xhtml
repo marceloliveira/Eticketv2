@@ -9,12 +9,11 @@
 <ui:composition template="/modelo.xhtml">
 	<ui:define name="conteudo">
 		<div style="padding: 25px 25px; padding-bottom: 0; margin:auto;">
-	    <h2 style="text-align: center;">Chamado #<h:outputText value="#{detalhesChamadoBean.nrChamado}"/></h2>
 	    <h:form>
 	    	<h:inputHidden value="#{detalhesChamadoBean.nrChamado}"></h:inputHidden>
-	    	<div class="pull-left" style="width: 300px; position: fixed;">
-				<div class="form-group"><label>Grupo atual</label></div>
-				<div class="form-group"><h:outputText value="#{detalhesChamadoBean.chamado.grupoAtual.txNome}"/></div>
+	    	<h3><span class="label" style="color: #{detalhesChamadoBean.chamado.grupoAtual.idCorLetra}; background-color: #{detalhesChamadoBean.chamado.grupoAtual.idCorFundo}"><h:outputText value="#{detalhesChamadoBean.chamado.grupoAtual.txNomeAbreviado}"/></span>  Chamado #<h:outputText value="#{detalhesChamadoBean.nrChamado}"/> - <h:outputText value="#{detalhesChamadoBean.chamado.txTitulo}"/></h3>
+	    	<hr/>
+			<div class="pull-left" style="width: 300px; position: fixed; padding-right: 30px;">
 				<div class="form-group"><label>Criado por</label></div>
 				<div class="form-group"><h:outputText value="#{detalhesChamadoBean.chamado.usuarioCriador.txNome}"/></div>
 				<div class="form-group"><label>Data/Hora de criação</label></div>
@@ -62,8 +61,6 @@
 					</h:commandLink>
 					</div>
 				</h:panelGroup>
-				<div class="form-group"><label>Título</label></div>
-				<div class="form-group"><h:outputText value="#{detalhesChamadoBean.chamado.txTitulo}"/></div>
 				<div class="form-group"><label>Descrição</label></div>
 				<div class="form-group"><h:outputText value="#{detalhesChamadoBean.chamado.txDescricao}"/></div>
 				<div class="form-group"><label>Mensagens</label></div>
