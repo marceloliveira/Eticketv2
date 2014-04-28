@@ -65,7 +65,7 @@ public class SessaoBean {
 		if (usuarioLogado == null) {
 			nome = "hide";
 		} else {
-			nome = "show";
+			nome = "";
 		}
 		return nome;
 	}

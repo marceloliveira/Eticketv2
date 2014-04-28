@@ -8,20 +8,26 @@
 
 <ui:composition template="/modelo.xhtml">
 	<ui:define name="conteudo">
-	<h:form>
-	    <div style="padding-top: 25px; margin:auto;">
-	    <h2 style="text-align: center;">Login</h2>
-	    <div class="form-group form-inline" style="width: 400px; margin-left: auto; margin-right: auto;">
-	    <h:selectOneMenu value="#{loginBean.nrMatriculaUsuarioSelecionado}" class="form-control">
-	    <f:selectItem itemLabel="Selecione um usuário" noSelectionOption="true"/>
-		<f:selectItems value="#{loginBean.usuarios}"
-			var ="usuario"
-			itemValue ="#{usuario.nrMatricula}"
-			itemLabel ="#{usuario.txNome}"></f:selectItems>
-		</h:selectOneMenu>
-		<h:commandLink action="#{sessaoBean.logar(loginBean.nrMatriculaUsuarioSelecionado)}" value="Entrar" class="btn btn-primary" style="float: right;">
-		</h:commandLink>
-		</div>
+	<h2 style="text-align: center;">Login</h2>
+	    <h:form>
+	    <div class="container-fluid">
+		    <div class="col-md-4 hidden-xs"></div>
+		    <div class="col-md-4 col-xs-12">
+		    	<div class="form-group">
+		    		<h:selectOneMenu value="#{loginBean.nrMatriculaUsuarioSelecionado}" class="form-control">
+				    <f:selectItem itemLabel="Selecione um usuário" noSelectionOption="true"/>
+					<f:selectItems value="#{loginBean.usuarios}"
+						var ="usuario"
+						itemValue ="#{usuario.nrMatricula}"
+						itemLabel ="#{usuario.txNome}"></f:selectItems>
+					</h:selectOneMenu>
+		    	</div>
+		    	<div class="form-group">
+		    		<h:commandLink action="#{sessaoBean.logar(loginBean.nrMatriculaUsuarioSelecionado)}" value="Entrar" class="btn btn-primary btn-block">
+					</h:commandLink>
+		    	</div>			    
+			</div>
+			<div class="col-md-4 hidden-xs"></div>
 	    </div>
 	    </h:form>
 	</ui:define>

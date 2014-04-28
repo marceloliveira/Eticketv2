@@ -75,4 +75,15 @@ public class ResponsavelChamadoDAO {
 		return chamados;
 	}
 
+	public void removeResponsavelChamado(int nrMatricula, long nrChamado) throws SQLException {
+		Connection con = Conexao.getInstance().getConexao();
+		
+		String sql = "delete from responsavel_chamado where nr_matricula = ? and nr_chamado = ?";
+		
+		PreparedStatement stm = con.prepareStatement(sql);
+		stm.setInt(1, nrMatricula);
+		stm.setLong(2, nrChamado);
+		stm.executeUpdate();
+	}
+
 }

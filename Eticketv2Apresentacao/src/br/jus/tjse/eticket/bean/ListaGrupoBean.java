@@ -68,7 +68,7 @@ public class ListaGrupoBean implements Serializable{
 		try {
 			GrupoBO.getInstance().excluirGrupo(Integer.parseInt(cdGrupo));
 			setTipoMensagem(TipoMensagem.SUCESSO);
-			setMensagem("Usuário excluído com sucesso.");
+			setMensagem("Grupo excluído com sucesso.");
 		} catch (SQLException e) {
 			setTipoMensagem(TipoMensagem.ERRO);
 			setMensagem("Erro de acesso ao banco de dados.");

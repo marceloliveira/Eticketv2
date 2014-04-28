@@ -50,14 +50,11 @@
 			</ui:insert>
 		</div>
 		<!-- div class="main-container" id="main-container"-->
-		<div style="float: left; width: 200px; position: fixed;">
-			<ui:insert name="menu">
-				<ui:include src="menu.xhtml"/>
-			</ui:insert>
-		</div>
-		<div class="container" style="margin-left: 200px; margin-top:53px;">
-			<ui:insert name="conteudo">
-			</ui:insert>
+		<div class="container-fluid" style="padding: 25px 25px; padding-bottom: 0; margin-top:53px;">
+			<div class="col-md-12">
+				<ui:insert name="conteudo">
+				</ui:insert>
+			</div>
 		</div>
 	</h:body>
 </html>

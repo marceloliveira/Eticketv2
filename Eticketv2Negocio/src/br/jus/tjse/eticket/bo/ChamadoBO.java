@@ -53,4 +53,9 @@ public class ChamadoBO {
 		rcd.addResponsavelChamado(nrMatricula, nrChamado);
 	}
 
+	public void removeResponsavelChamado(int nrMatricula, long nrChamado) throws SQLException {
+		ResponsavelChamadoDAO rcd = ResponsavelChamadoDAO.getInstance();
+		rcd.removeResponsavelChamado(nrMatricula, nrChamado);
+	}
+
 }

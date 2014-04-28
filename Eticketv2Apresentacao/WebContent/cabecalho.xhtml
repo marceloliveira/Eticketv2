@@ -5,24 +5,90 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 <body>
 <h:form>
-	<div class="navbar navbar-fixed-top" id="navbar" style="margin-left: 0; margin-right: 0; border: 0; border-radius: 0; margin: 0; padding-left: 0; padding-right: 0; height: 53px; background: #428bca!important;">
-		<div class="navbar-container" id="navbar-container" style="padding-left: 10px; padding-right: 20px;" >
-			<div class="navbar-header pull-left" style="margin: 0!important;">
-				<h:commandLink action="#{sessaoBean.getBrand()}" class="navbar-brand" style="font-weight: bold; color: white;">
+	<div class="navbar navbar-default navbar-fixed-top"><!--  style="background: #428bca!important;" -->
+		<div class="container-fluid" id="navbar-container">
+			<div class="navbar-header">
+				<h:commandLink action="#{sessaoBean.getBrand()}" class="navbar-brand"><!--  style="color: white;" -->
 					<i class="glyphicon glyphicon-headphones" /> Eticket
 				</h:commandLink>
+				<a data-toggle="dropdown" class="navbar-toggle dropdown-toggle #{sessaoBean.visibilidade}" style="background-color: blue!important; color: white;">
+					<i class="glyphicon glyphicon-user" /><b class="caret"></b>
+				</a>
+				<ul class="pull-right dropdown-menu">
+					<li><h:commandLink action="usuario/cadastroUsuario" value="Alterar dados">
+						<f:param name="nrMatricula" value="#{sessaoBean.usuarioLogado.nrMatricula}"/>
+					</h:commandLink></li>
+					<li><h:commandLink action="#{sessaoBean.logout()}">Logout<span class="glyphicon glyphicon-log-out pull-right"/></h:commandLink></li>
+				</ul>
+				<a  data-toggle="collapse" data-target="#menus" class="navbar-toggle #{sessaoBean.visibilidade}">
+        			<span class="sr-only">Toggle navigation</span>
+        			<span class="icon-bar"></span>
+        			<span class="icon-bar"></span>
+        			<span class="icon-bar"></span>
+     			</a>
 			</div>
 			
-			<div class="navbar-header pull-right" role="navigation" style="margin: 0!important;">
-				<ul class="nav navbar-nav" style="height: 100%; margin: 0!important;">
-					<li class="pull-left" style="background-color: blue !important; line-height: 53px; height: 53px; padding: 0;">
-						<a data-toggle="dropdown" href="#" class="dropdown-toggle" style="color: white; display: block; line-height: inherit; text-align: center; height: 100%; width: auto; min-width: 50px; padding: 0 12px; padding-left: 20px; position: relative;">
-							<i class="glyphicon glyphicon-user" />
-							<span style="font-size:13px; min-width: 80px; display: inline-block; overflow: hidden; text-overflow: ellipsis; white-space: no wrap; vertical-align: top; position: relative; line-height: 15px; top: 10px;">
-								<small>Bem-vindo, </small>
-								<span style="font-weight: bold; display: block;"><h:outputText  value="#{sessaoBean.nomeUsuario}" /></span>
-							</span>
-							<i class="caret" />
+			<div class="collapse navbar-collapse" id="menus">
+				<ul class="nav navbar-nav #{sessaoBean.visibilidade}">
+		    		<li class="dropdown">
+		    			<a href="#" class="dropdown-toggle #{sessaoBean.visibilidade}" id="dropdownCadastros" data-toggle="dropdown"><!--  style="color: white" -->
+		    				<i class="glyphicon glyphicon-saved"/>
+							<span class="menu-text"> Cadastros </span>
+							<b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownCadastros" style="margin-left: 30px;">
+							<li>
+								<h:commandLink action="/usuario/listaUsuario.tjse">
+								Usuários
+								</h:commandLink>
+							</li>
+							<li>
+								<h:commandLink action="/grupo/listaGrupo.tjse">
+								Grupos
+								</h:commandLink>
+							</li>
+							<li>
+								<h:commandLink action="/grupo/usuarioGrupo.tjse">
+								Usuários por Grupo
+								</h:commandLink>
+							</li>
+						</ul>
+					</li>
+					
+	    		</ul>
+	    		<ul class="nav navbar-nav #{sessaoBean.visibilidade}">
+					<li class="dropdown">
+		    			<a href="#" class="dropdown-toggle #{sessaoBean.visibilidade}" id="dropdownCadastros" data-toggle="dropdown"><!--  style="color: white" -->
+		    				<i class="glyphicon glyphicon-tasks"/>
+							<span> Chamados </span>
+							<b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownCadastros">
+							<li>
+								<h:commandLink action="/chamado/cadastroChamado.tjse">
+								Novo chamado
+								</h:commandLink>
+							</li>
+							<li>
+								<h:commandLink action="/chamado/listaChamado.tjse">
+									Chamados para mim
+									<f:param name="tipoLista" value="1"></f:param>
+								</h:commandLink>
+							</li>
+							<li>
+								<h:commandLink action="/chamado/listaChamado.tjse">
+									Todos os chamados
+								</h:commandLink>
+							</li>
+						</ul>
+		    		</li>
+	    		</ul>
+	    		<ul class="nav navbar-nav navbar-right #{sessaoBean.visibilidade} label-primary">
+					<li class="dropdown hidden-xs">
+						<a data-toggle="dropdown" href="#" class="dropdown-toggle" style="color: white;">
+							<i class="glyphicon glyphicon-user" />&nbsp;
+							<h:outputText value="#{sessaoBean.nomeUsuario}" />
+							<b class="caret"/>
 						</a>
 						<ul class="pull-right dropdown-menu">
 							<li><h:commandLink action="usuario/cadastroUsuario" value="Alterar dados">

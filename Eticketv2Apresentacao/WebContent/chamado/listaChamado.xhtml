@@ -8,7 +8,7 @@
 
 <ui:composition template="/modelo.xhtml">
 	<ui:define name="conteudo">
-	    <div style="padding: 25px 25px; padding-bottom: 0; margin:auto;">
+	    
 		    <h2 style="text-align: center;">Chamados</h2>
 		    <h:form>
 		    <h:inputHidden value="#{listaChamadoBean.tipoLista}"></h:inputHidden>
@@ -24,8 +24,8 @@
 					<span style="font-weight: bold;"><h:outputText value="#{listaChamadoBean.tipoMensagem.tituloAlerta} "/></span>
 	  				<h:outputText value="#{listaChamadoBean.mensagem}"/>
   				</div>
-				<h:dataTable id="chamadosTable" value="#{listaChamadoBean.chamados}" var="chmd" class="table table-hover" rowClasses="#{listaChamadoBean.classesChamado}">
-					<h:column>
+				<h:dataTable id="chamadosTable" value="#{listaChamadoBean.chamados}" var="chmd" class="table table-hover" rowClasses="#{listaChamadoBean.classesChamado}" columnClasses="hidden-xs,,,hidden-xs,hidden-xs">
+					<h:column headerClass="hidden-xs">
 						<f:facet name="header">Status</f:facet>
 						<h:outputText value="#{chmd.flStatus}"></h:outputText>
 					</h:column>
@@ -40,11 +40,11 @@
 						<f:facet name="header">Título</f:facet>
 						<h:outputText value="#{chmd.txTitulo}"></h:outputText>
 					</h:column>
-					<h:column>
+					<h:column headerClass="hidden-xs">
 						<f:facet name="header">Grupo</f:facet>
 						<h:outputText value="#{chmd.grupoAtual.txNome}"></h:outputText>
 					</h:column>
-					<h:column>
+					<h:column headerClass="hidden-xs">
 						<f:facet name="header">Responsáveis</f:facet>
 						<h:dataTable id="responsaveisChamadoTable" value="#{chmd.responsaveis}" var="usrResp"  class="table table-bordered">
 							<h:column>
@@ -54,7 +54,6 @@
 					</h:column>
 				</h:dataTable>
 			</h:form>
-		</div>
 	</ui:define>
 </ui:composition>
 </html>

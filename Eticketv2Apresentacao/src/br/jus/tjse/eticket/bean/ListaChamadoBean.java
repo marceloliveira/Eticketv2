@@ -16,7 +16,7 @@ import br.jus.tjse.eticket.to.ChamadoTO;
 public class ListaChamadoBean {
 	
 	private List<ChamadoTO> chamados;
-	private TipoMensagem tipoMensagem;
+	private TipoMensagem tipoMensagem = TipoMensagem.NEHUMA;
 	private String mensagem;
 	private int tipoLista;
 	@ManagedProperty(value="#{sessaoBean}")

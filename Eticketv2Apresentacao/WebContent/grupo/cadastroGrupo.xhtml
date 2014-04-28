@@ -30,7 +30,14 @@
 	    		<label for="corLetraInput">Cor da Letra</label>
     			<h:inputText class="form-control minicolors" id="corLetraInput" value="#{cadastroGrupoBean.grupo.idCorLetra}"></h:inputText>
 	    	</div>
-    		<h:commandLink class="btn btn-primary pull-right" action="#{cadastroGrupoBean.cadastrar()}">Cadastrar</h:commandLink>
+	    	<div class="pull-right">
+	    		<div class="btn-group">
+    			<h:commandLink class="btn btn-primary" action="#{cadastroGrupoBean.cadastrar()}">Cadastrar</h:commandLink>
+    			</div>
+    			<div class="btn-group">
+    			<h:commandLink class="btn btn-danger" action="listaGrupo">Voltar</h:commandLink>
+    			</div>
+    		</div>
     	</div>
 	    </h:form>
 	</ui:define>

@@ -23,6 +23,9 @@
 					<h:dataTable id="responsaveisChamadoTable" var="resp" value="#{detalhesChamadoBean.chamado.responsaveis}" class="table table-bordered" style="width: 270px;">
 						<h:column>
 							<h:outputText value="#{resp.txNome}"></h:outputText>
+							<h:commandLink actionListener="#{detalhesChamadoBean.removerResponsavel(resp.nrMatricula)}" class="btn btn-danger btn-xs pull-right">
+							<i class="glyphicon glyphicon-remove"></i>
+							</h:commandLink>
 						</h:column>
 					</h:dataTable>
 				</div>
