@@ -13,75 +13,77 @@
 	    	<h:inputHidden value="#{detalhesChamadoBean.nrChamado}"></h:inputHidden>
 	    	<h3><span class="label" style="color: #{detalhesChamadoBean.chamado.grupoAtual.idCorLetra}; background-color: #{detalhesChamadoBean.chamado.grupoAtual.idCorFundo}"><h:outputText value="#{detalhesChamadoBean.chamado.grupoAtual.txNomeAbreviado}"/></span>  Chamado #<h:outputText value="#{detalhesChamadoBean.nrChamado}"/> - <h:outputText value="#{detalhesChamadoBean.chamado.txTitulo}"/></h3>
 	    	<hr/>
-			<div class="pull-left" style="width: 300px; position: fixed; padding-right: 30px;">
-				<div class="form-group"><label>Criado por</label></div>
-				<div class="form-group"><h:outputText value="#{detalhesChamadoBean.chamado.usuarioCriador.txNome}"/></div>
-				<div class="form-group"><label>Data/Hora de criação</label></div>
-				<div class="form-group"><h:outputText value="#{detalhesChamadoBean.chamado.dhCriacao}"/></div>
-				<div class="form-group"><label>Responsáveis</label></div>
-				<div class="form-group">
-					<h:dataTable id="responsaveisChamadoTable" var="resp" value="#{detalhesChamadoBean.chamado.responsaveis}" class="table table-bordered" style="width: 270px;">
-						<h:column>
-							<h:outputText value="#{resp.txNome}"></h:outputText>
-							<h:commandLink actionListener="#{detalhesChamadoBean.removerResponsavel(resp.nrMatricula)}" class="btn btn-danger btn-xs pull-right">
-							<i class="glyphicon glyphicon-remove"></i>
-							</h:commandLink>
-						</h:column>
-					</h:dataTable>
-				</div>
-			</div>
-			<div style="margin-left: 300px;">
-				<h:panelGroup id="controlesAberto" rendered="#{detalhesChamadoBean.isAberto()}">
-				<div class="form-group">
-					<h:selectOneMenu id="listaGrupo" class="form-control" value="#{detalhesChamadoBean.cdGrupoSelecionado}">
-						<f:selectItem itemLabel="Selecione um grupo" noSelectionOption="true"/>
-						<f:selectItems value="#{detalhesChamadoBean.grupos}"
-							var ="grupo"
-							itemValue ="#{grupo.cdGrupo}"
-							itemLabel ="#{grupo.txNome}"></f:selectItems>
-					</h:selectOneMenu>
-					<h:commandLink action="cadastroGrupo" class="btn btn-info">
-						Transferir chamado
-					</h:commandLink>
-				</div>
-				<div class="form-group">
-					<h:commandLink actionListener="#{detalhesChamadoBean.atenderChamado()}" class="btn btn-success">
-						Atender chamado
-					</h:commandLink>
-					<h:commandLink action="cadastroChamado" class="btn btn-warning">
-						Editar chamado
-						<f:param name="nrChamado" value="#{detalhesChamadoBean.nrChamado}"></f:param>
-					</h:commandLink>
-					<h:commandLink actionListener="#{detalhesChamadoBean.fecharChamado()}" class="btn btn-danger">
-						Fechar chamado
-					</h:commandLink>
-				</div>
-				</h:panelGroup>
-				<h:panelGroup id="controlesFechado" rendered="#{detalhesChamadoBean.isFechado()}">
+	    	<div class="container-fluid">
+				<div class="col-md-3">
+					<div class="form-group"><label>Criado por</label></div>
+					<div class="form-group"><h:outputText value="#{detalhesChamadoBean.chamado.usuarioCriador.txNome}"/></div>
+					<div class="form-group"><label>Data/Hora de criação</label></div>
+					<div class="form-group"><h:outputText value="#{detalhesChamadoBean.chamado.dhCriacao}"/></div>
+					<div class="form-group"><label>Responsáveis</label></div>
 					<div class="form-group">
-					<h:commandLink actionListener="#{detalhesChamadoBean.reabrirChamado()}" class="btn btn-warning">
-						Reabrir chamado
-					</h:commandLink>
+						<h:dataTable id="responsaveisChamadoTable" var="resp" value="#{detalhesChamadoBean.chamado.responsaveis}" class="table table-bordered" style="width: 270px;">
+							<h:column>
+								<h:outputText value="#{resp.txNome}"></h:outputText>
+								<h:commandLink actionListener="#{detalhesChamadoBean.removerResponsavel(resp.nrMatricula)}" class="btn btn-danger btn-xs pull-right">
+								<i class="glyphicon glyphicon-remove"></i>
+								</h:commandLink>
+							</h:column>
+						</h:dataTable>
 					</div>
-				</h:panelGroup>
-				<div class="form-group"><label>Descrição</label></div>
-				<div class="form-group"><h:outputText value="#{detalhesChamadoBean.chamado.txDescricao}"/></div>
-				<div class="form-group"><label>Mensagens</label></div>
-				<div class="form-group">
-					<h:dataTable id="mensagensChamadoTable" var="msg" value="#{detalhesChamadoBean.chamado.mensagens}" class="table table-bordered">
-						<h:column>
-							<h:outputText value="#{msg.txMensagem}"></h:outputText>
-							<span class="pull-right">
-								<small>
-								<h:outputText value="#{msg.usuario.txNome}"/>
-								(<h:outputText value="#{msg.dhMensagem}"/>)
-								</small>
-							</span>
-						</h:column>
-					</h:dataTable>
 				</div>
-				<div class="form-group"><h:inputTextarea class="form-control" value="#{detalhesChamadoBean.txMensagem}" disabled="#{detalhesChamadoBean.isFechado()}"/></div>
-				<div class="form-group pull-right"><h:commandLink class="btn btn-primary" actionListener="#{detalhesChamadoBean.cadastrarMensagem()}" value="Enviar"/></div>
+				<div class="col-md-9">
+					<h:panelGroup id="controlesAberto" rendered="#{detalhesChamadoBean.isAberto()}">
+					<div class="form-group">
+						<h:selectOneMenu id="listaGrupo" class="form-control" value="#{detalhesChamadoBean.cdGrupoSelecionado}">
+							<f:selectItem itemLabel="Selecione um grupo" noSelectionOption="true"/>
+							<f:selectItems value="#{detalhesChamadoBean.grupos}"
+								var ="grupo"
+								itemValue ="#{grupo.cdGrupo}"
+								itemLabel ="#{grupo.txNome}"></f:selectItems>
+						</h:selectOneMenu>
+						<h:commandLink action="cadastroGrupo" class="btn btn-info">
+							Transferir chamado
+						</h:commandLink>
+					</div>
+					<div class="form-group">
+						<h:commandLink actionListener="#{detalhesChamadoBean.atenderChamado()}" class="btn btn-success">
+							Atender chamado
+						</h:commandLink>
+						<h:commandLink action="cadastroChamado" class="btn btn-warning">
+							Editar chamado
+							<f:param name="nrChamado" value="#{detalhesChamadoBean.nrChamado}"></f:param>
+						</h:commandLink>
+						<h:commandLink actionListener="#{detalhesChamadoBean.fecharChamado()}" class="btn btn-danger">
+							Fechar chamado
+						</h:commandLink>
+					</div>
+					</h:panelGroup>
+					<h:panelGroup id="controlesFechado" rendered="#{detalhesChamadoBean.isFechado()}">
+						<div class="form-group">
+						<h:commandLink actionListener="#{detalhesChamadoBean.reabrirChamado()}" class="btn btn-warning">
+							Reabrir chamado
+						</h:commandLink>
+						</div>
+					</h:panelGroup>
+					<div class="form-group"><label>Descrição</label></div>
+					<div class="form-group"><h:outputText value="#{detalhesChamadoBean.chamado.txDescricao}"/></div>
+					<div class="form-group"><label>Mensagens</label></div>
+					<div class="form-group">
+						<h:dataTable id="mensagensChamadoTable" var="msg" value="#{detalhesChamadoBean.chamado.mensagens}" class="table table-bordered">
+							<h:column>
+								<h:outputText value="#{msg.txMensagem}"></h:outputText>
+								<span class="pull-right">
+									<small>
+									<h:outputText value="#{msg.usuario.txNome}"/>
+									(<h:outputText value="#{msg.dhMensagem}"/>)
+									</small>
+								</span>
+							</h:column>
+						</h:dataTable>
+					</div>
+					<div class="form-group"><h:inputTextarea class="form-control" value="#{detalhesChamadoBean.txMensagem}" disabled="#{detalhesChamadoBean.isFechado()}"/></div>
+					<div class="form-group pull-right"><h:commandLink class="btn btn-primary" actionListener="#{detalhesChamadoBean.cadastrarMensagem()}" value="Enviar"/></div>
+				</div>
 			</div>
 		</h:form>
 		</div>

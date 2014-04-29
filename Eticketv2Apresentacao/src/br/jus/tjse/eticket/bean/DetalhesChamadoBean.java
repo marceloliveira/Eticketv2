@@ -132,10 +132,10 @@ public class DetalhesChamadoBean {
 		}
 	}
 	
-	public void removerResponsavel(int nrMatricula) {
+	public void removerResponsavel(String nrMatricula) {
 		ChamadoBO cbo = ChamadoBO.getInstance();
 		try {
-			cbo.removeResponsavelChamado(nrMatricula,nrChamado);
+			cbo.removeResponsavelChamado(Integer.parseInt(nrMatricula),nrChamado);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
