@@ -164,6 +164,19 @@ public class DetalhesChamadoBean {
 			e.printStackTrace();
 		}
 	}
+	public void transferirChamado(String codGrupo) {
+		ChamadoBO cbo = ChamadoBO.getInstance();
+		GrupoBO gbo = GrupoBO.getInstance();
+		try {
+			chamado = cbo.getChamadoByNumero(nrChamado); 
+			chamado.setGrupoAtual(gbo.getGrupoByCodigo(Integer.parseInt(codGrupo)));
+			cbo.cadastrarChamado(chamado);
+			cdGrupoSelecionado = 0;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	public boolean isFechado() {
 		return chamado.getFlStatus()=='F';
 	}

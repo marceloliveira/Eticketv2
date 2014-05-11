@@ -94,7 +94,7 @@
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-							<h:commandLink action="cadastroGrupo" class="btn btn-primary">
+							<h:commandLink actionListener="#{detalhesChamadoBean.transferirChamado(detalhesChamadoBean.cdGrupoSelecionado)}" class="btn btn-primary">
 								Transferir
 							</h:commandLink>
 						</div>
