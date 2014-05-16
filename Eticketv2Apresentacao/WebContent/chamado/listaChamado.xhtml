@@ -24,7 +24,7 @@
 					<span style="font-weight: bold;"><h:outputText value="#{listaChamadoBean.tipoMensagem.tituloAlerta} "/></span>
 	  				<h:outputText value="#{listaChamadoBean.mensagem}"/>
   				</div>
-				<h:dataTable id="chamadosTable" value="#{listaChamadoBean.chamados}" var="chmd" class="table table-hover" rowClasses="#{listaChamadoBean.classesChamado}" columnClasses="hidden-xs,,,hidden-xs,hidden-xs">
+				<h:dataTable id="chamadosTable" value="#{listaChamadoBean.chamados}" var="chmd" class="table table-hover" rowClasses="#{listaChamadoBean.classesChamado}" columnClasses="hidden-xs,,,,hidden-xs">
 					<h:column headerClass="hidden-xs">
 						<f:facet name="header">Status</f:facet>
 						<h:outputText value="#{chmd.flStatus}"></h:outputText>
@@ -40,9 +40,12 @@
 						<f:facet name="header">Título</f:facet>
 						<h:outputText value="#{chmd.txTitulo}"></h:outputText>
 					</h:column>
-					<h:column headerClass="hidden-xs">
+					<h:column>
 						<f:facet name="header">Grupo</f:facet>
-						<h:outputText value="#{chmd.grupoAtual.txNome}"></h:outputText>
+						<span>
+						<span class="label" style="color: #{chmd.grupoAtual.idCorLetra}; background-color: #{chmd.grupoAtual.idCorFundo}">
+						<h:outputText value="#{chmd.grupoAtual.txNomeAbreviado}"/></span><h:outputText value="#{chmd.grupoAtual.txNome}" styleClass="hidden-xs"/>
+						</span>
 					</h:column>
 					<h:column headerClass="hidden-xs">
 						<f:facet name="header">Responsáveis</f:facet>
