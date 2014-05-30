@@ -23,5 +23,10 @@
   		<artifactId>entidades</artifactId>
   		<version>0.1-alpha</version>
   	</dependency>
+  	<dependency>
+  		<groupId>br.jus.tjse.eticket</groupId>
+  		<artifactId>dados</artifactId>
+  		<version>0.1-alpha</version>
+  	</dependency>
   </dependencies>
 </project>
