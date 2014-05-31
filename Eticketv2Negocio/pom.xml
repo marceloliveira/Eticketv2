@@ -4,8 +4,6 @@
   <artifactId>negocio</artifactId>
   <version>0.1-alpha</version>
   <build>
-    <sourceDirectory>src/main</sourceDirectory>
-    <testSourceDirectory>src/test</testSourceDirectory>
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -29,4 +27,7 @@
   		<version>0.1-alpha</version>
   	</dependency>
   </dependencies>
+  <properties>
+    <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
+  </properties>
 </project>
