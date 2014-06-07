@@ -5,6 +5,7 @@
   <version>0.1-alpha</version>
   <packaging>war</packaging>
   <build>
+    <finalName>eticket</finalName>
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -22,7 +23,6 @@
             <addMavenDescriptor>false</addMavenDescriptor>
           </archive>
           <failOnMissingWebXml>false</failOnMissingWebXml>
-          <warName>eticket</warName>
         </configuration>
       </plugin>
     </plugins>

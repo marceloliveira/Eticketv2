@@ -5,10 +5,10 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 <body>
 <h:form>
-	<div class="navbar navbar-default navbar-fixed-top"><!--  style="background: #428bca!important;" -->
+	<div class="navbar navbar-default navbar-fixed-top">
 		<div class="container-fluid" id="navbar-container">
 			<div class="navbar-header">
-				<h:commandLink action="#{sessaoBean.getBrand()}" class="navbar-brand"><!--  style="color: white;" -->
+				<h:commandLink action="#{sessaoBean.getBrand()}" class="navbar-brand">
 					<i class="glyphicon glyphicon-headphones" /> Eticket
 				</h:commandLink>
 				<a data-toggle="dropdown" class="navbar-toggle dropdown-toggle #{sessaoBean.visibilidade}" style="background-color: blue!important; color: white;">
@@ -31,24 +31,24 @@
 			<div class="collapse navbar-collapse" id="menus">
 				<ul class="nav navbar-nav #{sessaoBean.visibilidade}">
 		    		<li class="dropdown">
-		    			<a href="#" class="dropdown-toggle #{sessaoBean.visibilidade}" id="dropdownCadastros" data-toggle="dropdown"><!--  style="color: white" -->
+		    			<a href="#" class="dropdown-toggle #{sessaoBean.visibilidade}" id="dropdownCadastros" data-toggle="dropdown">
 		    				<i class="glyphicon glyphicon-saved"/>
 							<span class="menu-text"> Cadastros </span>
 							<b class="caret"></b>
 						</a>
 						<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownCadastros" style="margin-left: 30px;">
 							<li>
-								<h:commandLink action="/usuario/listaUsuario.tjse">
+								<h:commandLink action="/usuario/listaUsuario">
 								Usuários
 								</h:commandLink>
 							</li>
 							<li>
-								<h:commandLink action="/grupo/listaGrupo.tjse">
+								<h:commandLink action="/grupo/listaGrupo">
 								Grupos
 								</h:commandLink>
 							</li>
 							<li>
-								<h:commandLink action="/grupo/usuarioGrupo.tjse">
+								<h:commandLink action="/grupo/usuarioGrupo">
 								Usuários por Grupo
 								</h:commandLink>
 							</li>
@@ -58,25 +58,25 @@
 	    		</ul>
 	    		<ul class="nav navbar-nav #{sessaoBean.visibilidade}">
 					<li class="dropdown">
-		    			<a href="#" class="dropdown-toggle #{sessaoBean.visibilidade}" id="dropdownCadastros" data-toggle="dropdown"><!--  style="color: white" -->
+		    			<a href="#" class="dropdown-toggle #{sessaoBean.visibilidade}" id="dropdownCadastros" data-toggle="dropdown">
 		    				<i class="glyphicon glyphicon-tasks"/>
 							<span> Chamados </span>
 							<b class="caret"></b>
 						</a>
 						<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownCadastros">
 							<li>
-								<h:commandLink action="/chamado/cadastroChamado.tjse">
+								<h:commandLink action="/chamado/cadastroChamado">
 								Novo chamado
 								</h:commandLink>
 							</li>
 							<li>
-								<h:commandLink action="/chamado/listaChamado.tjse">
+								<h:commandLink action="/chamado/listaChamado">
 									Chamados para mim
 									<f:param name="tipoLista" value="1"></f:param>
 								</h:commandLink>
 							</li>
 							<li>
-								<h:commandLink action="/chamado/listaChamado.tjse">
+								<h:commandLink action="/chamado/listaChamado">
 									Todos os chamados
 								</h:commandLink>
 							</li>
