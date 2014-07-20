@@ -7,10 +7,11 @@
 	<h:head>
 		<title><ui:insert name="title">Eticket</ui:insert></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<h:outputStylesheet name="/css/eticket.css" />
 		<!-- Bootstrap -->
 		<h:outputStylesheet name="/css/bootstrap.css" />
 		<h:outputStylesheet name="/css/bootstrap-theme.css" />
-		<h:outputStylesheet name="/css/jquery.minicolors.css"></h:outputStylesheet>
+		<h:outputStylesheet name="/css/jquery.minicolors.css" />
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		<h:outputScript name="/js/jquery-2.0.3.js" />
 		<!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -44,17 +45,13 @@
 		</f:verbatim>
 	</h:head>
 	<h:body>
-		<div style="margin: 0;">
-			<ui:insert name="cabecalho">
-				<ui:include src="/cabecalho.xhtml"/>
-			</ui:insert>
-		</div>
+		<ui:insert name="cabecalho">
+			<ui:include src="/cabecalho.xhtml"/>
+		</ui:insert>
 		<!-- div class="main-container" id="main-container"-->
-		<div class="container-fluid" style="padding: 25px 25px; padding-bottom: 0; margin-top:53px;">
-			<div class="col-md-12">
-				<ui:insert name="conteudo">
-				</ui:insert>
-			</div>
+		<div class="container-fluid" style="margin-top:53px; padding-bottom: 0; padding: 15px 15px;"> <!--  style="  -->
+			<ui:insert name="conteudo">
+			</ui:insert>
 		</div>
 		<h:messages/>
 	</h:body>

@@ -4,57 +4,64 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://java.sun.com/jsf/passthrough">
 
 <ui:composition template="/modelo.xhtml">
-	<ui:define name="conteudo">
-	    <div style="padding: 25px 25px; padding-bottom: 0; margin:auto;">
-	    <h2 style="text-align: center;">Grupos</h2>
-	    <h:form>
-		    <div class="form-inline">
-				<div class="form-group">
-					<label for="termoPesquisaInput">Pesquisar</label>
+<ui:define name="conteudo">
+<h:form>
+	<ol class="breadcrumb">
+		<li>Cadastros</li>
+		<li class="active">Grupos</li>
+	</ol>
+	<h2>Grupos</h2>
+	<div class="form-group">
+		<h:commandLink action="cadastroGrupo" class="btn btn-success">
+			<span class="glyphicon glyphicon-plus"/> Novo grupo
+		</h:commandLink>
+	</div>
+	<div class="alert #{listaGrupoBean.tipoMensagem.classeAlerta} alert-dismissable">
+		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+		<span style="font-weight: bold;"><h:outputText value="#{listaGrupoBean.tipoMensagem.tituloAlerta} "/></span>
+		<h:outputText value="#{listaGrupoBean.mensagem}"/>
+	</div>
+	<div class="form-group">
+		<div class="input-group">
+			<span class="input-group-addon"><span class="glyphicon glyphicon-search" /></span>
+			<h:inputText id="termoPesquisaInput" class="form-control" value="#{listaGrupoBean.termoPesquisa}" p:placeholder="Pesquisar...">
+				<f:ajax event="keyup" render="gruposTable"/>
+			</h:inputText>
+		</div>
+	</div>
+	<h:dataTable id="gruposTable" value="#{listaGrupoBean.grupos}" var="grp" class="table table-hover" columnClasses="col-md-10,col-md-2 right">
+		<h:column>
+			<f:facet name="header">Nome</f:facet>
+			<div class="row">
+				<div class="col-md-1">
+					<span class="label" style="color: #{grp.idCorLetra}; background-color: #{grp.idCorFundo};">
+						<h:outputText value="#{grp.txNomeAbreviado}"/>
+					</span>
 				</div>
-				<div class="form-group">
-					<h:inputText id="termoPesquisaInput" class="form-control" value="#{listaGrupoBean.termoPesquisa}" style="width: 200px;">
-						<f:ajax event="keyup" render="gruposTable"/>
-					</h:inputText>
-				</div>
-				<div class="form-group pull-right">
-					<h:commandLink action="cadastroGrupo" class="btn btn-success">
-						<span class="glyphicon glyphicon-plus"/> Novo grupo
-					</h:commandLink>
+				<div class="col-md-11">
+					<h:outputText value="#{grp.txNome}"/>
 				</div>
 			</div>
-			<div class="alert #{listaGrupoBean.tipoMensagem.classeAlerta} alert-dismissable" style="margin-top: 10px;">
-					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
-					<span style="font-weight: bold;"><h:outputText value="#{listaGrupoBean.tipoMensagem.tituloAlerta} "/></span>
-	  				<h:outputText value="#{listaGrupoBean.mensagem}"/>
-  				</div>
-				<h:dataTable id="gruposTable" value="#{listaGrupoBean.grupos}" var="grp" class="table table-hover">
-
-				<h:column>
-					<f:facet name="header">Nome</f:facet>
-					<span class="label" style="color: #{grp.idCorLetra}; background-color: #{grp.idCorFundo}"><h:outputText value="#{grp.txNomeAbreviado}"/></span>
-					<h:outputText value="#{grp.txNome}"></h:outputText>
-				</h:column>
-
-				<h:column>
-					<f:facet name="header">Funções</f:facet>
-					<div class="btn-group">
-					<h:commandLink action="cadastroGrupo" class="btn btn-sm btn-warning">
-						<span class="glyphicon glyphicon-edit"></span> Editar
-						<f:param name="cdGrupo" value="#{grp.cdGrupo}" />
-					</h:commandLink>
-					<h:commandLink actionListener="#{listaGrupoBean.excluir(grp.cdGrupo)}" class="btn btn-sm btn-danger">
-						<span class="glyphicon glyphicon-remove"></span> Excluir
-					</h:commandLink>
-					</div>
-				</h:column>
-
-			</h:dataTable>
-		</h:form>
-		</div>
-	</ui:define>
+		</h:column>
+		<h:column>
+			<f:facet name="header">Funções</f:facet>
+			<div class="btn-group">
+				<h:commandLink action="cadastroGrupo" class="btn btn-warning">
+					<span class="glyphicon glyphicon-edit"></span><span class="hidden-xs">Editar</span>
+					<f:param name="cdGrupo" value="#{grp.cdGrupo}" />
+				</h:commandLink>
+				<h:commandLink actionListener="#{listaGrupoBean.excluir(grp.cdGrupo)}" class="btn btn-danger">
+					<span class="glyphicon glyphicon-remove"></span><span class="hidden-xs">Excluir</span>
+				</h:commandLink>
+			</div>
+		</h:column>
+	</h:dataTable>
+</h:form>
+</ui:define>
 </ui:composition>
 </html>

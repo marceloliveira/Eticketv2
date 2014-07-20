@@ -66,4 +66,8 @@
   <listener>
     <listener-class>org.apache.myfaces.webapp.StartupServletContextListener</listener-class>
   </listener>
+  <error-page>
+        <error-code>500</error-code>
+        <location>/login.tjse</location>
+</error-page>
 </web-app>

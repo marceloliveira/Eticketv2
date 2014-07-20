@@ -71,5 +71,9 @@ public class CadastroUsuarioBean {
 		}
 		return "listaUsuario?faces-redirect=true";
 	}
+	
+	public String getTextoOperacao() {
+		return alteracao?"Alterar":"Cadastrar";
+	}
 
 }

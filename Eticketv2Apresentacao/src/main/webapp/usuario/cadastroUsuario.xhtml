@@ -4,38 +4,48 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
-
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://java.sun.com/jsf/passthrough">
 <ui:composition template="/modelo.xhtml">
-	<ui:define name="conteudo">
-		<h:form>
-	    <h:inputHidden id="nrMatricula" value="#{cadastroUsuarioBean.nrMatricula}"/>
-	    <h:inputHidden id="usuarioNrMatricula" value="#{cadastroUsuarioBean.usuario.nrMatricula}"/>
-	    <div style="padding: 25px 25px; padding-bottom: 0; margin:auto;">
-	    	<h2 style="text-align: center;">Cadastrar Usuário</h2>
-	    	<div class="form-group">
-    			<label for="matriculaInput">Matrícula</label>
-    			<h:inputText class="form-control" id="matriculaInput" value="#{cadastroUsuarioBean.usuario.nrMatricula}" rendered="#{not cadastroUsuarioBean.alteracao}"></h:inputText>
-    			<h:outputText class="form-control" id="matriculaOutput" value="#{cadastroUsuarioBean.usuario.nrMatricula}" rendered="#{cadastroUsuarioBean.alteracao}"></h:outputText>
-    		</div>
-    		<div class="form-group">
-	    		<label for="nomeInput">Nome</label>
-    			<h:inputText class="form-control" id="nomeInput" value="#{cadastroUsuarioBean.usuario.txNome}"></h:inputText>
-	    	</div>
-    		<div class="form-group">
-	    		<label for="telefoneInput">Telefone</label>
-    			<h:inputText class="form-control" id="telefoneInput" placeholder="(99) 9999-9999" value="#{cadastroUsuarioBean.usuario.txTelefone}"></h:inputText>
-	    	</div>
-    		<div class="form-group">
-	    		<label for="emailInput">E-mail</label>
-    			<h:inputText class="form-control" id="emailInput" placeholder="email@email.com" value="#{cadastroUsuarioBean.usuario.txEmail}"></h:inputText>
-	    	</div>
-    		<h:commandLink class="btn btn-primary pull-right" action="#{cadastroUsuarioBean.cadastrar()}">
-    			Cadastrar
-    			<f:param name="nrMatricula" value="#{cadastroUsuarioBean.nrMatricula}"></f:param>
-    		</h:commandLink>
-    	</div>
-	    </h:form>
-	</ui:define>
+<ui:define name="conteudo">
+<h:form>
+    <h:inputHidden id="nrMatricula" value="#{cadastroUsuarioBean.nrMatricula}" />
+    <h:inputHidden id="usuarioNrMatricula" value="#{cadastroUsuarioBean.usuario.nrMatricula}" />
+    <ol class="breadcrumb">
+		<li>Cadastros</li>
+		<li><h:commandLink action="listaUsuario">Usuários</h:commandLink></li>
+		<li class="active"><h:outputText value="#{cadastroUsuarioBean.textoOperacao}" /> Usuário</li>
+	</ol>
+	<h2><h:outputText value="#{cadastroUsuarioBean.textoOperacao}" /> Usuário</h2>
+   	<div class="form-group">
+		<label for="matriculaInput">Matrícula</label>
+		<h:inputText class="form-control" id="matriculaInput" value="#{cadastroUsuarioBean.usuario.nrMatricula}" rendered="#{not cadastroUsuarioBean.alteracao}" />
+		<h:outputText class="form-control" id="matriculaOutput" value="#{cadastroUsuarioBean.usuario.nrMatricula}" rendered="#{cadastroUsuarioBean.alteracao}" />
+	</div>
+	<div class="form-group">
+   		<label for="nomeInput">Nome</label>
+		<h:inputText class="form-control" id="nomeInput" value="#{cadastroUsuarioBean.usuario.txNome}" />
+   	</div>
+	<div class="form-group">
+   		<label for="telefoneInput">Telefone</label>
+  		<h:inputText class="form-control" id="telefoneInput" p:placeholder="(99) 9999-9999" value="#{cadastroUsuarioBean.usuario.txTelefone}" />
+   	</div>
+	<div class="form-group">
+   		<label for="emailInput">E-mail</label>
+  		<h:inputText class="form-control" id="emailInput" p:placeholder="email@email.com" value="#{cadastroUsuarioBean.usuario.txEmail}"/>
+   	</div>
+   	<div class="pull-right">
+    	<div class="btn-group">
+	   		<h:commandLink class="btn btn-primary" action="#{cadastroUsuarioBean.cadastrar()}">
+	   			<h:outputText value="#{cadastroUsuarioBean.textoOperacao}" />
+	   			<f:param name="nrMatricula" value="#{cadastroUsuarioBean.nrMatricula}"></f:param>
+	   		</h:commandLink>
+   		</div>
+    	<div class="btn-group">
+   			<h:commandLink class="btn btn-danger" action="listaUsuario">Voltar</h:commandLink>
+   		</div>
+   	</div>
+</h:form>
+</ui:define>
 </ui:composition>
 </html>

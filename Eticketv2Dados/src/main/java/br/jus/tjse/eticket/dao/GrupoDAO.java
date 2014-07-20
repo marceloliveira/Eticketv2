@@ -115,6 +115,9 @@ public class GrupoDAO {
 			GrupoTO g = new GrupoTO();
 			g.setCdGrupo(rset.getInt("cd_grupo"));
 			g.setTxNome(rset.getString("tx_nome"));
+			g.setIdCorFundo(rset.getString("id_cor_fundo"));
+			g.setIdCorLetra(rset.getString("id_cor_letra"));
+			g.setTxNomeAbreviado(rset.getString("tx_nome_abreviado"));
 			grupos.add(g);
 		}
 		

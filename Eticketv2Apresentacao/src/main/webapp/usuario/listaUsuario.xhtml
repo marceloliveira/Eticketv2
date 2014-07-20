@@ -5,65 +5,60 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:c="http://java.sun.com/jsp/jstl/core">
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://java.sun.com/jsf/passthrough">
 
 <ui:composition template="/modelo.xhtml">
-	<ui:define name="conteudo">
-		<div style="padding: 25px 25px; padding-bottom: 0; margin:auto;">
-		    <h2 style="text-align: center;">Usuários</h2>
-		    <h:form>
-			    <div class="form-inline">
-					<div class="form-group">
-						<label for="termoPesquisaInput">Pesquisar</label>
-					</div>
-					<div class="form-group">
-						<h:inputText id="termoPesquisaInput" class="form-control" value="#{listaUsuarioBean.termoPesquisa}" style="width: 200px;">
-							<f:ajax event="keyup" render="usuariosTable"/>
-						</h:inputText>
-					</div>
-					<div class="form-group pull-right">
-						<h:commandLink action="cadastroUsuario" class="btn btn-success">
-							<span class="glyphicon glyphicon-plus"/> Novo usuário
-						</h:commandLink>
-					</div>
-				</div>
-				<div class="alert #{listaUsuarioBean.tipoMensagem.classeAlerta} alert-dismissable" style="margin-top: 10px;">
-					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
-					<span style="font-weight: bold;"><h:outputText value="#{listaUsuarioBean.tipoMensagem.tituloAlerta} "/></span>
-	  				<h:outputText value="#{listaUsuarioBean.mensagem}"/>
-  				</div>
-				<h:dataTable id="usuariosTable" value="#{listaUsuarioBean.usuarios}" var="usr" class="table table-hover">
-					<h:column>
-						<f:facet name="header">Matrícula</f:facet>
-						<h:outputText value="#{usr.nrMatricula}"></h:outputText>
-					</h:column>
-					<h:column>
-						<f:facet name="header">Nome</f:facet>
-						<h:outputText value="#{usr.txNome}"></h:outputText>
-					</h:column>
-					<h:column>
-						<f:facet name="header">Telefone</f:facet>
-						<h:outputText value="#{usr.txTelefone}"></h:outputText>
-					</h:column>
-					<h:column>
-						<f:facet name="header">E-mail</f:facet>
-						<h:outputText value="#{usr.txEmail}"></h:outputText>
-					</h:column>
-					<h:column>
-						<f:facet name="header">Funções</f:facet>
-						<div class="btn-group">
-						<h:commandLink action="cadastroUsuario" class="btn btn-warning">
-							<span class="glyphicon glyphicon-edit"></span> Editar
-							<f:param name="nrMatricula" value="#{usr.nrMatricula}" />
-						</h:commandLink>
-						<h:commandLink actionListener="#{listaUsuarioBean.excluir(usr.nrMatricula)}" class="btn btn-danger #{sessaoBean.deleteLogadoDisable(usr.nrMatricula)}" disabled="#{usr.nrMatricula == sessaoBean.usuarioLogado.nrMatricula}">
-							<span class="glyphicon glyphicon-remove"></span> Excluir
-						</h:commandLink>
-						</div>
-					</h:column>
-				</h:dataTable>
-			</h:form>
+<ui:define name="conteudo">
+<h:form>
+	<ol class="breadcrumb">
+		<li>Cadastros</li>
+		<li class="active">Usuários</li>
+	</ol>
+	<h2>Usuários</h2>
+	<div class="form-group">
+		<h:commandLink action="cadastroUsuario" class="btn btn-success">
+			<span class="glyphicon glyphicon-plus"/>Novo usuário
+		</h:commandLink>
+	</div>
+	<div class="alert #{listaUsuarioBean.tipoMensagem.classeAlerta} alert-dismissable">
+		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+		<span style="font-weight: bold;"><h:outputText value="#{listaUsuarioBean.tipoMensagem.tituloAlerta} "/></span>
+ 		<h:outputText value="#{listaUsuarioBean.mensagem}"/>
+	</div>
+	<div class="form-group">
+		<div class="input-group">
+			<span class="input-group-addon"><span class="glyphicon glyphicon-search" /></span>
+			<h:inputText id="termoPesquisaInput" class="form-control" value="#{listaUsuarioBean.termoPesquisa}" p:placeholder="Pesquisar...">
+				<f:ajax event="keyup" render="usuariosTable"/>
+			</h:inputText>
 		</div>
-	</ui:define>
+	</div>
+	<h:dataTable id="usuariosTable" value="#{listaUsuarioBean.usuarios}" var="usr" class="table table-hover" columnClasses="col-md-6 col-xs-7,col-md-4 hidden-xs,col-md-2 col-xs-5 right">
+		<h:column>
+			<f:facet name="header">Usuário</f:facet>
+			<div><h:outputText value="#{usr.txNome}"></h:outputText></div>
+			<div><h:outputText value="#{usr.nrMatricula}" styleClass="text-muted"></h:outputText></div>
+		</h:column>
+		<h:column headerClass="hidden-xs">
+			<f:facet name="header">Contato</f:facet>
+			<div><span class="glyphicon glyphicon-phone text-muted"/>&nbsp;<h:outputText value="#{usr.txTelefone}"></h:outputText></div>
+			<div><span class="text-muted">@</span>&nbsp;<h:outputText value="#{usr.txEmail}"></h:outputText></div>
+		</h:column>
+		<h:column headerClass="right">
+			<f:facet name="header">Funções</f:facet>
+			<div class="btn-group">
+				<h:commandLink action="cadastroUsuario" class="btn btn-warning">
+					<span class="glyphicon glyphicon-edit" /><span class="hidden-xs">Editar</span>
+					<f:param name="nrMatricula" value="#{usr.nrMatricula}" />
+				</h:commandLink>
+				<h:commandLink actionListener="#{listaUsuarioBean.excluir(usr.nrMatricula)}" class="btn btn-danger #{sessaoBean.deleteLogadoDisable(usr.nrMatricula)}" disabled="#{usr.nrMatricula == sessaoBean.usuarioLogado.nrMatricula}">
+					<span class="glyphicon glyphicon-remove" /><span class="hidden-xs">Excluir</span>
+				</h:commandLink>
+			</div>
+		</h:column>
+	</h:dataTable>
+</h:form>
+</ui:define>
 </ui:composition>
 </html>

@@ -8,55 +8,54 @@
 
 <ui:composition template="/modelo.xhtml">
 	<ui:define name="conteudo">
-	    
-		    <h2 style="text-align: center;">Chamados</h2>
-		    <h:form>
-		    <h:inputHidden value="#{listaChamadoBean.tipoLista}"></h:inputHidden>
-			    <div class="form-inline">
-					<div class="form-group pull-right">
-						<h:commandLink action="cadastroChamado" class="btn btn-success">
-							<span class="glyphicon glyphicon-plus"/> Novo chamado
-						</h:commandLink>
-					</div>
+	    <h2 style="text-align: center;">Chamados</h2>
+	    <h:form>
+	    <h:inputHidden value="#{listaChamadoBean.tipoLista}"></h:inputHidden>
+		    <div class="form-inline">
+				<div class="form-group pull-right">
+					<h:commandLink action="cadastroChamado" class="btn btn-success">
+						<span class="glyphicon glyphicon-plus"/> Novo chamado
+					</h:commandLink>
 				</div>
-				<div class="alert #{listaChamadoBean.tipoMensagem.classeAlerta} alert-dismissable" style="margin-top: 10px;">
-					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
-					<span style="font-weight: bold;"><h:outputText value="#{listaChamadoBean.tipoMensagem.tituloAlerta} "/></span>
-	  				<h:outputText value="#{listaChamadoBean.mensagem}"/>
-  				</div>
-				<h:dataTable id="chamadosTable" value="#{listaChamadoBean.chamados}" var="chmd" class="table table-hover" rowClasses="#{listaChamadoBean.classesChamado}" columnClasses="hidden-xs,,,,hidden-xs">
-					<h:column headerClass="hidden-xs">
-						<f:facet name="header">Status</f:facet>
-						<h:outputText value="#{chmd.flStatus}"></h:outputText>
-					</h:column>
-					<h:column>
-						<f:facet name="header">Número</f:facet>
-						<h:commandLink action="detalhesChamado">
-							#<h:outputText value="#{chmd.nrChamado}"/>
-							<f:param name="nrChamado" value="#{chmd.nrChamado}"></f:param>
-						</h:commandLink>
-					</h:column>
-					<h:column>
-						<f:facet name="header">Título</f:facet>
-						<h:outputText value="#{chmd.txTitulo}"></h:outputText>
-					</h:column>
-					<h:column>
-						<f:facet name="header">Grupo</f:facet>
-						<span>
-						<span class="label" style="color: #{chmd.grupoAtual.idCorLetra}; background-color: #{chmd.grupoAtual.idCorFundo}">
-						<h:outputText value="#{chmd.grupoAtual.txNomeAbreviado}"/></span><h:outputText value="#{chmd.grupoAtual.txNome}" styleClass="hidden-xs"/>
-						</span>
-					</h:column>
-					<h:column headerClass="hidden-xs">
-						<f:facet name="header">Responsáveis</f:facet>
-						<h:dataTable id="responsaveisChamadoTable" value="#{chmd.responsaveis}" var="usrResp"  class="table table-bordered">
-							<h:column>
-								<h:outputText value="#{usrResp.txNome}"></h:outputText>
-							</h:column>
-						</h:dataTable>
-					</h:column>
-				</h:dataTable>
-			</h:form>
+			</div>
+			<div class="alert #{listaChamadoBean.tipoMensagem.classeAlerta} alert-dismissable" style="margin-top: 10px;">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+				<span style="font-weight: bold;"><h:outputText value="#{listaChamadoBean.tipoMensagem.tituloAlerta} "/></span>
+  				<h:outputText value="#{listaChamadoBean.mensagem}"/>
+ 				</div>
+			<h:dataTable id="chamadosTable" value="#{listaChamadoBean.chamados}" var="chmd" class="table table-hover" rowClasses="#{listaChamadoBean.classesChamado}" columnClasses="hidden-xs,,,,hidden-xs">
+				<h:column headerClass="hidden-xs">
+					<f:facet name="header">Status</f:facet>
+					<h:outputText value="#{chmd.flStatus}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Número</f:facet>
+					<h:commandLink action="detalhesChamado">
+						#<h:outputText value="#{chmd.nrChamado}"/>
+						<f:param name="nrChamado" value="#{chmd.nrChamado}"></f:param>
+					</h:commandLink>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Título</f:facet>
+					<h:outputText value="#{chmd.txTitulo}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Grupo</f:facet>
+					<span>
+					<span class="label" style="color: #{chmd.grupoAtual.idCorLetra}; background-color: #{chmd.grupoAtual.idCorFundo}">
+					<h:outputText value="#{chmd.grupoAtual.txNomeAbreviado}"/></span><h:outputText value="#{chmd.grupoAtual.txNome}" styleClass="hidden-xs"/>
+					</span>
+				</h:column>
+				<h:column headerClass="hidden-xs">
+					<f:facet name="header">Responsáveis</f:facet>
+					<h:dataTable id="responsaveisChamadoTable" value="#{chmd.responsaveis}" var="usrResp"  class="table table-bordered">
+						<h:column>
+							<h:outputText value="#{usrResp.txNome}"></h:outputText>
+						</h:column>
+					</h:dataTable>
+				</h:column>
+			</h:dataTable>
+		</h:form>
 	</ui:define>
 </ui:composition>
 </html>

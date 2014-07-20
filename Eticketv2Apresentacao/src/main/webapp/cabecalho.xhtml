@@ -11,16 +11,16 @@
 				<h:commandLink action="#{sessaoBean.getBrand()}" class="navbar-brand">
 					<i class="glyphicon glyphicon-headphones" /> Eticket
 				</h:commandLink>
-				<a data-toggle="dropdown" class="navbar-toggle dropdown-toggle #{sessaoBean.visibilidade}" style="background-color: blue!important; color: white;">
+				<a data-toggle="dropdown" class="navbar-toggle btn-primary navbar-btn dropdown-toggle menu-usuario #{sessaoBean.visibilidade}">
 					<i class="glyphicon glyphicon-user" /><b class="caret"></b>
 				</a>
 				<ul class="pull-right dropdown-menu">
-					<li><h:commandLink action="usuario/cadastroUsuario" value="Alterar dados">
+					<li><h:commandLink action="/usuario/cadastroUsuario" value="Alterar dados">
 						<f:param name="nrMatricula" value="#{sessaoBean.usuarioLogado.nrMatricula}"/>
 					</h:commandLink></li>
 					<li><h:commandLink action="#{sessaoBean.logout()}">Logout<span class="glyphicon glyphicon-log-out pull-right"/></h:commandLink></li>
 				</ul>
-				<a  data-toggle="collapse" data-target="#menus" class="navbar-toggle #{sessaoBean.visibilidade}">
+				<a  data-toggle="collapse" data-target="#menus" class="navbar-toggle btn btn-default #{sessaoBean.visibilidade}">
         			<span class="sr-only">Toggle navigation</span>
         			<span class="icon-bar"></span>
         			<span class="icon-bar"></span>
@@ -29,6 +29,17 @@
 			</div>
 			
 			<div class="collapse navbar-collapse" id="menus">
+				<a data-toggle="dropdown" class="btn btn-primary navbar-btn dropdown-toggle navbar-right menu-usuario #{sessaoBean.visibilidadeResponsiva}">
+					<i class="glyphicon glyphicon-user" />&nbsp;
+					<h:outputText value="#{sessaoBean.nomeUsuario}" />
+					<b class="caret"/>
+				</a>
+				<ul class="pull-right dropdown-menu">
+					<li><h:commandLink action="/usuario/cadastroUsuario" value="Alterar dados">
+						<f:param name="nrMatricula" value="#{sessaoBean.usuarioLogado.nrMatricula}"/>
+					</h:commandLink></li>
+					<li><h:commandLink action="#{sessaoBean.logout()}">Logout<span class="glyphicon glyphicon-log-out pull-right"/></h:commandLink></li>
+				</ul>
 				<ul class="nav navbar-nav #{sessaoBean.visibilidade}">
 		    		<li class="dropdown">
 		    			<a href="#" class="dropdown-toggle #{sessaoBean.visibilidade}" id="dropdownCadastros" data-toggle="dropdown">
@@ -36,7 +47,7 @@
 							<span class="menu-text"> Cadastros </span>
 							<b class="caret"></b>
 						</a>
-						<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownCadastros" style="margin-left: 30px;">
+						<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownCadastros">
 							<li>
 								<h:commandLink action="/usuario/listaUsuario">
 								Usuários
@@ -58,12 +69,12 @@
 	    		</ul>
 	    		<ul class="nav navbar-nav #{sessaoBean.visibilidade}">
 					<li class="dropdown">
-		    			<a href="#" class="dropdown-toggle #{sessaoBean.visibilidade}" id="dropdownCadastros" data-toggle="dropdown">
+		    			<a href="#" class="dropdown-toggle #{sessaoBean.visibilidade}" id="dropdownChamados" data-toggle="dropdown">
 		    				<i class="glyphicon glyphicon-tasks"/>
 							<span> Chamados </span>
 							<b class="caret"></b>
 						</a>
-						<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownCadastros">
+						<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownChamados">
 							<li>
 								<h:commandLink action="/chamado/cadastroChamado">
 								Novo chamado
@@ -83,21 +94,6 @@
 						</ul>
 		    		</li>
 	    		</ul>
-	    		<ul class="nav navbar-nav navbar-right #{sessaoBean.visibilidade} label-primary">
-					<li class="dropdown hidden-xs">
-						<a data-toggle="dropdown" href="#" class="dropdown-toggle" style="color: white;">
-							<i class="glyphicon glyphicon-user" />&nbsp;
-							<h:outputText value="#{sessaoBean.nomeUsuario}" />
-							<b class="caret"/>
-						</a>
-						<ul class="pull-right dropdown-menu">
-							<li><h:commandLink action="usuario/cadastroUsuario" value="Alterar dados">
-								<f:param name="nrMatricula" value="#{sessaoBean.usuarioLogado.nrMatricula}"/>
-							</h:commandLink></li>
-							<li><h:commandLink action="#{sessaoBean.logout()}">Logout<span class="glyphicon glyphicon-log-out pull-right"/></h:commandLink></li>
-						</ul>
-					</li>
-				</ul>
 			</div>
 		</div>
 	</div>

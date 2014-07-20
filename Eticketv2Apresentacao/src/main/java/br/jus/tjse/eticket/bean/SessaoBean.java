@@ -14,6 +14,11 @@ public class SessaoBean {
 	
 	private int nrMatriculaLogada;
 	private UsuarioTO usuarioLogado;
+	
+	public SessaoBean() {
+		super();
+		logar("10089");
+	}
 
 	public UsuarioTO getUsuarioLogado() {
 		try {
@@ -64,8 +69,14 @@ public class SessaoBean {
 		String nome = "";
 		if (usuarioLogado == null) {
 			nome = "hide";
-		} else {
-			nome = "";
+		}
+		return nome;
+	}
+	
+	public String getVisibilidadeResponsiva(){
+		String nome = "hidden-xs";
+		if (usuarioLogado == null) {
+			nome = "hide";
 		}
 		return nome;
 	}
