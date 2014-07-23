@@ -1,15 +1,14 @@
 package br.jus.tjse.eticket.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
-import br.jus.tjse.eticket.conexao.Conexao;
-import br.jus.tjse.eticket.to.ChamadoTO;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
+
+import br.jus.tjse.eticket.model.Chamado;
+import br.jus.tjse.eticket.model.Usuario;
 
 public class ChamadoDAO {
 	
@@ -23,110 +22,90 @@ public class ChamadoDAO {
 		
 	}
 	
-	public List<ChamadoTO> getChamados() throws SQLException {
-		ArrayList<ChamadoTO> chamados = new ArrayList<ChamadoTO>();
+	public List<Chamado> getChamados() {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Eticketv2JPA");
+		EntityManager em = emf.createEntityManager();
 		
-		GrupoDAO gdo = GrupoDAO.getInstance();
-		ResponsavelChamadoDAO rcdo = ResponsavelChamadoDAO.getInstance();
-		UsuarioDAO udo = UsuarioDAO.getInstance();
-		MensagemDAO mdo = MensagemDAO.getInstance();
+		TypedQuery<Chamado> query = em.createNamedQuery("Chamado.findAll",Chamado.class);
 		
-		Connection con = Conexao.getInstance().getConexao();
+		List<Chamado> chamados = query.getResultList();
 		
-		String sql = "select * from chamado order by nr_chamado desc";
-		
-		Statement stm = con.createStatement();
-		
-		ResultSet rset = stm.executeQuery(sql);
-		
-		while (rset.next()) {
-			ChamadoTO c = new ChamadoTO();
-			c.setNrChamado(rset.getLong("nr_chamado"));
-			c.setTxTitulo(rset.getString("tx_titulo"));
-			c.setTxDescricao(rset.getString("tx_descricao"));
-			c.setDhCriacao(rset.getTimestamp("dh_criacao"));
-			c.setFlStatus(rset.getString("fl_status").charAt(0));
-			c.setGrupoAtual(gdo.getGrupoByCodigo(rset.getInt("cd_grupo_atual")));
-			c.setUsuarioCriador(udo.getUsuarioByMatricula(rset.getInt("nr_matricula_criador")));
-			c.setResponsaveis(rcdo.getResponsaveisByChamado(rset.getLong("nr_chamado")));
-			c.setMensagens(mdo.getMensagensByNrChamado(rset.getLong("nr_chamado")));
-			chamados.add(c);
-		}
+		em.close();		
+		emf.close();
 		
 		return chamados;
 	}
 	
-	public ChamadoTO getChamadoByNrChamado(long nrChamado) throws SQLException {
-		ChamadoTO chamado = new ChamadoTO();
-
-		GrupoDAO gdo = GrupoDAO.getInstance();
-		ResponsavelChamadoDAO rcdo = ResponsavelChamadoDAO.getInstance();
-		UsuarioDAO udo = UsuarioDAO.getInstance();
-		MensagemDAO mdo = MensagemDAO.getInstance();
+	public Chamado getChamadoByNrChamado(long nrChamado) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Eticketv2JPA");
+		EntityManager em = emf.createEntityManager();
 		
-		Connection con = Conexao.getInstance().getConexao();
-
-		String sql = "select * from chamado where nr_chamado = ?";
-
-		PreparedStatement stm = con.prepareStatement(sql);
-		stm.setLong(1, nrChamado);
-		ResultSet rset = stm.executeQuery();
-
-		while (rset.next()) {
-
-			chamado.setNrChamado(rset.getLong("nr_chamado"));
-			chamado.setTxTitulo(rset.getString("tx_titulo"));
-			chamado.setTxDescricao(rset.getString("tx_descricao"));
-			chamado.setDhCriacao(rset.getTimestamp("dh_criacao"));
-			chamado.setFlStatus(rset.getString("fl_status").charAt(0));
-			chamado.setGrupoAtual(gdo.getGrupoByCodigo(rset.getInt("cd_grupo_atual")));
-			chamado.setUsuarioCriador(udo.getUsuarioByMatricula(rset.getInt("nr_matricula_criador")));
-			chamado.setResponsaveis(rcdo.getResponsaveisByChamado(rset.getLong("nr_chamado")));
-			chamado.setMensagens(mdo.getMensagensByNrChamado(rset.getLong("nr_chamado")));
-
-		}
-
-		rset.close();
-
-		stm.close();
-
+		Chamado chamado = em.find(Chamado.class, nrChamado);
+		
+		em.close();		
+		emf.close();
+		
 		return chamado;
 	}
 
-	public void addChamado(ChamadoTO chamado) throws SQLException {
-		Connection con = Conexao.getInstance().getConexao();
-
-		String sql = "insert into chamado (tx_titulo,tx_descricao,dh_criacao,fl_status, "
-				+ "nr_matricula_criador,cd_grupo_atual) "
-				+ "values (?,?,now(),?,?,?)";
-
-		PreparedStatement stm = con.prepareStatement(sql);
-		stm.setString(1, chamado.getTxTitulo());
-		stm.setString(2, chamado.getTxDescricao());
-		stm.setString(3, "" + chamado.getFlStatus());
-		stm.setInt(4, chamado.getUsuarioCriador().getNrMatricula());
-		stm.setInt(5, chamado.getGrupoAtual().getCdGrupo());
-
-		stm.executeUpdate();
-
-		stm.close();
+	public void addChamado(Chamado chamado) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Eticketv2JPA");
+		EntityManager em = emf.createEntityManager();
+		
+		em.getTransaction().begin();
+		em.persist(chamado);
+		em.getTransaction().commit();
+		
+		em.close();		
+		emf.close();
 	}
 	
-	public void updateChamado(ChamadoTO chamado) throws SQLException {
-		Connection con = Conexao.getInstance().getConexao();
+	public void updateChamado(Chamado chamado) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Eticketv2JPA");
+		EntityManager em = emf.createEntityManager();
+		
+		em.getTransaction().begin();
+		em.persist(chamado);
+		em.getTransaction().commit();
+		
+		em.close();		
+		emf.close();
+	}
+	
+	public List<Chamado> getChamadosByResponsavel(int nrMatricula) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Eticketv2JPA");
+		EntityManager em = emf.createEntityManager();
+		
+		List<Chamado> chamados = em.find(Usuario.class, nrMatricula).getChamadosResponsavel();
+		
+		em.close();		
+		emf.close();
+		
+		return chamados;
+	}
+	
+	public void addResponsavelChamado(int nrMatricula, long nrChamado) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Eticketv2JPA");
+		EntityManager em = emf.createEntityManager();
+		
+		em.getTransaction().begin();
+		em.find(Chamado.class, nrChamado).getResponsaveis().add(em.find(Usuario.class, nrMatricula));
+		em.getTransaction().commit();
+		
+		em.close();		
+		emf.close();
+	}
 
-		String sql = "update chamado set tx_titulo = ?, tx_descricao = ?, fl_status = ?, "
-				+ "cd_grupo_atual = ? where nr_chamado = ?";
-
-		PreparedStatement stm = con.prepareStatement(sql);
-		stm.setString(1, chamado.getTxTitulo());
-		stm.setString(2, chamado.getTxDescricao());
-		stm.setString(3, "" + chamado.getFlStatus());
-		stm.setInt(4, chamado.getGrupoAtual().getCdGrupo());
-		stm.setLong(5, chamado.getNrChamado());
-		stm.executeUpdate();
-
-		stm.close();
+	public void removeResponsavelChamado(int nrMatricula, long nrChamado) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Eticketv2JPA");
+		EntityManager em = emf.createEntityManager();
+		
+		em.getTransaction().begin();
+		em.find(Chamado.class, nrChamado).getResponsaveis().remove(em.find(Usuario.class, nrMatricula));
+		em.getTransaction().commit();
+		
+		em.close();		
+		emf.close();
 	}
 
 }

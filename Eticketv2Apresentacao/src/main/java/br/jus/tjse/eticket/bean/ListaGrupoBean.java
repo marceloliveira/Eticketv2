@@ -8,8 +8,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import br.jus.tjse.eticket.bo.GrupoBO;
+import br.jus.tjse.eticket.model.Grupo;
 import br.jus.tjse.eticket.tipo.TipoMensagem;
-import br.jus.tjse.eticket.to.GrupoTO;
 
 @ManagedBean
 @ViewScoped
@@ -17,7 +17,7 @@ public class ListaGrupoBean implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	private String termoPesquisa;
-	private List<GrupoTO> grupos;
+	private List<Grupo> grupos;
 	
 	private TipoMensagem tipoMensagem = TipoMensagem.NEHUMA;
 	private String mensagem;
@@ -46,7 +46,7 @@ public class ListaGrupoBean implements Serializable{
 		this.termoPesquisa = termoPesquisa;
 	}
 
-	public List<GrupoTO> getGrupos() {
+	public List<Grupo> getGrupos() {
 		GrupoBO gbo = GrupoBO.getInstance();
 		try {
 			if (termoPesquisa==null || termoPesquisa.equals("")) {
@@ -60,7 +60,7 @@ public class ListaGrupoBean implements Serializable{
 		return grupos;
 	}
 
-	public void setGrupos(List<GrupoTO> grupos) {
+	public void setGrupos(List<Grupo> grupos) {
 		this.grupos = grupos;
 	}
 

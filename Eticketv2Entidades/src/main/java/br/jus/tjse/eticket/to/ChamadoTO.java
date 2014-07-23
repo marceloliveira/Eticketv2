@@ -70,15 +70,7 @@ public class ChamadoTO {
 		this.afetados = afetados;
 	}
 	
-	public String getStyleClasse() {
-		String status = "";
-			switch (flStatus) {
-			case 'A': status = "success"; break;
-			case 'F': status = "danger"; break;
-			default: status = ""; break;
-			}
-		return status;
-	}
+	
 	public List<MensagemTO> getMensagens() {
 		return mensagens;
 	}

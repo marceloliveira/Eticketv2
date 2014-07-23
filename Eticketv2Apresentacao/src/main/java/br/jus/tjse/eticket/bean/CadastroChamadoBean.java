@@ -9,15 +9,15 @@ import javax.faces.bean.ManagedProperty;
 
 import br.jus.tjse.eticket.bo.ChamadoBO;
 import br.jus.tjse.eticket.bo.GrupoBO;
-import br.jus.tjse.eticket.to.ChamadoTO;
-import br.jus.tjse.eticket.to.GrupoTO;
+import br.jus.tjse.eticket.model.Chamado;
+import br.jus.tjse.eticket.model.Grupo;
 
 @ManagedBean
 public class CadastroChamadoBean {
 	
-	private ChamadoTO chamado = new ChamadoTO();
+	private Chamado chamado = new Chamado();
 	private long nrChamado;
-	private List<GrupoTO> grupos;
+	private List<Grupo> grupos;
 	private int cdGrupoSelecionado;
 	@ManagedProperty(value="#{sessaoBean}")
 	private SessaoBean sessaoBean;
@@ -26,11 +26,11 @@ public class CadastroChamadoBean {
     public void init() {
     }
 
-	public ChamadoTO getChamado() {
+	public Chamado getChamado() {
 		return chamado;
 	}
 
-	public void setChamado(ChamadoTO chamado) {
+	public void setChamado(Chamado chamado) {
 		this.chamado = chamado;
 	}
 
@@ -42,7 +42,7 @@ public class CadastroChamadoBean {
 		this.nrChamado = nrChamado;
 	}
 
-	public List<GrupoTO> getGrupos() {
+	public List<Grupo> getGrupos() {
 		GrupoBO gbo = GrupoBO.getInstance();
 		try {
 			grupos = gbo.getGrupos();
@@ -53,7 +53,7 @@ public class CadastroChamadoBean {
 		return grupos;
 	}
 
-	public void setGrupos(List<GrupoTO> grupos) {
+	public void setGrupos(List<Grupo> grupos) {
 		this.grupos = grupos;
 	}
 
@@ -77,7 +77,8 @@ public class CadastroChamadoBean {
 		ChamadoBO cbo = ChamadoBO.getInstance();
 		GrupoBO gbo = GrupoBO.getInstance();
 		try {
-			chamado.setUsuarioCriador(sessaoBean.getUsuarioLogado());
+			//TODO UsuarioDAO
+			//chamado.setUsuarioCriador(sessaoBean.getUsuarioLogado());
 			chamado.setGrupoAtual(gbo.getGrupoByCodigo(cdGrupoSelecionado));
 			cbo.cadastrarChamado(chamado);
 		} catch (SQLException e) {

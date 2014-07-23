@@ -11,18 +11,17 @@ import javax.faces.context.FacesContext;
 
 import br.jus.tjse.eticket.bo.ChamadoBO;
 import br.jus.tjse.eticket.bo.GrupoBO;
-import br.jus.tjse.eticket.bo.MensagemBO;
-import br.jus.tjse.eticket.to.ChamadoTO;
-import br.jus.tjse.eticket.to.GrupoTO;
-import br.jus.tjse.eticket.to.MensagemTO;
+import br.jus.tjse.eticket.model.Chamado;
+import br.jus.tjse.eticket.model.Grupo;
+import br.jus.tjse.eticket.model.Mensagem;
 
 @ManagedBean
 @SessionScoped
 public class DetalhesChamadoBean {
 	
 	private long nrChamado;
-	private ChamadoTO chamado;
-	private List<GrupoTO> grupos;
+	private Chamado chamado;
+	private List<Grupo> grupos;
 	private int cdGrupoSelecionado;
 	private String txMensagem;
 	@ManagedProperty(value="#{sessaoBean}")
@@ -42,9 +41,6 @@ public class DetalhesChamadoBean {
 			} catch (NumberFormatException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			} 
 		}
 		return nrChamado;
@@ -54,7 +50,7 @@ public class DetalhesChamadoBean {
 		this.nrChamado = nrChamado;
 	}
 
-	public List<GrupoTO> getGrupos() {
+	public List<Grupo> getGrupos() {
 		GrupoBO gbo = GrupoBO.getInstance();
 		try {
 			grupos = gbo.getGrupos();
@@ -65,7 +61,7 @@ public class DetalhesChamadoBean {
 		return grupos;
 	}
 
-	public void setGrupos(List<GrupoTO> grupos) {
+	public void setGrupos(List<Grupo> grupos) {
 		this.grupos = grupos;
 	}
 
@@ -77,18 +73,13 @@ public class DetalhesChamadoBean {
 		this.cdGrupoSelecionado = cdGrupoSelecionado;
 	}
 
-	public ChamadoTO getChamado() {
+	public Chamado getChamado() {
 		ChamadoBO cbo = ChamadoBO.getInstance();
-		try {
-			chamado = cbo.getChamadoByNumero(nrChamado);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		chamado = cbo.getChamadoByNumero(nrChamado);
 		return chamado;
 	}
 
-	public void setChamado(ChamadoTO chamado) {
+	public void setChamado(Chamado chamado) {
 		this.chamado = chamado;
 	}
 
@@ -101,17 +92,11 @@ public class DetalhesChamadoBean {
 	}
 	
 	public void cadastrarMensagem() {
-		MensagemBO mbo = MensagemBO.getInstance();
-		MensagemTO mensagem = new MensagemTO();
-		mensagem.setNrChamado(nrChamado);
+		Mensagem mensagem = new Mensagem();
+		mensagem.setChamado(chamado);
 		mensagem.setUsuario(sessaoBean.getUsuarioLogado());
 		mensagem.setTxMensagem(txMensagem);
-		try {
-			mbo.cadastrarMensagem(mensagem);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		chamado.addMensagen(mensagem);
 	}
 
 	public SessaoBean getSessaoBean() {
@@ -124,45 +109,25 @@ public class DetalhesChamadoBean {
 	
 	public void atenderChamado() {
 		ChamadoBO cbo = ChamadoBO.getInstance();
-		try {
-			cbo.addResponsavelChamado(sessaoBean.getUsuarioLogado().getNrMatricula(), nrChamado);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		cbo.addResponsavelChamado(sessaoBean.getUsuarioLogado().getNrMatricula(), nrChamado);
 	}
 	
 	public void removerResponsavel(String nrMatricula) {
 		ChamadoBO cbo = ChamadoBO.getInstance();
-		try {
-			cbo.removeResponsavelChamado(Integer.parseInt(nrMatricula),nrChamado);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		cbo.removeResponsavelChamado(Integer.parseInt(nrMatricula),nrChamado);
 	}
 	
 	public void fecharChamado() {
 		ChamadoBO cbo = ChamadoBO.getInstance();
-		try {
-			chamado = cbo.getChamadoByNumero(nrChamado); 
-			chamado.setFlStatus('F');
-			cbo.cadastrarChamado(chamado);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		chamado = cbo.getChamadoByNumero(nrChamado); 
+		chamado.setFlStatus("F");
+		cbo.cadastrarChamado(chamado);
 	}
 	public void reabrirChamado() {
 		ChamadoBO cbo = ChamadoBO.getInstance();
-		try {
-			chamado = cbo.getChamadoByNumero(nrChamado); 
-			chamado.setFlStatus('A');
-			cbo.cadastrarChamado(chamado);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		chamado = cbo.getChamadoByNumero(nrChamado); 
+		chamado.setFlStatus("A");
+		cbo.cadastrarChamado(chamado);
 	}
 	public void transferirChamado(String codGrupo) {
 		ChamadoBO cbo = ChamadoBO.getInstance();
@@ -178,10 +143,10 @@ public class DetalhesChamadoBean {
 		}
 	}
 	public boolean isFechado() {
-		return chamado.getFlStatus()=='F';
+		return chamado.getFlStatus().equals("F");
 	}
 	public boolean isAberto() {
-		return chamado.getFlStatus()=='A';
+		return chamado.getFlStatus().equals("A");
 	}
 
 }

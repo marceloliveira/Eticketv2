@@ -6,14 +6,14 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
 import br.jus.tjse.eticket.bo.GrupoBO;
-import br.jus.tjse.eticket.to.GrupoTO;
+import br.jus.tjse.eticket.model.Grupo;
 
 @ManagedBean
 public class CadastroGrupoBean {
 	
 	private int cdGrupo;
 	
-	private GrupoTO grupo = new GrupoTO();
+	private Grupo grupo = new Grupo();
 	
 	private boolean alteracao = false;
 
@@ -44,7 +44,7 @@ public class CadastroGrupoBean {
 		return cdGrupo;
 	}
 
-	public GrupoTO getGrupo() {
+	public Grupo getGrupo() {
 		return grupo;
 	}
 
@@ -52,7 +52,7 @@ public class CadastroGrupoBean {
 		this.cdGrupo = cdGrupo;
 	}
 
-	public void setUsuario(GrupoTO grupo) {
+	public void setUsuario(Grupo grupo) {
 		this.grupo = grupo;
 	}
 	

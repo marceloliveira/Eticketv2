@@ -1,20 +1,18 @@
 package br.jus.tjse.eticket.bean;
 
-import java.sql.SQLException;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
 import br.jus.tjse.eticket.bo.UsuarioBO;
+import br.jus.tjse.eticket.model.Usuario;
 import br.jus.tjse.eticket.tipo.TipoMensagem;
-import br.jus.tjse.eticket.to.UsuarioTO;
 
 @ManagedBean
 public class CadastroUsuarioBean {
 	
 	private int nrMatricula;
 	
-	private UsuarioTO usuario = new UsuarioTO();
+	private Usuario usuario = new Usuario();
 	
 	private boolean alteracao;
 
@@ -32,9 +30,6 @@ public class CadastroUsuarioBean {
 			} catch (NumberFormatException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			} 
 		} else {
 			alteracao = false;
@@ -43,7 +38,7 @@ public class CadastroUsuarioBean {
 		return nrMatricula;
 	}
 
-	public UsuarioTO getUsuario() {
+	public Usuario getUsuario() {
 		return usuario;
 	}
 
@@ -51,18 +46,13 @@ public class CadastroUsuarioBean {
 		this.nrMatricula = nrMatricula;
 	}
 
-	public void setUsuario(UsuarioTO usuario) {
+	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
 	
 	public String cadastrar(){
 		UsuarioBO ubo = UsuarioBO.getInstance();
-		try {
-			ubo.cadastrarUsuario(usuario);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		ubo.cadastrarUsuario(usuario);
 		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("tipoMensagem", TipoMensagem.SUCESSO);
 		if (isAlteracao()){
 			FacesContext.getCurrentInstance().getExternalContext().getFlash().put("mensagem", "Usuário alterado com sucesso.");

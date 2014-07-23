@@ -5,12 +5,12 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 
 import br.jus.tjse.eticket.bo.UsuarioBO;
-import br.jus.tjse.eticket.to.UsuarioTO;
+import br.jus.tjse.eticket.model.Usuario;
 
 @ManagedBean
 public class LoginBean {
 	
-	private List<UsuarioTO> usuarios;
+	private List<Usuario> usuarios;
 	private int nrMatriculaUsuarioSelecionado;
 	
 	public int getNrMatriculaUsuarioSelecionado() {
@@ -21,7 +21,7 @@ public class LoginBean {
 		this.nrMatriculaUsuarioSelecionado = nrMatriculaUsuarioSelecionado;
 	}
 
-	public List<UsuarioTO> getUsuarios() {
+	public List<Usuario> getUsuarios() {
 		UsuarioBO ubo = UsuarioBO.getInstance();
 		try {
 			usuarios = ubo.getUsuarios();
@@ -31,7 +31,7 @@ public class LoginBean {
 		return usuarios;
 	}
 
-	public void setUsuarios(List<UsuarioTO> usuarios) {
+	public void setUsuarios(List<Usuario> usuarios) {
 		this.usuarios = usuarios;
 	}
 

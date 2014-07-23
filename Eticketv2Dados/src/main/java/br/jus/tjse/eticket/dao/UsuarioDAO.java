@@ -1,15 +1,15 @@
 package br.jus.tjse.eticket.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
-import br.jus.tjse.eticket.conexao.Conexao;
-import br.jus.tjse.eticket.to.UsuarioTO;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
+
+import br.jus.tjse.eticket.model.Chamado;
+import br.jus.tjse.eticket.model.Grupo;
+import br.jus.tjse.eticket.model.Usuario;
 
 public class UsuarioDAO {
 	
@@ -21,128 +21,110 @@ public class UsuarioDAO {
 	
 	private UsuarioDAO(){}
 	
-	public List<UsuarioTO> getUsuarios() throws SQLException {
-		ArrayList<UsuarioTO> usuarios = new ArrayList<UsuarioTO>();
+	public List<Usuario> getUsuarios() {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Eticketv2JPA");
+		EntityManager em = emf.createEntityManager();
 		
-		Connection con = Conexao.getInstance().getConexao();
+		TypedQuery<Usuario> query = em.createNamedQuery("Usuario.findAll",Usuario.class);
 		
-		String sql = "select * from usuario";
+		List<Usuario> usuarios = query.getResultList();
 		
-		Statement stm = con.createStatement();
-		
-		ResultSet rset = stm.executeQuery(sql);
-		
-		while (rset.next()) {
-			UsuarioTO u = new UsuarioTO();
-			u.setNrMatricula(rset.getInt("nr_matricula"));
-			u.setTxNome(rset.getString("tx_nome"));
-			u.setTxTelefone(rset.getString("tx_telefone"));
-			u.setTxEmail(rset.getString("tx_email"));
-			usuarios.add(u);
-		}
-		
-		rset.close();
-		
-		stm.close();
+		em.close();		
+		emf.close();
 		
 		return usuarios;
 	}
 
-	public List<UsuarioTO> pesqUsuario(String termoPesquisa) throws SQLException {
-		ArrayList<UsuarioTO> usuarios = new ArrayList<UsuarioTO>();
+	public List<Usuario> pesqUsuario(String termoPesquisa) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Eticketv2JPA");
+		EntityManager em = emf.createEntityManager();
 		
-		Connection con = Conexao.getInstance().getConexao();
-		
-		String sql = "select * from usuario where cast(nr_matricula as text) ilike ? or tx_nome ilike ? or tx_telefone ilike ? or tx_email ilike ?";
-		
-		PreparedStatement stm = con.prepareStatement(sql);
-		stm.setString(1, "%"+termoPesquisa+"%");
-		stm.setString(2, "%"+termoPesquisa+"%");
-		stm.setString(3, "%"+termoPesquisa+"%");
-		stm.setString(4, "%"+termoPesquisa+"%");
-		ResultSet rset = stm.executeQuery();
-		
-		while (rset.next()) {
-			UsuarioTO u = new UsuarioTO();
-			u.setNrMatricula(rset.getInt("nr_matricula"));
-			u.setTxNome(rset.getString("tx_nome"));
-			u.setTxTelefone(rset.getString("tx_telefone"));
-			u.setTxEmail(rset.getString("tx_email"));
-			usuarios.add(u);
-		}
-		
-		rset.close();
-		
-		stm.close();
+		TypedQuery<Usuario> query = em.createQuery("SELECT u FROM Usuario u where u.nrMatricula=:mat or lower(u.txNome)=:nome or u.txTelefone=:tel or lower(u.txEmail)=:email", Usuario.class);
+		query.setParameter("mat", termoPesquisa.toLowerCase());
+		query.setParameter("nome", termoPesquisa.toLowerCase());
+		query.setParameter("tel", termoPesquisa.toLowerCase());
+		query.setParameter("email", termoPesquisa.toLowerCase());
+		List<Usuario> usuarios = query.getResultList();
+
+		em.close();		
+		emf.close();
 		
 		return usuarios;
 	}
 
-	public UsuarioTO getUsuarioByMatricula(int nrMatricula) throws SQLException {
-		UsuarioTO usuario = new UsuarioTO();
+	public Usuario getUsuarioByMatricula(int nrMatricula) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Eticketv2JPA");
+		EntityManager em = emf.createEntityManager();
 		
-		Connection con = Conexao.getInstance().getConexao();
+		Usuario usuario = em.find(Usuario.class, nrMatricula);
 		
-		String sql = "select * from usuario where nr_matricula = ?";
-		
-		PreparedStatement stm = con.prepareStatement(sql);
-		stm.setInt(1, nrMatricula);
-		ResultSet rset = stm.executeQuery();
-		
-		while (rset.next()) {
-			usuario.setNrMatricula(rset.getInt("nr_matricula"));
-			usuario.setTxNome(rset.getString("tx_nome"));
-			usuario.setTxTelefone(rset.getString("tx_telefone"));
-			usuario.setTxEmail(rset.getString("tx_email"));
-		}
-		
-		rset.close();
-		
-		stm.close();
+		em.close();		
+		emf.close();
 		
 		return usuario;
 	}
 
-	public void addUsuario(UsuarioTO usuario) throws SQLException {
-		Connection con = Conexao.getInstance().getConexao();
+	public void addUsuario(Usuario usuario) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Eticketv2JPA");
+		EntityManager em = emf.createEntityManager();
 		
-		String sql = "insert into usuario (nr_matricula,tx_nome,tx_telefone,tx_email) values (?,?,?,?)";
+		em.getTransaction().begin();
+		em.persist(usuario);
+		em.getTransaction().commit();
 		
-		PreparedStatement stm = con.prepareStatement(sql);
-		stm.setInt(1, usuario.getNrMatricula());
-		stm.setString(2, usuario.getTxNome());
-		stm.setString(3, usuario.getTxTelefone());
-		stm.setString(4, usuario.getTxEmail());
-		stm.executeUpdate();
-		
-		stm.close();
+		em.close();		
+		emf.close();
 	}
 
-	public void updateUsuario(UsuarioTO usuario) throws SQLException {
-		Connection con = Conexao.getInstance().getConexao();
+	public void updateUsuario(Usuario usuario) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Eticketv2JPA");
+		EntityManager em = emf.createEntityManager();
 		
-		String sql = "update usuario set tx_nome = ?, tx_telefone = ?, tx_email = ? where nr_matricula = ?";
+		em.getTransaction().begin();
+		em.persist(usuario);
+		em.getTransaction().commit();
 		
-		PreparedStatement stm = con.prepareStatement(sql);
-		stm.setString(1, usuario.getTxNome());
-		stm.setString(2, usuario.getTxTelefone());
-		stm.setString(3, usuario.getTxEmail());
-		stm.setInt(4, usuario.getNrMatricula());
-		stm.executeUpdate();
-		
-		stm.close();
+		em.close();		
+		emf.close();
 	}
 
-	public void deleteUsuario(int nrMatricula) throws SQLException {
-		Connection con = Conexao.getInstance().getConexao();
+	public void deleteUsuario(int nrMatricula) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Eticketv2JPA");
+		EntityManager em = emf.createEntityManager();
 		
-		String sql = "delete from usuario where nr_matricula = ?";
+		em.getTransaction().begin();
+		em.remove(nrMatricula);
+		em.getTransaction().commit();
 		
-		PreparedStatement stm = con.prepareStatement(sql);
-		stm.setInt(1, nrMatricula);
-		stm.executeUpdate();
+		em.close();		
+		emf.close();
+	}
+	
+	public List<Usuario> getResponsaveisByChamado(long nrChamado) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Eticketv2JPA");
+		EntityManager em = emf.createEntityManager();
 		
-		stm.close();
+		List<Usuario> usuarios = em.find(Chamado.class, nrChamado).getResponsaveis();
+		
+		em.close();		
+		emf.close();
+		
+		return usuarios;
+	}
+	
+	public List<Usuario> getUsuariosByGrupo(int cdGrupo) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Eticketv2JPA");
+		EntityManager em = emf.createEntityManager();
+		
+		List<Usuario> usuarios = null;
+		Grupo g = em.find(Grupo.class, cdGrupo);
+		if (g != null)
+			usuarios = g.getUsuarios();
+		
+		em.close();		
+		emf.close();
+		
+		return usuarios;
 	}
 
 }

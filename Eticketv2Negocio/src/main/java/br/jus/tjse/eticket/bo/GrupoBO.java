@@ -4,8 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import br.jus.tjse.eticket.dao.GrupoDAO;
-import br.jus.tjse.eticket.dao.UsuarioGrupoDAO;
-import br.jus.tjse.eticket.to.GrupoTO;
+import br.jus.tjse.eticket.model.Grupo;
 
 public class GrupoBO {
 	
@@ -18,22 +17,22 @@ public class GrupoBO {
 	private GrupoBO() {
 	}
 	
-	public List<GrupoTO> getGrupos() throws SQLException {
+	public List<Grupo> getGrupos() throws SQLException {
 		return GrupoDAO.getInstance().getGrupos();
 	}
 
-	public GrupoTO getGrupoByCodigo(int cdGrupo) throws SQLException {
+	public Grupo getGrupoByCodigo(int cdGrupo) throws SQLException {
 		GrupoDAO gd = GrupoDAO.getInstance();
-		GrupoTO g = gd.getGrupoByCodigo(cdGrupo);
+		Grupo g = gd.getGrupoByCodigo(cdGrupo);
 		if (g.getCdGrupo() == 0) {
 			return null;
 		}
 		return g;
 	}
 
-	public void cadastrarGrupo(GrupoTO grupo) throws SQLException {
+	public void cadastrarGrupo(Grupo grupo) throws SQLException {
 		GrupoDAO gd = GrupoDAO.getInstance();
-		GrupoTO g = getGrupoByCodigo(grupo.getCdGrupo());
+		Grupo g = getGrupoByCodigo(grupo.getCdGrupo());
 		if (g==null) {
 			gd.addGrupo(grupo);
 		} else {
@@ -41,7 +40,7 @@ public class GrupoBO {
 		}
 	}
 
-	public List<GrupoTO> pesquisarGrupo(String termoPesquisa) throws SQLException {
+	public List<Grupo> pesquisarGrupo(String termoPesquisa) throws SQLException {
 		if (termoPesquisa==null || termoPesquisa.equals("")) {
 			return null;
 		}
@@ -57,13 +56,13 @@ public class GrupoBO {
 
 	public void cadastrarUsuario(int nrMatricula,
 			int cdGrupo) throws SQLException {
-		UsuarioGrupoDAO ugdo = UsuarioGrupoDAO.getInstance();
-		ugdo.addUsuarioGrupo(nrMatricula,cdGrupo);
+		GrupoDAO gdo = GrupoDAO.getInstance();
+		gdo.addUsuarioGrupo(nrMatricula,cdGrupo);
 	}
 
 	public void excluirUsuario(int nrMatricula, int cdGrupo) throws SQLException {
-		UsuarioGrupoDAO ugdo = UsuarioGrupoDAO.getInstance();
-		ugdo.deleteUsuarioGrupo(nrMatricula,cdGrupo);
+		GrupoDAO gdo = GrupoDAO.getInstance();
+		gdo.deleteUsuarioGrupo(nrMatricula,cdGrupo);
 	}
 
 }

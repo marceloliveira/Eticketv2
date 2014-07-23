@@ -1,15 +1,15 @@
 package br.jus.tjse.eticket.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
-import br.jus.tjse.eticket.conexao.Conexao;
-import br.jus.tjse.eticket.to.GrupoTO;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
+
+import br.jus.tjse.eticket.model.Grupo;
+import br.jus.tjse.eticket.model.Usuario;
 
 public class GrupoDAO {
 	
@@ -18,126 +18,121 @@ public class GrupoDAO {
 	public static synchronized GrupoDAO getInstance() {
 		return INSTANCE;
 	}
+	
 	private GrupoDAO(){}
 	
-	public List<GrupoTO> getGrupos() throws SQLException {
-		ArrayList<GrupoTO> grupos = new ArrayList<GrupoTO>();
+	public List<Grupo> getGrupos() {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Eticketv2JPA");
+		EntityManager em = emf.createEntityManager();
 		
-		Connection con = Conexao.getInstance().getConexao();
+		TypedQuery<Grupo> query = em.createNamedQuery("Grupo.findAll",Grupo.class);
 		
-		String sql = "select * from grupo";
+		List<Grupo> grupos = query.getResultList();
 		
-		Statement stm = con.createStatement();
-		
-		ResultSet rset = stm.executeQuery(sql);
-		
-		while (rset.next()){
-			GrupoTO g = new GrupoTO();
-			g.setCdGrupo(rset.getInt("cd_grupo"));
-			g.setTxNome(rset.getString("tx_nome"));
-			g.setIdCorFundo(rset.getString("id_cor_fundo"));
-			g.setIdCorLetra(rset.getString("id_cor_letra"));
-			g.setTxNomeAbreviado(rset.getString("tx_nome_abreviado"));
-			grupos.add(g);
-		}
-		
-		rset.close();
-		
-		stm.close();
-		
-		return grupos;
-	}
-	public GrupoTO getGrupoByCodigo(int cdGrupo) throws SQLException {
-		GrupoTO g = new GrupoTO();
-		
-		Connection con = Conexao.getInstance().getConexao();
-		
-		String sql = "select * from grupo where cd_grupo = ?";
-		
-		PreparedStatement stm = con.prepareStatement(sql);
-		stm.setInt(1, cdGrupo);
-		ResultSet rset = stm.executeQuery();
-		
-		while (rset.next()){
-			g.setCdGrupo(rset.getInt("cd_grupo"));
-			g.setTxNome(rset.getString("tx_nome"));
-			g.setIdCorFundo(rset.getString("id_cor_fundo"));
-			g.setIdCorLetra(rset.getString("id_cor_letra"));
-			g.setTxNomeAbreviado(rset.getString("tx_nome_abreviado"));
-		}
-		
-		rset.close();
-		
-		stm.close();
-		return g;
-	}
-	public void addGrupo(GrupoTO grupo) throws SQLException {
-		Connection con = Conexao.getInstance().getConexao();
-		
-		String sql = "insert into grupo (tx_nome,id_cor_fundo,id_cor_letra,tx_nome_abreviado) values (?,?,?,?)";
-		
-		PreparedStatement stm = con.prepareStatement(sql);
-		stm.setString(1, grupo.getTxNome());
-		stm.setString(2, grupo.getIdCorFundo());
-		stm.setString(3, grupo.getIdCorLetra());
-		stm.setString(4, grupo.getTxNomeAbreviado());
-		stm.executeUpdate();
-		
-		stm.close();
-	}
-	public void updateGrupo(GrupoTO grupo) throws SQLException {
-		Connection con = Conexao.getInstance().getConexao();
-		
-		String sql = "update grupo set tx_nome = ?, id_cor_fundo = ?, id_cor_letra = ?, tx_nome_abreviado = ? where cd_grupo = ?";
-		
-		PreparedStatement stm = con.prepareStatement(sql);
-		stm.setString(1, grupo.getTxNome());
-		stm.setString(2, grupo.getIdCorFundo());
-		stm.setString(3, grupo.getIdCorLetra());
-		stm.setString(4, grupo.getTxNomeAbreviado());
-		stm.setInt(5, grupo.getCdGrupo());
-		stm.executeUpdate();
-		
-		stm.close();
-	}
-	public List<GrupoTO> pesqGrupo(String termoPesquisa) throws SQLException {
-		ArrayList<GrupoTO> grupos = new ArrayList<GrupoTO>();
-		
-		Connection con = Conexao.getInstance().getConexao();
-		
-		String sql = "select * from grupo where tx_nome ilike ?";
-		
-		PreparedStatement stm = con.prepareStatement(sql);
-		stm.setString(1, "%"+termoPesquisa+"%");
-		ResultSet rset = stm.executeQuery();
-		
-		while (rset.next()) {
-			GrupoTO g = new GrupoTO();
-			g.setCdGrupo(rset.getInt("cd_grupo"));
-			g.setTxNome(rset.getString("tx_nome"));
-			g.setIdCorFundo(rset.getString("id_cor_fundo"));
-			g.setIdCorLetra(rset.getString("id_cor_letra"));
-			g.setTxNomeAbreviado(rset.getString("tx_nome_abreviado"));
-			grupos.add(g);
-		}
-		
-		rset.close();
-		
-		stm.close();
+		em.close();		
+		emf.close();
 		
 		return grupos;
 	}
 	
-	public void deleteGrupo(int cdGrupo) throws SQLException {
-		Connection con = Conexao.getInstance().getConexao();
+	public Grupo getGrupoByCodigo(int cdGrupo) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Eticketv2JPA");
+		EntityManager em = emf.createEntityManager();
 		
-		String sql = "delete from grupo where cd_grupo = ?";
+		Grupo g = em.find(Grupo.class, cdGrupo);
+
+		em.close();
+		emf.close();
 		
-		PreparedStatement stm = con.prepareStatement(sql);
-		stm.setInt(1, cdGrupo);
-		stm.executeUpdate();
+		return g;
+	}
+	
+	public void addGrupo(Grupo grupo) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Eticketv2JPA");
+		EntityManager em = emf.createEntityManager();
 		
-		stm.close();
+		em.getTransaction().begin();
+		em.persist(grupo);
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
+	}
+	
+	public void updateGrupo(Grupo grupo) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Eticketv2JPA");
+		EntityManager em = emf.createEntityManager();
+		
+		em.getTransaction().begin();
+		em.persist(grupo);
+		em.getTransaction().commit();
+		
+		em.close();
+		emf.close();
+	}
+	
+	public List<Grupo> pesqGrupo(String termoPesquisa) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Eticketv2JPA");
+		EntityManager em = emf.createEntityManager();
+		
+		TypedQuery<Grupo> query = em.createQuery("SELECT g FROM Grupo g where lower(g.txNome)=:nome", Grupo.class);
+
+		List<Grupo> grupos = query.setParameter("nome", termoPesquisa.toLowerCase()).getResultList();
+
+		em.close();		
+		emf.close();
+		
+		return grupos;
+	}
+	
+	public void deleteGrupo(int cdGrupo) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Eticketv2JPA");
+		EntityManager em = emf.createEntityManager();
+		
+		Grupo g = em.find(Grupo.class, cdGrupo);
+		
+		em.getTransaction().begin();
+		em.remove(g);
+		em.getTransaction().commit();
+		
+		em.close();
+		emf.close();
+	}
+	
+	public List<Grupo> getGruposByUsuario(int nrMatricula) throws SQLException {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Eticketv2JPA");
+		EntityManager em = emf.createEntityManager();
+		
+		List<Grupo> grupos = em.find(Usuario.class, nrMatricula).getGrupos();
+		
+		em.close();		
+		emf.close();
+		
+		return grupos;
+	}
+
+	public void addUsuarioGrupo(int nrMatricula, int cdGrupo) throws SQLException {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Eticketv2JPA");
+		EntityManager em = emf.createEntityManager();
+		
+		em.getTransaction().begin();
+		em.find(Grupo.class, cdGrupo).getUsuarios().add(em.find(Usuario.class, nrMatricula));
+		em.getTransaction().commit();
+		
+		em.close();		
+		emf.close();
+	}
+
+	public void deleteUsuarioGrupo(int nrMatricula, int cdGrupo) throws SQLException {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Eticketv2JPA");
+		EntityManager em = emf.createEntityManager();
+		
+		em.getTransaction().begin();
+		em.find(Grupo.class, cdGrupo).getUsuarios().remove(em.find(Usuario.class, nrMatricula));
+		em.getTransaction().commit();
+		
+		em.close();		
+		emf.close();
 	}
 
 }

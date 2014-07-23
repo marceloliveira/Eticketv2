@@ -1,36 +1,29 @@
 package br.jus.tjse.eticket.bean;
 
-import java.sql.SQLException;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import br.jus.tjse.eticket.bo.UsuarioBO;
-import br.jus.tjse.eticket.to.UsuarioTO;
+import br.jus.tjse.eticket.model.Usuario;
 
 @ManagedBean
 @SessionScoped
 public class SessaoBean {
 	
 	private int nrMatriculaLogada;
-	private UsuarioTO usuarioLogado;
+	private Usuario usuarioLogado;
 	
 	public SessaoBean() {
 		super();
 		logar("10089");
 	}
 
-	public UsuarioTO getUsuarioLogado() {
-		try {
-			usuarioLogado = UsuarioBO.getInstance().getUsuarioByMatricula(nrMatriculaLogada);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public Usuario getUsuarioLogado() {
+		usuarioLogado = UsuarioBO.getInstance().getUsuarioByMatricula(nrMatriculaLogada);
 		return usuarioLogado;
 	}
 
-	public void setUsuarioLogado(UsuarioTO usuarioLogado) {
+	public void setUsuarioLogado(Usuario usuarioLogado) {
 		this.usuarioLogado = usuarioLogado;
 	}
 	
@@ -40,9 +33,6 @@ public class SessaoBean {
 			nrMatriculaLogada = Integer.parseInt(nrMatricula);
 			usuarioLogado = ubo.getUsuarioByMatricula(nrMatriculaLogada);
 		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

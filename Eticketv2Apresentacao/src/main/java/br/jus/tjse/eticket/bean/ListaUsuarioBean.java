@@ -1,7 +1,6 @@
 package br.jus.tjse.eticket.bean;
 
 import java.io.Serializable;
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -9,8 +8,8 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import br.jus.tjse.eticket.bo.UsuarioBO;
+import br.jus.tjse.eticket.model.Usuario;
 import br.jus.tjse.eticket.tipo.TipoMensagem;
-import br.jus.tjse.eticket.to.UsuarioTO;
 
 @ManagedBean
 @ViewScoped
@@ -18,7 +17,7 @@ public class ListaUsuarioBean implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	private String termoPesquisa;
-	private List<UsuarioTO> usuarios;
+	private List<Usuario> usuarios;
 	
 	private TipoMensagem tipoMensagem = TipoMensagem.NEHUMA;
 	private String mensagem;
@@ -31,7 +30,7 @@ public class ListaUsuarioBean implements Serializable{
 		this.termoPesquisa = termoPesquisa;
 	}
 
-	public List<UsuarioTO> getUsuarios() {
+	public List<Usuario> getUsuarios() {
 		UsuarioBO ubo = UsuarioBO.getInstance();
 		try {
 			if (termoPesquisa==null || termoPesquisa.equals("")) {
@@ -45,7 +44,7 @@ public class ListaUsuarioBean implements Serializable{
 		return usuarios;
 	}
 
-	public void setUsuarios(List<UsuarioTO> usuarios) {
+	public void setUsuarios(List<Usuario> usuarios) {
 		this.usuarios = usuarios;
 	}
 	
@@ -74,15 +73,9 @@ public class ListaUsuarioBean implements Serializable{
 	}
 
 	public void excluir(String nrMatricula) {
-		try {
-			UsuarioBO.getInstance().excluirUsuario(Integer.parseInt(nrMatricula));
-			setTipoMensagem(TipoMensagem.SUCESSO);
-			setMensagem("Usuário excluído com sucesso.");
-		} catch (SQLException e) {
-			setTipoMensagem(TipoMensagem.ERRO);
-			setMensagem("Erro de acesso ao banco de dados.");
-			e.printStackTrace();
-		}
+		UsuarioBO.getInstance().excluirUsuario(Integer.parseInt(nrMatricula));
+		setTipoMensagem(TipoMensagem.SUCESSO);
+		setMensagem("Usuário excluído com sucesso.");
 	}
 	
 

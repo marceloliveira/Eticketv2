@@ -1,6 +1,5 @@
 package br.jus.tjse.eticket.bean;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -9,13 +8,13 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 
 import br.jus.tjse.eticket.bo.ChamadoBO;
+import br.jus.tjse.eticket.model.Chamado;
 import br.jus.tjse.eticket.tipo.TipoMensagem;
-import br.jus.tjse.eticket.to.ChamadoTO;
 
 @ManagedBean
 public class ListaChamadoBean {
 	
-	private List<ChamadoTO> chamados;
+	private List<Chamado> chamados;
 	private TipoMensagem tipoMensagem = TipoMensagem.NEHUMA;
 	private String mensagem;
 	private int tipoLista;
@@ -26,22 +25,17 @@ public class ListaChamadoBean {
     public void init() {
     }
 
-	public List<ChamadoTO> getChamados() {
+	public List<Chamado> getChamados() {
 		ChamadoBO cbo = ChamadoBO.getInstance();
-		try {
-			switch (tipoLista) {
-			case 1: chamados = cbo.getChamadosByResponsavel(sessaoBean.getUsuarioLogado().getNrMatricula()); break;
-			case 2: break;
-			default: chamados = cbo.getChamados(); break;
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		switch (tipoLista) {
+		case 1: chamados = cbo.getChamadosByResponsavel(sessaoBean.getUsuarioLogado().getNrMatricula()); break;
+		case 2: break;
+		default: chamados = cbo.getChamados(); break;
 		}
 		return chamados;
 	}
 
-	public void setChamados(List<ChamadoTO> chamados) {
+	public void setChamados(List<Chamado> chamados) {
 		this.chamados = chamados;
 	}
 
@@ -77,11 +71,11 @@ public class ListaChamadoBean {
 	
 	public String getClassesChamado() {
 		String classes = "";
-		for (ChamadoTO c:chamados) {
+		for (Chamado c:chamados) {
 			if (classes.equals("")) {
-				classes += c.getStyleClasse();
+				classes += ChamadoBO.getStyleClasse(c);
 			} else {
-				classes += ","+c.getStyleClasse();
+				classes += ","+ChamadoBO.getStyleClasse(c);
 			}
 		}
 		return classes;

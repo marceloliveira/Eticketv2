@@ -1,11 +1,9 @@
 package br.jus.tjse.eticket.bo;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import br.jus.tjse.eticket.dao.UsuarioDAO;
-import br.jus.tjse.eticket.dao.UsuarioGrupoDAO;
-import br.jus.tjse.eticket.to.UsuarioTO;
+import br.jus.tjse.eticket.model.Usuario;
 
 public class UsuarioBO {
 	
@@ -17,25 +15,25 @@ public class UsuarioBO {
 	
 	private UsuarioBO(){}
 	
-	public List<UsuarioTO> getUsuarios() throws SQLException {
+	public List<Usuario> getUsuarios() {
 		return UsuarioDAO.getInstance().getUsuarios();
 	}
 	
-	public UsuarioTO getUsuarioByMatricula(int nrMatricula) throws SQLException {
+	public Usuario getUsuarioByMatricula(int nrMatricula) {
 		UsuarioDAO ud = UsuarioDAO.getInstance();
-		UsuarioTO u = ud.getUsuarioByMatricula(nrMatricula);
+		Usuario u = ud.getUsuarioByMatricula(nrMatricula);
 		if (u.getNrMatricula() == 0) {
 			return null;
 		}
 		return u;
 	}
 
-	public void cadastrarUsuario(UsuarioTO usuario) throws SQLException {
+	public void cadastrarUsuario(Usuario usuario) {
 		UsuarioDAO ud = UsuarioDAO.getInstance();
 		if (usuario.getNrMatricula() == 0) {
 			return;
 		}
-		UsuarioTO u = getUsuarioByMatricula(usuario.getNrMatricula());
+		Usuario u = getUsuarioByMatricula(usuario.getNrMatricula());
 		if (u==null) {
 			ud.addUsuario(usuario);
 		} else {
@@ -43,7 +41,7 @@ public class UsuarioBO {
 		}
 	}
 
-	public void excluirUsuario(int nrMatricula) throws SQLException {
+	public void excluirUsuario(int nrMatricula) {
 		if (nrMatricula == 0) {
 			return;
 		}
@@ -51,16 +49,16 @@ public class UsuarioBO {
 		
 	}
 	
-	public List<UsuarioTO> pesquisarUsuario(String termoPesquisa) throws SQLException {
+	public List<Usuario> pesquisarUsuario(String termoPesquisa) {
 		if (termoPesquisa==null || termoPesquisa.equals("")) {
 			return null;
 		}
 		return UsuarioDAO.getInstance().pesqUsuario(termoPesquisa);
 	}
 	
-	public List<UsuarioTO> getUsuariosByGrupo(int cdGrupo) throws SQLException {
-		UsuarioGrupoDAO ugd = UsuarioGrupoDAO.getInstance();
-		List<UsuarioTO> usuarios = ugd.getUsuariosByGrupo(cdGrupo);
+	public List<Usuario> getUsuariosByGrupo(int cdGrupo) {
+		UsuarioDAO ud = UsuarioDAO.getInstance();
+		List<Usuario> usuarios = ud.getUsuariosByGrupo(cdGrupo);
 		return usuarios;
 	}
 

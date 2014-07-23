@@ -9,8 +9,8 @@ import javax.faces.bean.ViewScoped;
 
 import br.jus.tjse.eticket.bo.GrupoBO;
 import br.jus.tjse.eticket.bo.UsuarioBO;
-import br.jus.tjse.eticket.to.GrupoTO;
-import br.jus.tjse.eticket.to.UsuarioTO;
+import br.jus.tjse.eticket.model.Grupo;
+import br.jus.tjse.eticket.model.Usuario;
 
 @ManagedBean
 @ViewScoped
@@ -18,12 +18,12 @@ public class UsuarioGrupoBean implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	private String termoPesquisaGrupo;
-	private List<GrupoTO> grupos;
+	private List<Grupo> grupos;
 	private int cdGrupoSelecionado;
 	private String termoPesquisaUsuario;
-	private List<UsuarioTO> usuarios;
+	private List<Usuario> usuarios;
 	private int nrMatriculaSelecionada;
-	private List<UsuarioTO> usuariosGrupoSelecionado;
+	private List<Usuario> usuariosGrupoSelecionado;
 
 	public String getTermoPesquisaUsuario() {
 		return termoPesquisaUsuario;
@@ -33,7 +33,7 @@ public class UsuarioGrupoBean implements Serializable {
 		this.termoPesquisaUsuario = termoPesquisaUsuario;
 	}
 
-	public List<UsuarioTO> getUsuarios() {
+	public List<Usuario> getUsuarios() {
 		UsuarioBO ubo = UsuarioBO.getInstance();
 		try {
 			if (termoPesquisaUsuario==null || termoPesquisaUsuario.equals("")) {
@@ -47,7 +47,7 @@ public class UsuarioGrupoBean implements Serializable {
 		return usuarios;
 	}
 
-	public void setUsuarios(List<UsuarioTO> usuarios) {
+	public void setUsuarios(List<Usuario> usuarios) {
 		this.usuarios = usuarios;
 	}
 
@@ -75,7 +75,7 @@ public class UsuarioGrupoBean implements Serializable {
 		this.termoPesquisaGrupo = termoPesquisaGrupo;
 	}
 
-	public List<GrupoTO> getGrupos() {
+	public List<Grupo> getGrupos() {
 		GrupoBO gbo = GrupoBO.getInstance();
 		try {
 			if (termoPesquisaGrupo==null || termoPesquisaGrupo.equals("")) {
@@ -89,22 +89,17 @@ public class UsuarioGrupoBean implements Serializable {
 		return grupos;
 	}
 
-	public void setGrupos(List<GrupoTO> grupos) {
+	public void setGrupos(List<Grupo> grupos) {
 		this.grupos = grupos;
 	}
 
-	public List<UsuarioTO> getUsuariosGrupoSelecionado() {
+	public List<Usuario> getUsuariosGrupoSelecionado() {
 		UsuarioBO ubo = UsuarioBO.getInstance();
-		try {
-			usuariosGrupoSelecionado = ubo.getUsuariosByGrupo(cdGrupoSelecionado);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		usuariosGrupoSelecionado = ubo.getUsuariosByGrupo(cdGrupoSelecionado);
 		return usuariosGrupoSelecionado;
 	}
 
-	public void setUsuariosGrupoSelecionado(List<UsuarioTO> usuariosGrupoSelecionado) {
+	public void setUsuariosGrupoSelecionado(List<Usuario> usuariosGrupoSelecionado) {
 		this.usuariosGrupoSelecionado = usuariosGrupoSelecionado;
 	}
 	
