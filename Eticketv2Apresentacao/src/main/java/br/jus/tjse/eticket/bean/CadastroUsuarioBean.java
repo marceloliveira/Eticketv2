@@ -59,7 +59,7 @@ public class CadastroUsuarioBean {
 		} else {
 			FacesContext.getCurrentInstance().getExternalContext().getFlash().put("mensagem", "Usuário cadastrado com sucesso.");
 		}
-		return "listaUsuario?faces-redirect=true";
+		return "listaUsuario";
 	}
 	
 	public String getTextoOperacao() {

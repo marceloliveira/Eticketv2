@@ -22,7 +22,16 @@ public class UsuarioBO {
 	public Usuario getUsuarioByMatricula(int nrMatricula) {
 		UsuarioDAO ud = UsuarioDAO.getInstance();
 		Usuario u = ud.getUsuarioByMatricula(nrMatricula);
-		if (u.getNrMatricula() == 0) {
+		if ((u==null)||(u.getNrMatricula() == 0)) {
+			return null;
+		}
+		return u;
+	}
+
+	public Usuario getUsuarioByLogin(String txLogin) {
+		UsuarioDAO ud = UsuarioDAO.getInstance();
+		Usuario u = ud.getUsuarioByLogin(txLogin);
+		if ((u==null)||(u.getNrMatricula() == 0)) {
 			return null;
 		}
 		return u;

@@ -1,6 +1,7 @@
 package br.jus.tjse.eticket.dao;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -75,9 +76,9 @@ public class GrupoDAO {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Eticketv2JPA");
 		EntityManager em = emf.createEntityManager();
 		
-		TypedQuery<Grupo> query = em.createQuery("SELECT g FROM Grupo g where lower(g.txNome)=:nome", Grupo.class);
+		TypedQuery<Grupo> query = em.createQuery("SELECT g FROM Grupo g where lower(g.txNome) like :nome", Grupo.class);
 
-		List<Grupo> grupos = query.setParameter("nome", termoPesquisa.toLowerCase()).getResultList();
+		List<Grupo> grupos = query.setParameter("nome", "%"+termoPesquisa.toLowerCase()+"%").getResultList();
 
 		em.close();		
 		emf.close();
@@ -103,7 +104,8 @@ public class GrupoDAO {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Eticketv2JPA");
 		EntityManager em = emf.createEntityManager();
 		
-		List<Grupo> grupos = em.find(Usuario.class, nrMatricula).getGrupos();
+		List<Grupo> grupos = new ArrayList<Grupo>();
+		grupos.addAll(em.find(Usuario.class, nrMatricula).getGrupos());
 		
 		em.close();		
 		emf.close();

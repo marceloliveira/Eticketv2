@@ -5,23 +5,17 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://java.sun.com/jsf/passthrough">
+	>
 
 <ui:composition template="/publico/modelo.xhtml">
 	<ui:define name="conteudo">
 	<h2 style="text-align: center;">Login</h2>
-	    <form method="post" action="j_security_check">
+	    <form method="post">
 	    <div class="container-fluid">
 		    <div class="col-md-4 hidden-xs"></div>
 		    <div class="col-md-4 col-xs-12">
 		    	<div class="form-group">
-		    		<input class="form-control" id="loginInput" name="j_username" placeholder="Matrícula" />
-		    	</div>
-		    	<div class="form-group">
-		    		<input type="password" class="form-control" id="senhaInput" name="j_password" placeholder="Senha" />
-		    	</div>
-		    	<div class="form-group">
-		    		<input type="submit" value="Entrar" class="btn btn-primary btn-block" />
+		    		Usuário não autorizado.
 		    	</div>			    
 			</div>
 			<div class="col-md-4 hidden-xs"></div>

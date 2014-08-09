@@ -1,5 +1,6 @@
 package br.jus.tjse.eticket.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -76,7 +77,8 @@ public class ChamadoDAO {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Eticketv2JPA");
 		EntityManager em = emf.createEntityManager();
 		
-		List<Chamado> chamados = em.find(Usuario.class, nrMatricula).getChamadosResponsavel();
+		List<Chamado> chamados = new ArrayList<Chamado>();
+		chamados.addAll(em.find(Usuario.class, nrMatricula).getChamadosResponsavel());
 		
 		em.close();		
 		emf.close();

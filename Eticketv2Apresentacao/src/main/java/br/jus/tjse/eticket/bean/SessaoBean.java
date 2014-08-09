@@ -2,6 +2,8 @@ package br.jus.tjse.eticket.bean;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 import br.jus.tjse.eticket.bo.UsuarioBO;
 import br.jus.tjse.eticket.model.Usuario;
@@ -11,15 +13,21 @@ import br.jus.tjse.eticket.model.Usuario;
 public class SessaoBean {
 	
 	private int nrMatriculaLogada;
+	private String txLoginLogado;
 	private Usuario usuarioLogado;
 	
 	public SessaoBean() {
 		super();
-		logar("10089");
 	}
 
 	public Usuario getUsuarioLogado() {
-		usuarioLogado = UsuarioBO.getInstance().getUsuarioByMatricula(nrMatriculaLogada);
+		UsuarioBO ubo = UsuarioBO.getInstance();
+		String login = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
+		if ((login!=null)&&((txLoginLogado==null)||(!txLoginLogado.equals(login)))) {
+			usuarioLogado = ubo.getUsuarioByLogin(login);
+			nrMatriculaLogada = usuarioLogado.getNrMatricula();
+			txLoginLogado = login;
+		}
 		return usuarioLogado;
 	}
 
@@ -27,16 +35,17 @@ public class SessaoBean {
 		this.usuarioLogado = usuarioLogado;
 	}
 	
-	public String logar(String nrMatricula) {
+	public String logar() {
 		UsuarioBO ubo = UsuarioBO.getInstance();
 		try {
-			nrMatriculaLogada = Integer.parseInt(nrMatricula);
-			usuarioLogado = ubo.getUsuarioByMatricula(nrMatriculaLogada);
+			String login = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
+			usuarioLogado = ubo.getUsuarioByLogin(login);
+			nrMatriculaLogada = usuarioLogado.getNrMatricula();
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "/chamado/listaChamado.tjse";
+		return "/publico/chamado/listaChamado.tjse";
 	}
 	
 	public String getNomeUsuario() {
@@ -52,7 +61,11 @@ public class SessaoBean {
 	public String logout(){
 		nrMatriculaLogada = 0;
 		usuarioLogado = null;
-		return "/login.tjse";
+		txLoginLogado = null;
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		session.invalidate();
+		return "/publico/login.tjse";
 	}
 	
 	public String getVisibilidade(){
@@ -82,11 +95,19 @@ public class SessaoBean {
 	public String getBrand() {
 		String nome = "";
 		if (usuarioLogado == null) {
-			nome = "/login.tjse";
+			nome = "/publico/login.tjse";
 		} else {
-			nome = "/chamado/listaChamado.tjse";
+			nome = "/publico/chamado/listaChamado.tjse";
 		}
 		return nome;
+	}
+
+	public String getTxLoginLogado() {
+		return txLoginLogado;
+	}
+
+	public void setTxLoginLogado(String txLoginLogado) {
+		this.txLoginLogado = txLoginLogado;
 	}
 
 }

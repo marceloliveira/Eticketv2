@@ -1,38 +1,23 @@
 package br.jus.tjse.eticket.bean;
 
-import java.util.List;
-
 import javax.faces.bean.ManagedBean;
-
-import br.jus.tjse.eticket.bo.UsuarioBO;
-import br.jus.tjse.eticket.model.Usuario;
 
 @ManagedBean
 public class LoginBean {
 	
-	private List<Usuario> usuarios;
-	private int nrMatriculaUsuarioSelecionado;
-	
-	public int getNrMatriculaUsuarioSelecionado() {
-		return nrMatriculaUsuarioSelecionado;
+	private String txLogin;
+	private String txSenha;
+	public String getTxLogin() {
+		return txLogin;
 	}
-
-	public void setNrMatriculaUsuarioSelecionado(int nrMatriculaUsuarioSelecionado) {
-		this.nrMatriculaUsuarioSelecionado = nrMatriculaUsuarioSelecionado;
+	public void setTxLogin(String txLogin) {
+		this.txLogin = txLogin;
 	}
-
-	public List<Usuario> getUsuarios() {
-		UsuarioBO ubo = UsuarioBO.getInstance();
-		try {
-			usuarios = ubo.getUsuarios();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return usuarios;
+	public String getTxSenha() {
+		return txSenha;
 	}
-
-	public void setUsuarios(List<Usuario> usuarios) {
-		this.usuarios = usuarios;
+	public void setTxSenha(String txSenha) {
+		this.txSenha = txSenha;
 	}
 
 }

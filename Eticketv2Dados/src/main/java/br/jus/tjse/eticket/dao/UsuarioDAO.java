@@ -1,5 +1,6 @@
 package br.jus.tjse.eticket.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -39,11 +40,11 @@ public class UsuarioDAO {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Eticketv2JPA");
 		EntityManager em = emf.createEntityManager();
 		
-		TypedQuery<Usuario> query = em.createQuery("SELECT u FROM Usuario u where u.nrMatricula=:mat or lower(u.txNome)=:nome or u.txTelefone=:tel or lower(u.txEmail)=:email", Usuario.class);
-		query.setParameter("mat", termoPesquisa.toLowerCase());
-		query.setParameter("nome", termoPesquisa.toLowerCase());
-		query.setParameter("tel", termoPesquisa.toLowerCase());
-		query.setParameter("email", termoPesquisa.toLowerCase());
+		TypedQuery<Usuario> query = em.createQuery("SELECT u FROM Usuario u where u.nrMatricula like :mat or lower(u.txNome) like :nome or u.txTelefone like :tel or lower(u.txEmail) like :email", Usuario.class);
+		query.setParameter("mat", "%"+termoPesquisa.toLowerCase()+"%");
+		query.setParameter("nome", "%"+termoPesquisa.toLowerCase()+"%");
+		query.setParameter("tel", "%"+termoPesquisa.toLowerCase()+"%");
+		query.setParameter("email", "%"+termoPesquisa.toLowerCase()+"%");
 		List<Usuario> usuarios = query.getResultList();
 
 		em.close();		
@@ -57,6 +58,20 @@ public class UsuarioDAO {
 		EntityManager em = emf.createEntityManager();
 		
 		Usuario usuario = em.find(Usuario.class, nrMatricula);
+		
+		em.close();		
+		emf.close();
+		
+		return usuario;
+	}
+
+	public Usuario getUsuarioByLogin(String txLogin) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Eticketv2JPA");
+		EntityManager em = emf.createEntityManager();
+		
+		TypedQuery<Usuario> query = em.createQuery("SELECT u FROM Usuario u where u.txLogin=:log", Usuario.class);
+		query.setParameter("log", txLogin);
+		Usuario usuario = query.getSingleResult();
 		
 		em.close();		
 		emf.close();
@@ -104,7 +119,8 @@ public class UsuarioDAO {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Eticketv2JPA");
 		EntityManager em = emf.createEntityManager();
 		
-		List<Usuario> usuarios = em.find(Chamado.class, nrChamado).getResponsaveis();
+		List<Usuario> usuarios = new ArrayList<Usuario>();
+		usuarios.addAll(em.find(Chamado.class, nrChamado).getResponsaveis());
 		
 		em.close();		
 		emf.close();
@@ -116,10 +132,10 @@ public class UsuarioDAO {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Eticketv2JPA");
 		EntityManager em = emf.createEntityManager();
 		
-		List<Usuario> usuarios = null;
+		List<Usuario> usuarios = new ArrayList<Usuario>();
 		Grupo g = em.find(Grupo.class, cdGrupo);
 		if (g != null)
-			usuarios = g.getUsuarios();
+			usuarios.addAll(g.getUsuarios());
 		
 		em.close();		
 		emf.close();
