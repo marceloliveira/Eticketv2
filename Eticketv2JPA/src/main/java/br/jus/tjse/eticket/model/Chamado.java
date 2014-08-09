@@ -3,7 +3,7 @@ package br.jus.tjse.eticket.model;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -43,7 +43,7 @@ public class Chamado implements Serializable {
 	private Usuario usuarioCriador;
 
 	//bi-directional many-to-many association to Usuario
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(
 		name="responsavel_chamado"
 		, joinColumns={
@@ -53,15 +53,15 @@ public class Chamado implements Serializable {
 			@JoinColumn(name="nr_matricula")
 			}
 		)
-	private List<Usuario> responsaveis;
+	private Set<Usuario> responsaveis;
 
 	//bi-directional many-to-one association to Mensagem
-	@OneToMany(fetch = FetchType.EAGER, mappedBy="chamado")
-	private List<Mensagem> mensagens;
+	@OneToMany(mappedBy="chamado", fetch=FetchType.EAGER)
+	private Set<Mensagem> mensagens;
 
 	//bi-directional many-to-one association to UsuarioChamado
-	@OneToMany(fetch = FetchType.EAGER, mappedBy="chamado")
-	private List<UsuarioChamado> usuariosChamado;
+	@OneToMany(mappedBy="chamado", fetch=FetchType.EAGER)
+	private Set<UsuarioChamado> usuariosChamado;
 
 	public Chamado() {
 	}
@@ -122,41 +122,41 @@ public class Chamado implements Serializable {
 		this.usuarioCriador = usuarioCriador;
 	}
 
-	public List<Usuario> getResponsaveis() {
+	public Set<Usuario> getResponsaveis() {
 		return this.responsaveis;
 	}
 
-	public void setResponsaveis(List<Usuario> responsaveis) {
+	public void setResponsaveis(Set<Usuario> responsaveis) {
 		this.responsaveis = responsaveis;
 	}
 
-	public List<Mensagem> getMensagens() {
+	public Set<Mensagem> getMensagens() {
 		return this.mensagens;
 	}
 
-	public void setMensagens(List<Mensagem> mensagens) {
+	public void setMensagens(Set<Mensagem> mensagens) {
 		this.mensagens = mensagens;
 	}
 
-	public Mensagem addMensagen(Mensagem mensagem) {
-		getMensagens().add(mensagem);
-		mensagem.setChamado(this);
+	public Mensagem addMensagen(Mensagem mensagen) {
+		getMensagens().add(mensagen);
+		mensagen.setChamado(this);
 
-		return mensagem;
+		return mensagen;
 	}
 
-	public Mensagem removeMensagen(Mensagem mensagem) {
-		getMensagens().remove(mensagem);
-		mensagem.setChamado(null);
+	public Mensagem removeMensagen(Mensagem mensagen) {
+		getMensagens().remove(mensagen);
+		mensagen.setChamado(null);
 
-		return mensagem;
+		return mensagen;
 	}
 
-	public List<UsuarioChamado> getUsuariosChamado() {
+	public Set<UsuarioChamado> getUsuariosChamado() {
 		return this.usuariosChamado;
 	}
 
-	public void setUsuariosChamado(List<UsuarioChamado> usuariosChamado) {
+	public void setUsuariosChamado(Set<UsuarioChamado> usuariosChamado) {
 		this.usuariosChamado = usuariosChamado;
 	}
 

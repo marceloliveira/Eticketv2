@@ -2,7 +2,7 @@ package br.jus.tjse.eticket.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -32,11 +32,11 @@ public class Grupo implements Serializable {
 	private String txNomeAbreviado;
 
 	//bi-directional many-to-one association to Chamado
-	@OneToMany(mappedBy="grupoAtual")
-	private List<Chamado> chamados;
+	@OneToMany(mappedBy="grupoAtual", fetch=FetchType.EAGER)
+	private Set<Chamado> chamados;
 
 	//bi-directional many-to-many association to Usuario
-	@ManyToMany
+	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(
 		name="usuario_grupo"
 		, joinColumns={
@@ -46,7 +46,7 @@ public class Grupo implements Serializable {
 			@JoinColumn(name="nr_matricula")
 			}
 		)
-	private List<Usuario> usuarios;
+	private Set<Usuario> usuarios;
 
 	public Grupo() {
 	}
@@ -91,11 +91,11 @@ public class Grupo implements Serializable {
 		this.txNomeAbreviado = txNomeAbreviado;
 	}
 
-	public List<Chamado> getChamados() {
+	public Set<Chamado> getChamados() {
 		return this.chamados;
 	}
 
-	public void setChamados(List<Chamado> chamados) {
+	public void setChamados(Set<Chamado> chamados) {
 		this.chamados = chamados;
 	}
 
@@ -113,11 +113,11 @@ public class Grupo implements Serializable {
 		return chamado;
 	}
 
-	public List<Usuario> getUsuarios() {
+	public Set<Usuario> getUsuarios() {
 		return this.usuarios;
 	}
 
-	public void setUsuarios(List<Usuario> usuarios) {
+	public void setUsuarios(Set<Usuario> usuarios) {
 		this.usuarios = usuarios;
 	}
 

@@ -1,8 +1,11 @@
 package br.jus.tjse.eticket.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
-import java.util.List;
+
+import java.util.HashSet;
+import java.util.Set;
 
 
 /**
@@ -35,33 +38,20 @@ public class Usuario implements Serializable {
 	private String txTelefone;
 
 	//bi-directional many-to-one association to Chamado
-	@OneToMany(mappedBy="usuarioCriador")
-	private List<Chamado> chamadosCriados;
+	@OneToMany(mappedBy="usuarioCriador", fetch=FetchType.EAGER)
+	private Set<Chamado> chamadosCriados;
 
 	//bi-directional many-to-many association to Chamado
-	@ManyToMany(mappedBy="responsaveis")
-	private List<Chamado> chamadosResponsavel;
+	@ManyToMany(mappedBy="responsaveis", fetch=FetchType.EAGER)
+	private Set<Chamado> chamadosResponsavel;
 
 	//bi-directional many-to-many association to Grupo
-	@ManyToMany(mappedBy="usuarios")
-	private List<Grupo> grupos;
-
-	//bi-directional many-to-many association to Perfil
-	@ManyToMany
-	@JoinTable(
-		name="usuario_perfil"
-		, joinColumns={
-			@JoinColumn(name="tx_login", referencedColumnName="tx_login")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="cd_perfil")
-			}
-		)
-	private List<Perfil> perfis;
+	@ManyToMany(mappedBy="usuarios", fetch=FetchType.EAGER)
+	private Set<Grupo> grupos;
 
 	//bi-directional many-to-one association to UsuarioChamado
-	@OneToMany(mappedBy="usuario")
-	private List<UsuarioChamado> usuariosChamado;
+	@OneToMany(mappedBy="usuario", fetch=FetchType.EAGER)
+	private Set<UsuarioChamado> usuariosChamado;
 
 	public Usuario() {
 	}
@@ -80,6 +70,14 @@ public class Usuario implements Serializable {
 
 	public void setTxEmail(String txEmail) {
 		this.txEmail = txEmail;
+	}
+
+	public String getTxLogin() {
+		return this.txLogin;
+	}
+
+	public void setTxLogin(String txLogin) {
+		this.txLogin = txLogin;
 	}
 
 	public String getTxNome() {
@@ -106,11 +104,11 @@ public class Usuario implements Serializable {
 		this.txTelefone = txTelefone;
 	}
 
-	public List<Chamado> getChamadosCriados() {
+	public Set<Chamado> getChamadosCriados() {
 		return this.chamadosCriados;
 	}
 
-	public void setChamadosCriados(List<Chamado> chamadosCriados) {
+	public void setChamadosCriados(Set<Chamado> chamadosCriados) {
 		this.chamadosCriados = chamadosCriados;
 	}
 
@@ -128,35 +126,27 @@ public class Usuario implements Serializable {
 		return chamadosCriado;
 	}
 
-	public List<Chamado> getChamadosResponsavel() {
+	public Set<Chamado> getChamadosResponsavel() {
 		return this.chamadosResponsavel;
 	}
 
-	public void setChamadosResponsavel(List<Chamado> chamadosResponsavel) {
+	public void setChamadosResponsavel(Set<Chamado> chamadosResponsavel) {
 		this.chamadosResponsavel = chamadosResponsavel;
 	}
 
-	public List<Grupo> getGrupos() {
+	public Set<Grupo> getGrupos() {
 		return this.grupos;
 	}
 
-	public void setGrupos(List<Grupo> grupos) {
+	public void setGrupos(Set<Grupo> grupos) {
 		this.grupos = grupos;
 	}
 
-	public List<Perfil> getPerfis() {
-		return this.perfis;
-	}
-
-	public void setPerfis(List<Perfil> perfis) {
-		this.perfis = perfis;
-	}
-
-	public List<UsuarioChamado> getUsuariosChamado() {
+	public Set<UsuarioChamado> getUsuariosChamado() {
 		return this.usuariosChamado;
 	}
 
-	public void setUsuariosChamado(List<UsuarioChamado> usuariosChamado) {
+	public void setUsuariosChamado(Set<UsuarioChamado> usuariosChamado) {
 		this.usuariosChamado = usuariosChamado;
 	}
 
@@ -172,6 +162,14 @@ public class Usuario implements Serializable {
 		usuariosChamado.setUsuario(null);
 
 		return usuariosChamado;
+	}
+	
+	public Set<String> getRoles() {
+		Set<String> roles = new HashSet<String>();
+		for (Grupo g:getGrupos()) {
+			roles.add(g.getCdGrupo().toString());
+		}
+		return roles;
 	}
 
 }
